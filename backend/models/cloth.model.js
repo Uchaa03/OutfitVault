@@ -19,6 +19,10 @@ const clothsSchema = mongoose.Schema({
     description: { 
         type: String,
         required: true
+    }, 
+    imageUrl: { 
+        type: String,
+        required: true
     }
 
 });
