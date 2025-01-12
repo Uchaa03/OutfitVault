@@ -3,6 +3,7 @@ root {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: #1f1f1f;
 }
 
 .logo {
@@ -32,11 +33,155 @@ root {
     animation: logo-spin infinite 20s linear;
   }
 }
+.app-container {
+  width: 100vw;
+  height: 100%;  /* Ensure full height of viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #F5F5F5;  /* Fallback background color */
+  position: relative;  /* Ensures the container takes up full screen */
+  z-index: 1;  /* Make sure the container is above the background */
+}
 
+.app-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/public/assets/img/background_texture.png"); /* Adjust the path */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05; /* Apply opacity only to the background */
+  z-index: -1;  /* Background stays behind content */
+}
+body {
+  width: 100%;
+  height: 100%;
+}
 .card {
   padding: 2em;
 }
-
 .read-the-docs {
   color: #888;
+}
+/*Header*/
+.header {
+  width : 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #D9D9D9;
+  border-bottom: 5px solid #1F1F1F;
+}
+.header__button {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: auto;
+  align-items: center;
+  gap: 0.5em;
+  h2 {
+    margin: 0;
+  }
+}
+.button__icon {
+  height:2em;
+  width: 2em;
+}
+/*footer*/
+.footer {
+  width : 100%;
+  height: 100px;
+  background-color: #D9D9D9;
+  border-top: 5px solid #1F1F1F;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.terms-and-conditions {
+  max-width: 25em;
+  margin: 1em
+}
+.contact-button {
+  display: flex;
+  margin: 1em;
+  align-items: center;
+}
+.armario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/*Processes*/
+.processes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+}
+.process {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100em;
+}
+.process-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100em;
+}
+.process__text {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.process__photo {
+  width: 15rem;
+  height: 15rem;
+}
+/*WhyUse TODO This import might be an issue*/
+.whyuse {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+}
+.whyuse__cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100em;
+  width: 100%;
+}
+.whyuse__card {
+  background-image: url('/public/assets/img/why_use-card.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 1rem;
+  width: 15rem;
+  height: 20rem;
+  padding: 3rem;
+}
+/*hero*/
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
 }

@@ -23,9 +23,9 @@ const WhyUseSection = () => {
   ];
 
   return (
-    <section className="why-use-section">
+    <section className="whyuse">
       <h2>¿POR QUÉ USAR OUTFITVAULT?</h2>
-      <div className="why-use-cards">
+      <div className="whyuse__cards">
         {reasons.map((reason, index) => (
           <WhyUseCard
             key={index}
