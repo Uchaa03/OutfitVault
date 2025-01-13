@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Jersey+15&display=swap");
 :root {
   font-size: 16px;
 }
@@ -20,6 +21,20 @@ a {
 
 ul {
   list-style: none;
+}
+
+.Jersey15 {
+  font-family: "Jersey15", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.Handjet {
+  font-family: "Handjet", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /*# sourceMappingURL=main.css.map */
