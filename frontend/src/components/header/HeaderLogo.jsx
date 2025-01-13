@@ -3,10 +3,7 @@
 
 const HeaderLogo = () => {
   return (
-      <img
-          src="/assets/img/logo.svg"
-          alt="Header Logo"
-      />
+      <img className="header__logo" src="/assets/img/logo.svg" alt="Header Logo"/>
   )
 }
 
