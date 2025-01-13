@@ -6,13 +6,13 @@ import LoginButton from './buttons/LoginButton.jsx';
 
 const Header = () => {
   return (
-    <section className={'header'}>
+    <header className={'header'}>
       <HomeButton />
       <AddOutfitButton />
       <HeaderLogo />
       <OutfitsButton />
       <LoginButton />
-    </section>
+    </header>
   )
 }
 
