@@ -6,6 +6,7 @@ import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import UploadPage from '../pages/UploadPage.jsx'
 import { UploadProvider } from '../contexts/UploadContext.jsx'
+import VaultPage from '../pages/VaultPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
           <UploadProvider>
             <UploadPage />
           </UploadProvider>,
+      },
+      {
+        path: 'vault',
+        element: <VaultPage />
       }
     ]
   }
