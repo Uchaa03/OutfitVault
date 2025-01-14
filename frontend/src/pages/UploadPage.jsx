@@ -1,4 +1,4 @@
-import UploadLayout from '../layouts/UploadLayout.jsx'
+import UploadLayout from '../layouts/page_layouts/UploadLayout.jsx'
 import UploadedItemCard from '../components/upload/UploadedItemCard.jsx'
 
 

@@ -3,9 +3,9 @@ import ProcessSection from '../components/home/processSection/ProcessSection.jsx
 import WhyUseSection from '../components/home/whyUseSection/WhyUseSection.jsx'
 
 
-export const ArmarioSection = () => {
+export const HomeLayout = () => {
   return (
-    <section className="armario" aria-label="Main content sections">
+    <section className="home" aria-label="Main content sections">
       <HeroSection/>
       <ProcessSection/>
       <WhyUseSection/>
@@ -13,4 +13,4 @@ export const ArmarioSection = () => {
   )
 }
 
-export default ArmarioSection
+export default HomeLayout
