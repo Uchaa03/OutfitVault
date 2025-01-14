@@ -1,17 +1,30 @@
 // Base Styles
 @use "base/reset"
 @use "base/typo"
+@use 'base/root'
+@use 'base/body'
 
 // Utilities
 @use "utilities/variables"
 @use "utilities/mixins"
 @use "utilities/functions"
 
+// Pages
+@use "pages/home"
+@use 'pages/upload'
 
-// Structure of the app
-@use "layout/footer"
-@use "layout/header"
+// Components
+// HeaderLayout Components
+@use "components/header/header"
+@use "components/header/header__button"
 
-// Specific styles/pages
-@use "views/home"
-@use "views/figures"
+// FooterLayout
+@use "components/footer/footer"
+
+// Home Page Components
+@use "components/home/hero/hero"
+@use "components/home/why-use/why-use"
+@use 'components/home/processes/processes'
+
+// Upload
+@use "components/upload/card"

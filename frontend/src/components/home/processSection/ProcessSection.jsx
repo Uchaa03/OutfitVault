@@ -1,5 +1,5 @@
 import React from 'react';
-import ProcessCard from './ProcessCard.jsx'
+import Process from './Process.jsx'
 
 
 const ProcessSection = () => {
@@ -31,7 +31,7 @@ const ProcessSection = () => {
   return (
     <section className="processes">
       {processes.map((process, index) => (
-        <ProcessCard
+        <Process
           key={index}
           title={process.title}
           description={process.description}

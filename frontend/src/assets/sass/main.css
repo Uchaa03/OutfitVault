@@ -74,7 +74,7 @@ body {
   color: #888;
 }
 
-/* Header */
+/* HeaderLayout */
 .header {
   width: 100%;
   height: 100px;
@@ -101,7 +101,7 @@ body {
   width: 2em;
 }
 
-/* Footer */
+/* FooterLayout */
 .footer {
   width: 100%;
   height: 100px;

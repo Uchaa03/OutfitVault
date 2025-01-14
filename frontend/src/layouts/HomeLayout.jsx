@@ -1,6 +1,6 @@
-import HeroSection from './HeroSection.jsx'
-import ProcessSection from './processSection/ProcessSection.jsx'
-import WhyUseSection from './whyUseSection/WhyUseSection.jsx'
+import HeroSection from '../components/home/hero/HeroSection.jsx'
+import ProcessSection from '../components/home/processSection/ProcessSection.jsx'
+import WhyUseSection from '../components/home/whyUseSection/WhyUseSection.jsx'
 
 
 export const ArmarioSection = () => {

@@ -6,11 +6,11 @@ const UploadedItemCard = () => {
   const { photoUrl, active } = useUploadContext();
 
   // Conditionally set the display style based on active state
-  const cardClass = active ? 'active-card' : 'inactive-card';
+  const isActive = active ? 'card--active' : 'card--inactive';
 
   return (
-    <section className={`uploaded-photo-card ${cardClass}`}>
-      <img src={photoUrl} alt="uploaded" className={'uploaded-photo__image'} />
+    <section className={`card ${isActive}`}>
+      <img src={photoUrl} alt="uploaded" className={'card__image'} />
       <UploadedInfo />
     </section>
   );

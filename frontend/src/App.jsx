@@ -1,7 +1,7 @@
 // src/App.js
-import './assets/sass/main.css';
+import './assets/sass/main.sass';
 import { RouterProvider } from 'react-router-dom';
-import router from './router.jsx';
+import router from './router/router.jsx';
 
 
 function App() {

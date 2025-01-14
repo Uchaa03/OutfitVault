@@ -1,0 +1,29 @@
+// Variables
+$why-use-card: "/public/assets/img/why_use-card.svg"
+
+// Mixins
+@mixin flex-center($direction: row)
+  display: flex
+  flex-direction: $direction
+  justify-content: space-around
+  align-items: center
+
+// WhyUse
+.whyuse
+  @include flex-center(column)
+  padding: 2rem
+  width: 100%
+
+  &__cards
+    display: flex
+    justify-content: space-between
+    align-items: center
+    max-width: 100em
+    width: 100%
+
+  &__card
+    background: url($why-use-card) center/contain no-repeat
+    margin: 1rem
+    width: 15rem
+    height: 20rem
+    padding: 2rem

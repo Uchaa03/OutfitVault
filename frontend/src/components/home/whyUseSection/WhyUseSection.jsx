@@ -8,7 +8,7 @@ const WhyUseSection = () => {
     {
       title: "ORGANIZACIÓN TOTAL",
       description:
-        "Toma fotos de tu ropa desde cualquier dispositivo y súbelas fácilmente al sistema. Digitaliza tu armario en minutos y ten todas tus prendas al alcance de un clic.",
+        "Toma fotos de tu ropa desde cualquier dispositivo y súbelas fácilmente al sistema. Digitaliza tu home en minutos y ten todas tus prendas al alcance de un clic.",
     },
     {
       title: "AHORRA TIEMPO",

@@ -11,7 +11,7 @@ const HeroSection = () => {
 
   return (
     <section className="hero">
-      <h1>TODA TU ROPA ORGANIZADA SIN ESFUERZO</h1>
+      <h2>TODA TU ROPA ORGANIZADA SIN ESFUERZO</h2>
       <button onClick={handleClick} className="button">
         Regístrate Ahora
       </button>

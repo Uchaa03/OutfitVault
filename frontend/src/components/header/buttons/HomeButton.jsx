@@ -1,10 +1,13 @@
-
+import { useNavigate } from 'react-router-dom'
 
 const HomeButton = () => {
+  const navigate = useNavigate();
+
   const handleClick = () => {
-    console.log('Add Outfit button clicked')
-    // TODO: Implement functionality to add an outfit to the vault
-  }
+    console.log('Navigating to /');
+    navigate('/'); // Navigates to the /upload route
+  };
+
   return (
       <section className={'header__button'} onClick={handleClick}>
         <img src={'/assets/img/home_icon.svg'}  alt={'Home Icon'} className={'button__icon'}/>

@@ -1,10 +1,10 @@
 
 
 
-const ProcessCard = ({ title, description, image, alt, reverse }) => {
+const Process = ({ title, description, image, alt, reverse }) => {
 
   return (
-    <article className={`process ${reverse ? "process-reverse" : ""}`}>
+    <article className={`process ${reverse ? "process--reverse" : ""}`}>
       <section className={'process__text'}>
         <h2>{title}</h2>
         <p>{description}</p>
@@ -14,4 +14,4 @@ const ProcessCard = ({ title, description, image, alt, reverse }) => {
   );
 };
 
-export default ProcessCard;
+export default Process;

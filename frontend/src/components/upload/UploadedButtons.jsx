@@ -12,7 +12,7 @@ const UploadedButtons = () => {
   }
 
   return (
-    <section className={'uploaded__buttons'}>
+    <section className={'card__buttons'}>
       <button onClick={handleAdd}>Agregar Prenda</button>
       <button onClick={handleExit}>X</button>
     </section>
