@@ -3,7 +3,7 @@ import ProcessSection from '../components/home/processSection/ProcessSection.jsx
 import WhyUseSection from '../components/home/whyUseSection/WhyUseSection.jsx'
 
 
-export const HomeLayout = () => {
+export const HomePage = () => {
   return (
     <section className="home" aria-label="Main content sections">
       <HeroSection/>
@@ -13,4 +13,4 @@ export const HomeLayout = () => {
   )
 }
 
-export default HomeLayout
+export default HomePage
