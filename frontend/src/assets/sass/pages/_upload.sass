@@ -14,14 +14,28 @@ $card-border: "/public/assets/img/card-border.svg"
 // Upload
 .upload
   @include flex-center(column)
+  flex-grow: 1
+  width: 100%  // Adjust width to fill container
+  height: 100%  // Adjust height to fill container
+  overflow: auto
 
-  &__section
+  &__region
+    @include flex-center(column)
     background-color: $secondary-color
     box-shadow: 0 0 10px $shadow-color
-    @include flex-center(column)
-    width: 80%
-    height: 80%
+    width: 40em  // Set specific width
+    height: 40em // Set specific height
     margin: 3rem
+    padding: .25em
+
+    // Prevent shrinking smaller than the minimum size
+    min-width: 15em
+    min-height: 15em
+
+    &__img
+      width: 10em
+      height: 10em
+      margin: 1em
 
     &.active
       opacity: 0.25
@@ -31,7 +45,3 @@ $card-border: "/public/assets/img/card-border.svg"
 
     h1
       text-align: center
-      margin: 1rem
-
-    button
-      margin: 1rem

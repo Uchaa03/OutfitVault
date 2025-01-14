@@ -1,7 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
 
-import MainPage from '../pages/MainPage.jsx'
-import ArmarioSection from '../layouts/HomeLayout.jsx'
+import MainLayout from '../layouts/main_layout/MainLayout.jsx'
+import HomePage from '../pages/HomePage.jsx'
 import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import UploadPage from '../pages/UploadPage.jsx'
@@ -11,10 +11,10 @@ import { UploadProvider } from '../contexts/UploadContext.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (<MainPage />),
+    element: (<MainLayout />),
     children: [
       { index: true,
-        element: <ArmarioSection />,
+        element: <HomePage />,
       },
       { path: 'login',
         element: <LoginPage />,
