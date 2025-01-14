@@ -1,8 +1,12 @@
 import React from 'react'
 
-const FormLayout = () => {
+const FormLayout = ({children}) => {
     return (
-        <main className="main"></main>
+        <main className="forms">
+            <section className="forms__section">
+                {children}
+            </section>
+        </main>
     )
 }
 export default FormLayout
