@@ -27,7 +27,7 @@ const clothSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-}, { timestamps: true });
+});
 
 // Primary schema
 const userSchema = mongoose.Schema({
@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema({
     type: [clothSchema], // Subdocument embedded in userSchema
     default: [],
   },
-}, { timestamps: true });
+});
 
 const User = mongoose.model('User', userSchema);
 export default User;
