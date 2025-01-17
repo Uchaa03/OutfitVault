@@ -1,0 +1,37 @@
+// Variables
+$primary-color: #1f1f1f
+$secondary-color: #D9D9D9
+$shadow-color: #4D4D4D
+$card-border: "/public/assets/img/card-border.svg"
+
+// Mixins
+@mixin flex-center($direction: column)
+  display: flex
+  flex-direction: $direction
+  justify-content: center
+  align-items: center
+
+// Upload
+.upload
+  @include flex-center(column)
+
+  &__section
+    background-color: $secondary-color
+    box-shadow: 0 0 10px $shadow-color
+    @include flex-center(column)
+    width: 80%
+    height: 80%
+    margin: 3rem
+
+    &.active
+      opacity: 0.25
+
+    &.inactive
+      opacity: 1
+
+    h1
+      text-align: center
+      margin: 1rem
+
+    button
+      margin: 1rem
