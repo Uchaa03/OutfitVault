@@ -11,7 +11,10 @@ const AddOutfitButton = () => {
 
   return (
     <section className="header__button" onClick={handleClick}>
-      <img src="/assets/img/add_icon.svg" alt="Add Icon" className="button__icon" />
+      <img
+          src="/assets/img/add_icon.svg"
+          alt="Add Icon"
+          className="button__icon" />
       <h2>Agregar</h2>
     </section>
   );

@@ -7,6 +7,7 @@ import RegisterPage from '../pages/RegisterPage.jsx';
 import UploadPage from '../pages/UploadPage.jsx'
 import { UploadProvider } from '../contexts/UploadContext.jsx'
 import ContactPage from "../pages/ContactPage.jsx";
+import VaultPage from '../pages/VaultPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       },
       { path: 'contact',
         element: <ContactPage />,
+      },
+      {
+        path: 'vault',
+        element: <VaultPage />,
       },
       {
         path: 'upload',
