@@ -5,7 +5,7 @@ import HeaderLayout from '../layouts/HeaderLayout.jsx'
 
 const MainPage = () => {
   return (
-    <section className={'body'}>
+    <section className= 'body'>
       <HeaderLayout />
       <Outlet />
       <FooterLayout />
