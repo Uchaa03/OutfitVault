@@ -5,7 +5,7 @@ import UploadedItemCard from '../components/upload/UploadedItemCard.jsx'
 const UploadPage = () => {
 
   return (
-    <section className={'upload'}>
+    <section className= 'upload'>
       <UploadLayout />
       <UploadedItemCard/>
     </section>
