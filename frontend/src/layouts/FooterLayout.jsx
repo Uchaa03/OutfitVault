@@ -1,5 +1,5 @@
 import ContactButton from '../components/footer/ContactButton.jsx';
-
+import Button from '../components/button/button.jsx';
 
 const FooterLayout = () => {
   return (
@@ -8,7 +8,9 @@ const FooterLayout = () => {
         Por OutfitVault ©2025 Adrián Ucha, Pablo Barrera, Maurice Darner está
         autorizado bajo CC BY-NC-ND 4.0 licencia CC BY-NC-ND 4.0
       </p>
-      <ContactButton />
+      <Button className='footer__button'>
+        Contáctanos
+      </Button>
     </section>
   )
 }

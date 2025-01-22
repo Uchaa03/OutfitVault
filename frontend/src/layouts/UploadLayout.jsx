@@ -1,15 +1,7 @@
 import { useRef } from 'react';
-import { useUploadContext } from '../context/UploadContext.jsx';
-
 
 const UploadLayout = () => {
-  const { active } = useUploadContext();
-  const isActive = active ? 'active' : 'inactive';
   const fileInputRef = useRef(null);
-
-  const handleUploadClick = () => {
-    fileInputRef.current.click(); // Trigger the file input when the button is clicked
-  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -20,21 +12,22 @@ const UploadLayout = () => {
   };
 
   return (
-    <section className={`upload__section ${isActive}`}>
+
+    <label htmlFor="file-upload" className={`upload__section`}>
       <h1>Sube o arrastra una imagen de tu prenda para agregarla</h1>
       <p>Selecciona para subir archivo de tu explorador</p>
-      <img src="/assets/img/upload_icon.svg" alt="upload" />
+      <img src="/assets/img/upload_icon.svg" alt="Icono de subida de imagen" />
+      <button type="section__button">Browse</button>
 
       {/* Hidden file input */}
       <input
+        id="file-upload"
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        style={{ display: 'none' }} // Hide the input, it will be triggered by the button
+        style={{ display: 'none' }} // Hide the input, it will be triggered by the label
       />
-
-      <button onClick={handleUploadClick}>Browse</button>
-    </section>
+    </label>
   );
 };
 

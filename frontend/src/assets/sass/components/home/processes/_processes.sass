@@ -1,34 +1,77 @@
 // Variables
-$why-use-card: "/public/assets/img/why_use-card.svg"
+
 
 // Mixins
 @mixin flex-center($direction: row) 
   display: flex
   flex-direction: $direction
-  justify-content: space-around
+  justify-content: center
   align-items: center
 
 // Processes
 .processes 
   @include flex-center(column)
-  padding: 2rem
 
   .process
     @include flex-center(row)
     width: 100%
+    padding-bottom: 6rem
     max-width: 100%
 
     &--reverse 
       flex-direction: row-reverse
 
     .process__text 
-      @include flex-center(column)
+      display: flex
+      flex-direction: column
+      justify-content: center
+      height: 100%
+      padding-left: 12rem
+      padding-right: 0rem
+      text-align: left
+
+      h2
+        font-family: 'Jersey 25'
+        font-size: 6rem
+        margin: 0 // Ensure no margin to align with p
+
+      p
+        font-family: 'Handjet', serif
+        font-weight: 400
+        font-size: 2rem
+        margin: 0 // Ensure no margin to align with h2
+        width: 70%
+
+    .process__photo-container
+      position: relative
+      width: 50rem
+      height: 35rem
+
+    .process__photo 
       width: 100%
       height: 100%
 
-    .process__photo 
-      width: 15rem
-      height: 15rem
-  
+    .process__overlay-photo
+      position: absolute
+      top: 50%
+      left: 48%
+      transform: translate(-50%, -50%)
+      max-width: 50%
+      max-height: 50%
+      pointer-events: none // Ensure the overlay image does not interfere with interactions
 
+    &--reverse .process__text
+      text-align: right
+      padding-left: 0rem
+      padding-right: 12rem
 
+      p
+        width: 100%
+
+    &--reverse .process__photo-container
+      padding-right: 0rem
+      padding-left: 12rem
+
+    &--reverse .process__overlay-photo
+      left: 62%
+      transform: translate(-50%, -50%)

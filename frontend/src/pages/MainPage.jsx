@@ -1,16 +1,17 @@
-import { Outlet } from 'react-router-dom'
-import FooterLayout from '../layouts/FooterLayout.jsx'
-import HeaderLayout from '../layouts/HeaderLayout.jsx'
-
+import { Outlet } from 'react-router-dom';
+import FooterLayout from '../layouts/FooterLayout.jsx';
+import HeaderLayout from '../layouts/HeaderLayout.jsx';
 
 const MainPage = () => {
   return (
-    <section className= 'body'>
+    <section className="main-page">
       <HeaderLayout />
-      <Outlet />
+      <main className="content">
+        <Outlet />
+      </main>
       <FooterLayout />
     </section>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;

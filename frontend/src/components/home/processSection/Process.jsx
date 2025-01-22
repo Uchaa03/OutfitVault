@@ -1,16 +1,17 @@
+import ItemCard from "../../Card/ItemCard";
 
-
-
-const Process = ({ title, description, image, alt, reverse }) => {
-
+const Process = ({ title, description, image, alt, overlayImage, overlayAlt, reverse }) => {
   return (
-    <article className={`process ${reverse ? "process--reverse" : ""}`}>
-      <section className={'process__text'}>
+    <section className={`process ${reverse ? "process--reverse" : ""}`}>
+      <article className="process__text">
         <h2>{title}</h2>
         <p>{description}</p>
-      </section>
-      <img src={image} alt={alt} className={'process__photo'} />
-    </article>
+      </article>
+      <figure className="process__photo-container">
+        <img src={image} alt={alt} className="process__photo" />
+        <img src={overlayImage} alt={overlayAlt} className="process__overlay-photo" />
+      </figure>
+    </section>
   );
 };
 
