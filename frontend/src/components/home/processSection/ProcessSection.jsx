@@ -10,12 +10,16 @@ const ProcessSection = () => {
       description: "Saca fotos de tu ropa y súbela al sistema para tenerla bien organizada.",
       image: "/assets/img/process_photo.svg",
       alt: "Ropa",
+      overlayImage: "/assets/img/process_photo_upload.svg",
+      overlayAlt: "Icono de subir foto",
       reverse: false,
     },
     {
       title: "ORGANIZAR TU ARMARIO",
       description: "Ordena todo virtualmente por categorías.",
       image: "/assets/img/process_photo.svg",
+      overlayImage: "/assets/img/process_photo_organization.svg",
+      overlayAlt: "Icono de una persona organizando algo",
       alt: "Armario",
       reverse: true,
     },
@@ -23,6 +27,8 @@ const ProcessSection = () => {
       title: "CREA TUS OUTFITS",
       description: "Combina prendas y encuentra el look perfecto utilizando lo último en inteligencia artificial.",
       image: "/assets/img/process_photo.svg",
+      overlayImage: "/assets/img/process_photo_create.svg",
+      overlayAlt: "Icono de varios cuadrados con un simbolo de mas",
       alt: "Outfit",
       reverse: false,
     },
@@ -37,6 +43,8 @@ const ProcessSection = () => {
           description={process.description}
           image={process.image}
           alt={process.alt}
+          overlayImage={process.overlayImage}
+          overlayAlt={process.overlayAlt}
           reverse={process.reverse}
         />
       ))}

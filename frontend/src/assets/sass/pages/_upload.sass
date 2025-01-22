@@ -14,24 +14,44 @@ $card-border: "/public/assets/img/card-border.svg"
 // Upload
 .upload
   @include flex-center(column)
+  width: 100%
+  height: 100%
+
 
   &__section
     background-color: $secondary-color
-    box-shadow: 0 0 10px $shadow-color
+    box-shadow: 20px 20px 0 $shadow-color 
     @include flex-center(column)
     width: 80%
-    height: 80%
+    height: 40em
     margin: 3rem
+    font-family: 'Handjet', serif
+
+    
 
     &.active
-      opacity: 0.25
+      opacity: 0.2
 
     &.inactive
       opacity: 1
 
     h1
       text-align: center
-      margin: 1rem
+      margin-top: 2rem
+      margin-bottom: 1rem
+      font-family: 'Jersey 15', serif
+      font-size: 3rem
+      font-weight: 500
 
+    p
+      font-family: inherit
+      font-size: 2rem
+      
     button
-      margin: 1rem
+      margin: 2rem
+      visibility: hidden
+
+    img
+      width: 50%
+      height: 50%
+      margin-top: 2rem

@@ -17,6 +17,8 @@
 // HeaderLayout Components
 @use "components/header/header"
 @use "components/forms/section"
+@use "components/buttons/button"
+@use "components/Card/card"
 
 // FooterLayout
 @use "components/footer/footer"
@@ -26,5 +28,27 @@
 @use "components/home/why-use/why-use"
 @use 'components/home/processes/processes'
 
-// Upload
-@use "components/upload/card"
+
+
+html, body, #root, .main-page
+  height: 100%
+  margin: 0
+  display: flex
+  flex-direction: column
+
+.main-page
+  flex: 1
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  width: 100vw
+
+.content
+  flex: 1
+
+header
+  min-height: 50px
+
+footer
+  min-height: 50px
+  margin-top: auto

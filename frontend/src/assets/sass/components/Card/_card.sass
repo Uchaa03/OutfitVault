@@ -1,0 +1,52 @@
+.item-card
+  display: flex
+  align-items: center
+  background-size: contain
+  background-repeat: no-repeat
+  padding: 1rem
+  width: 100%
+  border-radius: 10px
+  background-image: url(/assets/img/OutfitCard.svg)
+
+  &__image-container
+    flex: 1
+    display: flex
+    justify-content: center
+    align-items: center
+
+  &__image-border
+    position: relative
+    width: 100%
+    background-size: cover
+    background-repeat: no-repeat
+    display: flex
+    justify-content: center
+    align-items: center
+
+  &__image
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    object-fit: cover
+    border-radius: 10px
+
+  &__details
+    flex: 2
+    padding-left: 1rem
+
+  &__name
+    font-size: 1.5rem
+    font-weight: bold
+
+  &__color, &__category, &__style
+    margin: 0.5rem 0
+
+  &__buttons
+    margin-top: 1rem
+
+  &__button
+    margin-right: 0.5rem
+
+
