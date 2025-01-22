@@ -2,20 +2,29 @@ import FormLayout from "../layouts/FormLayout.jsx";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {
-    passwordValidation, requestValidation,
+    passwordValidation,
     usernameValidation
-} from "../validationSchemaHook.jsx";
+} from "../hooks/validationSchemaHook.jsx";
 import {NavLink} from "react-router-dom";
 import React from "react";
-
+import {loginUser} from "../config/Auth.jsx";
 
 const LoginPage = () => {
-
     const validationSchema = Yup.object({ //Object for customHook
         username: usernameValidation,
         password: passwordValidation,
     })
 
+    const onSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            await loginUser(values.username, values.password)
+            resetForm()
+        } catch (error) {
+            console.error('Error durante el registro:', error)
+        } finally {
+            setSubmitting(false)
+        }
+    };
 
     return (
       <FormLayout>
@@ -25,7 +34,7 @@ const LoginPage = () => {
           </header>
           <Formik //For control and validation form
               initialValues={{email: '', username: '',password: '', passwordVerification: '', }}
-              onSubmit={onsubmit} //Call register backend API
+              onSubmit={onSubmit} //Call register backend API
               validationSchema={validationSchema}
           >{
               ({
@@ -35,7 +44,7 @@ const LoginPage = () => {
                    isSubmitting,
                    handleBlur,
                    errors,
-                   touched,
+                   touched
                }) => (
                   <form className="section__form" onSubmit={handleSubmit}>
                       <img className="form__img" src="/assets/img/IconUser.svg" alt="Imagen de registro"/>

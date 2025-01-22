@@ -2,7 +2,7 @@ import React from 'react'
 import FormLayout from "../layouts/FormLayout.jsx";
 import {Formik} from "formik";
 import * as Yup from "yup";
-import {requestValidation, usernameValidation} from "../validationSchemaHook.jsx";
+import {requestValidation, usernameValidation} from "../hooks/validationSchemaHook.jsx";
 
 const ContactPage = () => {
     const validationSchema = Yup.object({ //Object for customHook
