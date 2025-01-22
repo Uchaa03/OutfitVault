@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useUploadContext } from '../contexts/UploadContext.jsx';
+import { useUploadContext } from '../context/UploadContext.jsx';
 
 
 const UploadLayout = () => {

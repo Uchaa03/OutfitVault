@@ -1,5 +1,5 @@
 import UploadedInfo from './UploadedInfo.jsx'
-import { useUploadContext } from '../../contexts/UploadContext.jsx'
+import { useUploadContext } from '../../context/UploadContext.jsx'
 
 
 const UploadedItemCard = () => {

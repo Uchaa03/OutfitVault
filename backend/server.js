@@ -10,7 +10,7 @@ import { connectDB } from './config/db.js';
 import logger from './middleware/logger.js';
 
 // Load environment variables from .env.local file
-dotenv.config({ path: './backend/.env.local' });
+dotenv.config({ path: '../backend/.env.local' });
 
 // Configure Cloudinary
 cloudinary.config({

@@ -5,7 +5,7 @@ import ArmarioSection from '../layouts/HomeLayout.jsx'
 import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import UploadPage from '../pages/UploadPage.jsx'
-import { UploadProvider } from '../contexts/UploadContext.jsx'
+import { UploadProvider } from '../context/UploadContext.jsx'
 import ContactPage from "../pages/ContactPage.jsx";
 
 

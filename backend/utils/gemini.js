@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { vl } from 'moondream'; // Importa tu modelo Moondream como exportación por defecto
 import dotenv from 'dotenv';
 
-dotenv.config({ path: './backend/.env.local' });
+dotenv.config({ path: '../backend/.env.local' });
 
 
 // Moondream setup

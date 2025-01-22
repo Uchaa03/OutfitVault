@@ -6,8 +6,9 @@ import {
     passwordValidation,
     passwordVerficationValidation,
     usernameValidation
-} from "../validationSchemaHook.jsx";
+} from "../hooks/validationSchemaHook.jsx";
 import {NavLink} from "react-router-dom";
+import {registerUser} from "../config/Auth.jsx";
 
 
 const RegisterPage = () => {
@@ -19,7 +20,19 @@ const RegisterPage = () => {
         passwordVerification: passwordVerficationValidation,
     })
 
-  return (
+    const onSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            await registerUser(values.username, values.email, values.password)
+            resetForm()
+        } catch (error) {
+            console.error('Error durante el registro:', error)
+        } finally {
+            setSubmitting(false)
+        }
+    };
+
+
+    return (
       <FormLayout>
           <header className="section__header">
               <h1 className="header__title">Registrate</h1>
@@ -27,7 +40,7 @@ const RegisterPage = () => {
           </header>
           <Formik //For control and validation form
               initialValues={{email: '', username: '',password: '', passwordVerification: '', }}
-              onSubmit={onsubmit} //Call register backend API
+              onSubmit={onSubmit}
               validationSchema={validationSchema}
           >{
               ({
