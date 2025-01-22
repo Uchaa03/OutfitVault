@@ -3,39 +3,29 @@
   align-items: center
   background-size: contain
   background-repeat: no-repeat
-  padding: 1rem
+  padding: 2rem
   width: 100%
   border-radius: 10px
   background-image: url(/assets/img/OutfitCard.svg)
 
-  &__image-container
-    flex: 1
-    display: flex
-    justify-content: center
-    align-items: center
-
-  &__image-border
-    position: relative
-    width: 100%
-    background-size: cover
-    background-repeat: no-repeat
-    display: flex
-    justify-content: center
-    align-items: center
-
   &__image
-    position: absolute
     top: 0
-    left: 0
-    width: 100%
+    left: 10em
+    width: 50%
     height: 100%
-    object-fit: cover
-    border-radius: 10px
 
   &__details
     flex: 2
     padding-left: 1rem
 
+    h2
+      font-family: "Jersey 15"
+      font-size: 2rem
+
+    p
+      font-family: "Handjet"
+      font-size: 1.5rem
+      
   &__name
     font-size: 1.5rem
     font-weight: bold

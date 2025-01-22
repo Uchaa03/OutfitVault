@@ -1,4 +1,3 @@
-import ItemCard from "../../Card/ItemCard";
 
 const Process = ({ title, description, image, alt, overlayImage, overlayAlt, reverse }) => {
   return (

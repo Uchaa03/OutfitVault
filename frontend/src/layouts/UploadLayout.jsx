@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import ItemCard from '../components/Card/ItemCard';
 
 const UploadLayout = () => {
   const fileInputRef = useRef(null);
