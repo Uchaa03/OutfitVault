@@ -76,3 +76,40 @@ export const generateClothFromImageDescription = async (imageUrl) => {
     throw error;
   }
 };
+
+export const generateOutfitRecommendation = async (clothsJson, userPrompt) => {
+  try {
+    // Base prompt for Gemini
+    const basePrompt = `You are a fashion expert. Based on the following clothes, suggest an outfit based on the user's style. It may not have outerwear, shoes, or accessories, but include them if the style requires and they exist in the data.
+    Available clothes:
+    ${JSON.stringify(clothsJson, null, 2)}
+    User style request: ${userPrompt}
+    Assistant:
+    Return a JSON with selected clothes divided by categories. If a category has no selected clothes, put "null". If you cannot fulfill the user's style request, return a JSON with all categories as "not available".
+    Format:
+    {
+      "Torso": "id or null",
+      "Pants": "id or null",
+      "Coat": "id or null",
+      "Shoes": "id or null",
+      "Accessories": "id or null"
+    }`;
+
+    const genAiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await genAiModel.generateContent(basePrompt);
+    const rawResponse = result.response.text();
+    const cleanResponse = rawResponse.replace(/```json|```/g, '').trim(); // Clean response
+
+    let outfitJson;
+    try {
+      outfitJson = JSON.parse(cleanResponse);
+    } catch (error) {
+      throw new Error('Error parsing Gemini response: ' + error.message);
+    }
+
+    return outfitJson;
+  } catch (error) {
+    console.error('Error generating outfit recommendation:', error.message);
+    throw error;
+  }
+};

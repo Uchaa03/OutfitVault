@@ -1,6 +1,6 @@
 // routes/clothRoutes.js
 import express from 'express';
-import { createCloth } from '../controllers/clothController.js';
+import { createCloth, recommendOutfit } from '../controllers/clothController.js';
 import { protect } from '../middleware/protect.js';
 import { upload } from '../controllers/clothController.js';  // Importamos el middleware de multer desde el controlador
 import { getCloths } from '../controllers/clothController.js';
@@ -16,6 +16,7 @@ const router = express.Router();
 router.post('/', protect, upload, createCloth);
 router.get('/', protect, getCloths);
 router.post('/save', protect, saveClothToUser);
+router.post('/recommend-outfit', protect, recommendOutfit);
 router.get('/filters', protect, getAvailableFilters);
 router.get('/filter', protect, filterCloths);
 router.get('/:id', protect, getClothById);

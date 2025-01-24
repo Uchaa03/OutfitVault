@@ -3,7 +3,6 @@ import {setToken, token} from "../hooks/authHook.jsx";
 
 
 const apiBackend = process.env.VITE_API_BASE_URL
-console.log(apiBackend)
 
 export async function registerUser(username, email, password) {
     const userData = {

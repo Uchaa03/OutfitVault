@@ -8,6 +8,31 @@
   justify-content: center
   align-items: center
 
+
+.hidden
+  opacity: 0
+  filter: url(#pixelate)
+  transform: translateX(-100%)
+  transition: all 2s
+
+.show 
+  filter: none
+  transform: translateX(0)
+  opacity: 1
+
+.animated
+  // No additional styles needed, just a marker class
+
+@keyframes float
+  0%, 100%
+    transform: translateY(0)
+  50%
+    transform: translateY(-10px) // Ajusta la cantidad de movimiento hacia arriba
+
+// Processes
+.processes 
+  @include flex-center(column)
+
 // Processes
 .processes 
   @include flex-center(column)
@@ -17,6 +42,8 @@
     width: 100%
     padding-bottom: 6rem
     max-width: 100%
+
+
 
     &--reverse 
       flex-direction: row-reverse
@@ -46,6 +73,7 @@
       position: relative
       width: 50rem
       height: 35rem
+      animation: float 2s steps(2) infinite // Aplica la animación con pasos discretos
 
     .process__photo 
       width: 100%
