@@ -5,10 +5,10 @@ import {
     passwordValidation,
     usernameValidation
 } from "../hooks/validationSchemaHook.jsx";
-import {NavLink} from "react-router-dom";
-import React, {useEffect} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
+import React from "react";
 import {loginUser} from "../config/Auth.jsx";
-import {useSetToken, useToken} from "../store/authStore.jsx";
+import {useSetToken} from "../store/authStore.jsx";
 import UserContext from "../context/userContext.jsx";
 
 const LoginPage = () => {
@@ -18,6 +18,7 @@ const LoginPage = () => {
     })
 
     const setToken = useSetToken()
+    const navigate = useNavigate()
 
     UserContext() //For action when user is logued
 
@@ -26,6 +27,7 @@ const LoginPage = () => {
             const data = await loginUser(values.username, values.password)
             if (data.token) setToken(data.token)
             resetForm()
+            navigate("/vault")
         } catch (error) {
             console.error('Error durante el registro:', error)
         } finally {
