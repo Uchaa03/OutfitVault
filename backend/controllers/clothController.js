@@ -56,7 +56,12 @@ export const getCloths = async (req, res) => {
 // Controller to get a cloth by ID
 export const getClothById = async (req, res) => {
   try {
-    const cloth = await Cloths.findById(req.params.id);
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const cloth = user.cloths.id(req.params.id);
     if (!cloth) {
       return res.status(404).json({ success: false, message: 'Cloth not found' });
     }
@@ -71,23 +76,30 @@ export const getClothById = async (req, res) => {
 // Controller to delete a cloth
 export const deleteCloth = async (req, res) => {
   try {
-    const cloth = await Cloths.findById(req.params.id);
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const cloth = user.cloths.id(req.params.id);
     if (!cloth) {
       return res.status(404).json({ success: false, message: 'Cloth not found' });
     }
 
     // Check if the user is the owner of the cloth
-    if (cloth.user.toString() !== req.user._id) {
+    if (cloth.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({ success: false, message: 'Not authorized to delete this cloth' });
     }
 
     await cloth.remove();
+    await user.save(); // Save the user after removing the cloth
     res.status(200).json({ success: true, message: 'Cloth deleted' });
   } catch (error) {
     console.error('Error deleting cloth:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
 }
+
 
 // Controller to associate a cloth with the logged-in user
 export const saveClothToUser = async (req, res) => {
@@ -165,3 +177,39 @@ export const filterCloths = async (req, res) => {
   }
 }
 
+
+// Controller to recommend an outfit based on user prompt
+export const recommendOutfit = async (req, res) => {
+  try {
+    const { userPrompt } = req.body;
+
+    if (!userPrompt) {
+      return res.status(400).json({ success: false, message: 'User prompt not provided' });
+    }
+
+    // Retrieve the authenticated user and their clothes
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user || user.cloths.length === 0) {
+      return res.status(404).json({ success: false, message: 'No clothes found for the user' });
+    }
+
+    // Build JSON of clothes available
+    const clothsJson = user.cloths.map((cloth) => ({
+      id: cloth._id,
+      name: cloth.name,
+      color: cloth.color,
+      category: cloth.category,
+      style: cloth.style,
+      description: cloth.description,
+      imageUrl: cloth.imageUrl,
+    }));
+
+    // Use Gemini to get outfit recommendation
+    const outfitJson = await generateOutfitRecommendation(clothsJson, userPrompt);
+
+    res.status(200).json({ success: true, outfit: outfitJson });
+  } catch (error) {
+    console.error('Error generating outfit recommendations:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
