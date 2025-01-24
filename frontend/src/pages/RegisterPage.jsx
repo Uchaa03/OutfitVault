@@ -7,11 +7,9 @@ import {
     passwordVerficationValidation,
     usernameValidation
 } from "../hooks/validationSchemaHook.jsx";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {registerUser} from "../config/Auth.jsx";
-import {useSetToken, useToken} from "../store/authStore.jsx";
-import {useEffect} from "react";
-import UserContext from "../context/userContext.jsx";
+import {useSetToken} from "../store/authStore.jsx";
 
 
 const RegisterPage = () => {
@@ -24,14 +22,15 @@ const RegisterPage = () => {
     })
 
     const setToken = useSetToken()
+    const navigate = useNavigate()
 
-    UserContext() //For action when user is logued
 
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
             const data = await registerUser(values.username, values.email, values.password)
             if (data.token) setToken(data.token)
             resetForm()
+            navigate("/vault")
         } catch (error) {
             console.error('Error durante el registro:', error)
         } finally {

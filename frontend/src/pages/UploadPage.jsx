@@ -3,7 +3,7 @@ import UploadLayout from '../layouts/UploadLayout.jsx'
 
 const UploadPage = () => {
 
-  return (
+    return (
     <section className= 'upload'>
       <UploadLayout />
     </section>
