@@ -1,5 +1,6 @@
 .forms
   width: 100%
+  height: 100%
   display: flex
   justify-content: center
   align-items: center
@@ -19,13 +20,15 @@
   justify-content: space-between
 
 .header__title
-  font-size: 3em
+  font-size: 4rem
+  font-family: "Jersey 15", serif
   text-align: left
 
 .section__form
   display: flex
   justify-content: space-between
-  margin-top: 2em
+  margin-top: 1em
+  min-height: 65%
 
 .form__img
   width: 25%
@@ -35,15 +38,46 @@
   display: flex
   flex-direction: column
   align-items: flex-end
+  justify-content: center
   border: none
 
+
 .fieldset__label
-  width: 60%
+  width: 80%
+  font-size: 1.8em
+  font-weight: 700
   text-align: left
+  font-family: 'Handjet', serif
 
 .fieldset__input
-  width: 60%
-  margin-bottom: 1em
+  width: 80%
+  height: 2.5em
+  font-family: 'Handjet', serif
+  font-size: 1.3em
+  font-weight: 800
+  border: 5px solid #1f1f1f
+  padding-left: 0.5em
+  margin-bottom: 0.5em
+  box-shadow: 8px 8px 0.3px 0 #141414
+  &:focus
+    outline: none
+
+
+.fieldset__textarea
+  width: 80%
+  height: 7em
+  font-family: 'Handjet', serif
+  font-size: 1.3em
+  font-weight: 800
+  border: 5px solid #1f1f1f
+  padding-top: 0.5em
+  padding-left: 0.5em
+  margin-bottom: 0.5em
+  box-shadow: 8px 8px 0.3px 0 #141414
+  resize: none
+  &:focus
+    outline: none
+
 
 .form__button
   position: absolute
