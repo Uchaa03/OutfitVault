@@ -6,8 +6,8 @@ import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import UploadPage from '../pages/UploadPage.jsx'
 import ContactPage from "../pages/ContactPage.jsx";
+import PromptPage from '../pages/PromptPage.jsx';
 import ProfilePage from "../pages/ProfilePage.jsx";
-import OutfitPage from "../pages/OutfitPage.jsx";
 import VaultPage from "../pages/VaultPage.jsx";
 
 
@@ -18,6 +18,9 @@ const router = createBrowserRouter([
     children: [
       { index: true,
         element: <ArmarioSection />,
+      },
+      { path: 'login',
+        element: <LoginPage />,
       },
       { path: 'register',
         element: <RegisterPage />,
@@ -34,14 +37,13 @@ const router = createBrowserRouter([
           <UploadPage />
       },
       {
+        path: 'prompt',
+        element:<PromptPage />
+      },
+      {
         path: 'profile',
         element:
             <ProfilePage/>
-      },
-      {
-        path: 'outfit',
-        element:
-            <OutfitPage/>
       },
       {
         path: 'vault',
