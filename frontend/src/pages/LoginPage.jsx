@@ -6,8 +6,10 @@ import {
     usernameValidation
 } from "../hooks/validationSchemaHook.jsx";
 import {NavLink} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import {loginUser} from "../config/Auth.jsx";
+import {useSetToken, useToken} from "../store/authStore.jsx";
+import UserContext from "../context/userContext.jsx";
 
 const LoginPage = () => {
     const validationSchema = Yup.object({ //Object for customHook
@@ -15,9 +17,14 @@ const LoginPage = () => {
         password: passwordValidation,
     })
 
+    const setToken = useSetToken()
+
+    UserContext() //For action when user is logued
+
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            await loginUser(values.username, values.password)
+            const data = await loginUser(values.username, values.password)
+            if (data.token) setToken(data.token)
             resetForm()
         } catch (error) {
             console.error('Error durante el registro:', error)
@@ -72,7 +79,7 @@ const LoginPage = () => {
                           />
                           {errors.password && touched.password && (<p>{errors.password}</p>)}
                       </fieldset>
-                      <button type="submit" disabled={isSubmitting} className="form__button">Registrate</button>
+                      <button type="submit" disabled={isSubmitting} className="form__button">Inicio Sesión</button>
                   </form>
               )
           }</Formik>

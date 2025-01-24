@@ -1,9 +1,12 @@
-import {create} from "zustand";
+import { create } from "zustand";
 
-const useAuthStore = create((set) => ({ //Create store
-    token: null, // assign variable
-    setToken: (newToken) => set({ token: newToken}), //Function for update token
-    clearToken: (newToken) => set({ token: newToken}), //For clear token
-}))
+const authStore = create((set) => ({
+    token: null, // Initial State
+    setToken: (newToken) => set({ token: newToken }),
+    clearToken: () => set({ token: null }),
+}));
 
-export default useAuthStore
+//Hooks for call store functions
+export const useToken = () => authStore((state) => state.token); // Access to token
+export const useSetToken = () => authStore((state) => state.setToken); // Set token
+export const useClearToken = () => authStore((state) => state.clearToken); // Delete token

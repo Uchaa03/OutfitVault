@@ -9,6 +9,9 @@ import {
 } from "../hooks/validationSchemaHook.jsx";
 import {NavLink} from "react-router-dom";
 import {registerUser} from "../config/Auth.jsx";
+import {useSetToken, useToken} from "../store/authStore.jsx";
+import {useEffect} from "react";
+import UserContext from "../context/userContext.jsx";
 
 
 const RegisterPage = () => {
@@ -20,9 +23,14 @@ const RegisterPage = () => {
         passwordVerification: passwordVerficationValidation,
     })
 
+    const setToken = useSetToken()
+
+    UserContext() //For action when user is logued
+
     const onSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
-            await registerUser(values.username, values.email, values.password)
+            const data = await registerUser(values.username, values.email, values.password)
+            if (data.token) setToken(data.token)
             resetForm()
         } catch (error) {
             console.error('Error durante el registro:', error)
@@ -30,7 +38,6 @@ const RegisterPage = () => {
             setSubmitting(false)
         }
     };
-
 
     return (
       <FormLayout>

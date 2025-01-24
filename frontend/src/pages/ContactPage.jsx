@@ -45,7 +45,7 @@ const ContactPage = () => {
                             {errors.username && touched.username && (<p>{errors.username}</p>)}
                             <label className="fieldset__label" htmlFor="request">Mensaje</label>
                             <textarea
-                                className="fieldset__input"
+                                className="fieldset__textarea"
                                 name="request"
                                 placeholder="Introduce tu Mensaje"
                                 value={values.request}

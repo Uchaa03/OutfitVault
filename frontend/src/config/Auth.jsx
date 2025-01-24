@@ -1,9 +1,7 @@
 import axios from 'axios';
-import {setToken, token} from "../hooks/authHook.jsx";
 
 
 const apiBackend = process.env.VITE_API_BASE_URL
-console.log(apiBackend)
 
 export async function registerUser(username, email, password) {
     const userData = {
@@ -18,8 +16,7 @@ export async function registerUser(username, email, password) {
                 'Content-Type': 'application/json',
             },
         });
-        setToken(response.data) // Set data in zustand store2
-        console.log('Usuario registrado con éxito:', token);
+        return response.data
     } catch (error) {
         if (error.response) {
             console.error('Error al registrar usuario:', error.response.data.message);
@@ -41,9 +38,7 @@ export async function loginUser(username, password) {
                 'Content-Type': 'application/json',
             },
         });
-        setToken(response.data) // Set data in zustand store
-        console.log('Usuario logueado con éxito:', token);
-
+        return response.data
     } catch (error) {
         if (error.response) {
             console.error('Error al registrar usuario:', error.response.data.message);
