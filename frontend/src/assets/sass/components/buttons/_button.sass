@@ -3,7 +3,7 @@ $bg-image: "/assets/img/ButtonBG.svg"
 $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
 
 // Mixins
-@mixin button-styles($width: 9em, $height: 3em, $line-height: 2em, $margin-top: 2rem, $margin-right: 0em, $font-size: 3rem, $background-size: auto)
+@mixin button-styles($width: 9em, $height: 3em, $line-height: 2em, $margin-top: 2rem, $margin-right: 0em, $font-size: 3rem, $background-size: auto, $padding-bottom: 0.3em, $padding-right: 0.3em, $padding-bottom-hover: 0em, $padding-right-hover: 0em)
   display: inline-block
   font-family: "Jersey 25", sans-serif
   font-size: $font-size
@@ -24,13 +24,13 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
   line-height: $line-height
   margin-right: $margin-right
   transition: box-shadow 0.2s ease
-  padding-bottom: 0.3em
-  padding-right: 0.3em
+  padding-bottom: $padding-bottom
+  padding-right: $padding-right
 
   &:hover
     background-image: url($hover-bg-image)
-    padding-bottom: 0em
-    padding-right: 0em
+    padding-bottom: $padding-bottom-hover
+    padding-right: $padding-right-hover
     box-shadow: none
 
 .hero__button
@@ -42,10 +42,10 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
 
 .section__header
   .header__button
-    @include button-styles(7em, 2em, 2em, 0em, 0em, 1.8em)
+    @include button-styles(7em, 2em, 1.8em, 0em, 0em, 1.8em, contain, 2.3em, 0.7em, 2.1em, 0.5em)
 
 .form__button
-  @include button-styles(7em, 2em, 0em, 11em, 0em, 2em)
+  @include button-styles(7em, 2em, 0em, 11em, 0em, 2em, contain)
 
 .prompt__button
   @include button-styles(9em, 3em, 1em, 0em, 0em, 2rem, contain)

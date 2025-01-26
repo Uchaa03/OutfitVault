@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+// Change to the URL of your API backend
+const apiBackend = process.env.VITE_API_BASE_URL;
 
-const apiBackend = process.env.VITE_API_BASE_URL
-
+console.log('API Backend:', apiBackend);
 export async function registerUser(username, email, password) {
     const userData = {
         username: username,
