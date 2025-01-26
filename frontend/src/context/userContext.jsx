@@ -24,11 +24,9 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         if (token && timeExpiration) { //Save data in local storage
+            console.log("Datos en local storage")
             localStorage.setItem("authToken", token)
             localStorage.setItem("timeExpiration", timeExpiration.toISOString())
-        } else { //If user close session delete on localstorage
-            localStorage.removeItem("authToken")
-            localStorage.removeItem("timeExpiration")
         }
     }, [token, timeExpiration]);
 
@@ -44,7 +42,7 @@ export const UserProvider = ({ children }) => {
             // Restore session
             setToken(storedToken);
             setTimeExpiration(expirationDate);
-            setUser({ storedToken });
+            setUser(storedToken);
         } else {
             // Clean data is empty
             clearToken();
