@@ -25,7 +25,7 @@ export const createCloth = async (req, res) => {
     const description = await generateClothFromImageDescription(imageUrl);
 
     // Create the cloth object using the obtained data
-    const newCloth = new Cloths({
+    const newCloth = {
       name: description.name,
       color: description.color,
       category: description.category,
@@ -33,7 +33,7 @@ export const createCloth = async (req, res) => {
       description: description.description,
       imageUrl: imageUrl,
       user: req.user._id,  // Associate the cloth with the logged-in user
-    });
+    };
 
     res.status(200).json({ success: true, cloth: newCloth });
   } catch (error) {
@@ -41,6 +41,7 @@ export const createCloth = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
 };
+
 
 // Controller to get all cloths of a user
 export const getCloths = async (req, res) => {
