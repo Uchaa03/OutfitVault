@@ -32,7 +32,7 @@ export const createCloth = async (req, res) => {
       style: description.style,
       description: description.description,
       imageUrl: imageUrl,
-      user: req.user._id,  // Associate the cloth with the logged-in user
+      _id: req.user._id,  // Associate the cloth with the logged-in user
     };
 
     res.status(200).json({ success: true, cloth: newCloth });
@@ -107,15 +107,12 @@ export const saveClothToUser = async (req, res) => {
   try {
     const clothData = req.body.cloth;
 
-    // Create the cloth object using the provided data
-    const newCloth = new Cloths(clothData);
-
     // Associate the cloth with the logged-in user
     const user = await User.findById(req.user._id);
-    user.cloths.push(newCloth);
+    user.cloths.push(clothData);
     await user.save();
 
-    res.status(200).json({ success: true, message: 'Cloth associated with user successfully', cloth: newCloth });
+    res.status(200).json({ success: true, message: 'Cloth associated with user successfully', cloth: clothData });
   } catch (error) {
     console.error('Error saving cloth to user:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
