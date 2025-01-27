@@ -73,9 +73,6 @@ export const login = async (req, res) => {
   }
 };
 
-import jwt from 'jsonwebtoken';
-import User from '../models/userModel.js'; // Asegúrate de importar tu modelo de usuario
-
 export const getUserDetails = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Obtener el token del encabezado de autorización
