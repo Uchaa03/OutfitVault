@@ -75,20 +75,13 @@ export const login = async (req, res) => {
 
 export const getUserDetails = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]; // Obtener el token del encabezado de autorización
-    if (!token) {
-      return res.status(401).json({ success: false, message: 'No token provided' });
-    }
-
-    // Verificar el token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.userId).select('username email'); // Obtener el usuario por ID y seleccionar solo el nombre de usuario y el correo electrónico
+    const user = req.user; // Obtener el usuario del middleware `protect`
 
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    res.status(200).json({ success: true, user });
+    res.status(200).json({ success: true, user: { username: user.username, email: user.email } });
   } catch (error) {
     console.error('Error getting user details:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error' });
