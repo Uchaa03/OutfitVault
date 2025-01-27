@@ -38,8 +38,7 @@ export const createCloth = async (req, res) => {
 
     // Associate the cloth with the logged-in user
     const user = await User.findById(req.user._id);
-    user.cloths.push(newCloth);
-    await user.save();
+
 
     res.status(200).json({ success: true, cloth: newCloth });
   } catch (error) {
