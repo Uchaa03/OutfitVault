@@ -21,8 +21,8 @@ export const passwordValidation = Yup.string()
 
 export const usernameValidation = Yup.string()
     .trim()
-    .min(6, "El usuario debe tener mínimo 6 caracteres")
-    .max(12, "El usuario debe tener mínimo 12 caracteres")
+    .min(5, "El usuario debe tener mínimo 5 caracteres")
+    .max(9, "El usuario debe tener máximo 9 caracteres")
     .required("El Nombre de Usuario es obligatorio")
 
 export const passwordVerficationValidation = Yup.string()
