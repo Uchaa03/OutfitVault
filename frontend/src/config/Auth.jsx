@@ -48,3 +48,22 @@ export async function loginUser(username, password) {
         }
     }
 }
+
+//In work for get credentials.
+// export async function getUser(token) {
+//
+//     try {
+//         const response = await axios.post(`${apiBackend}api/auth/login`, userData, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//         });
+//         return response.data
+//     } catch (error) {
+//         if (error.response) {
+//             console.error('Error al registrar usuario:', error.response.data.message);
+//         } else {
+//             console.error('Error en la solicitud:', error.message);
+//         }
+//     }
+// }

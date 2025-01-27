@@ -26,7 +26,7 @@ const RegisterPage = () => {
         try {
             const data = await registerUser(values.username, values.email, values.password);
             if (data.token) {
-                login(data.token, { username: values.username }); // Set the user in the context
+                login(data.token, values.username); // Set the user in the context
                 navigate("/vault"); // Navigate to the vault or any other protected route
             }
             resetForm();

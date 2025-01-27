@@ -2,9 +2,12 @@ import { create } from "zustand";
 
 const authStore = create((set) => ({
     token: null, // Initial State
+    timeExpiration: null,
     user: null, // Initial State
     setToken: (newToken) => set({ token: newToken }),
     clearToken: () => set({ token: null }),
+    setTimeExpiration: (newTimeExpiration) => set({ timeExpiration: newTimeExpiration }),
+    clearTimeExpiration: () => set({ timeExpiration: null }),
     setUser: (userData) => set({ user: userData }),
     clearUser: () => set({ user: null }),
 }));
@@ -16,3 +19,6 @@ export const useClearToken = () => authStore((state) => state.clearToken); // De
 export const useUser = () => authStore((state) => state.user); // Access to user
 export const useSetUser = () => authStore((state) => state.setUser); // Set user
 export const useClearUser = () => authStore((state) => state.clearUser); // Delete user
+export const useTimeExpiration = () => authStore((state) => state.timeExpiration); // Access to time expiration
+export const useSetTimeExpiration = () => authStore((state) => state.setTimeExpiration); // NO ejecutar la función aquí
+export const useClearTimeExpiration = () => authStore((state) => state.clearTimeExpiration); // NO ejecutar la función aquí

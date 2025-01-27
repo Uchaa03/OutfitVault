@@ -3,7 +3,11 @@ import React from 'react'
 const ProfilePage = () => {
 
     return (
-        <div>ProfilePage</div>
+        <main className="main__profile">
+            <section className="profile__section">
+
+            </section>
+        </main>
     )
 }
 export default ProfilePage
