@@ -61,7 +61,7 @@ export const generateClothFromImageDescription = async (imageUrl) => {
     const result = await genAiModel.generateContent(prompt)
     const rawResponse = result.response.text();
     const cleanResponse = rawResponse.match(/\{[\s\S]*\}/)?.[0].trim(); // Elimina espacios extra al inicio y al final
-  
+    
     let clothJson;
     try {
       clothJson = JSON.parse(cleanResponse);

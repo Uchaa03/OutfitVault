@@ -23,17 +23,22 @@ export const createCloth = async (req, res) => {
 
     // Use Gemini to get description and other data
     const description = await generateClothFromImageDescription(imageUrl);
-
+    
     // Create the cloth object using the obtained data
     const newCloth = {
+      _id: new mongoose.Types.ObjectId(), // Ensure a unique identifier
       name: description.name,
       color: description.color,
       category: description.category,
       style: description.style,
       description: description.description,
       imageUrl: imageUrl,
-      _id: req.user._id,  // Associate the cloth with the logged-in user
     };
+
+    // Associate the cloth with the logged-in user
+    const user = await User.findById(req.user._id);
+    user.cloths.push(newCloth);
+    await user.save();
 
     res.status(200).json({ success: true, cloth: newCloth });
   } catch (error) {
@@ -106,6 +111,11 @@ export const deleteCloth = async (req, res) => {
 export const saveClothToUser = async (req, res) => {
   try {
     const clothData = req.body.cloth;
+
+    // Ensure the cloth has a unique identifier
+    if (!clothData._id) {
+      clothData._id = new mongoose.Types.ObjectId();
+    }
 
     // Associate the cloth with the logged-in user
     const user = await User.findById(req.user._id);
