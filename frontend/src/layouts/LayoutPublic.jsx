@@ -6,9 +6,9 @@ const MainPage = () => {
   return (
     <section className="main-page">
       <Header />
-      <main className="content">
+      <section className="content">
         <Outlet />
-      </main>
+      </section>
       <Footer />
     </section>
   );

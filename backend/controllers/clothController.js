@@ -92,12 +92,8 @@ export const deleteCloth = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Cloth not found' });
     }
 
-    // Check if the user is the owner of the cloth
-    if (cloth.user.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ success: false, message: 'Not authorized to delete this cloth' });
-    }
-
-    await cloth.remove();
+    // Remove the cloth from the user's cloths array
+    user.cloths.pull(cloth._id);
     await user.save(); // Save the user after removing the cloth
     res.status(200).json({ success: true, message: 'Cloth deleted' });
   } catch (error) {

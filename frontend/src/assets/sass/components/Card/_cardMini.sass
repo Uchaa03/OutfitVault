@@ -1,17 +1,31 @@
+.item-card-mini-container
+  position: relative
+  width: 612px
+  height: 490px
+
+.item-card-mini-background
+  position: absolute
+  top: 4rem
+  left: 4rem
+  z-index: 0
+
 .item-card-mini
   width: 612px
   height: 490px
   fill: none
   transition: transform 0.3s ease, box-shadow 0.3s ease
+  position: relative
+  cursor: pointer
+  z-index: 1
 
   &:hover
     transform: scale(1.05)
-
 
 .item-card-mini__background
   fill: #D9D9D9
   stroke: #141414
   stroke-width: 17
+  
 
 .item-card-mini__image-container
   x: 50%

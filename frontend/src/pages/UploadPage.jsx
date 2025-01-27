@@ -99,7 +99,8 @@ const UploadPage = () => {
                             category={uploadedCloth.category}
                             style={uploadedCloth.style}
                             itemImage={uploadedCloth.imageUrl}
-                            onSaveClick={handleSaveClick}
+                            buttonActionName={"Guardar"}
+                            onClickButton={handleSaveClick}
                             onCloseClick={handleCloseClick}
                         />
                     )}

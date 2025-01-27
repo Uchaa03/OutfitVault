@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/button.jsx';
 
-const ItemCard = ({ className, name, color, category, style, itemImage, onSaveClick, onCloseClick }) => {
+const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick }) => {
   return (
     <article className={`item-card ${className}`}>
         <svg
@@ -33,7 +33,7 @@ const ItemCard = ({ className, name, color, category, style, itemImage, onSaveCl
         <p className="item-card__category">Categoría: <span >{category} </span></p>
         <p className="item-card__style">Estilo: <span> {style} </span></p>
         <footer className="item-card__buttons">
-          <Button className="item-card__button" onClick={onSaveClick}>Guardar</Button>
+          <Button className="item-card__button" onClick={onClickButton}>{buttonActionName}</Button>
           <Button className="item-card__button-error" onClick={onCloseClick}>X</Button>
         </footer>
       </section>
@@ -48,7 +48,7 @@ ItemCard.propTypes = {
   style: PropTypes.string.isRequired,
   itemImage: PropTypes.string.isRequired,
   className: PropTypes.string, // Añadido para recibir la clase
-  onSaveClick: PropTypes.func.isRequired, // Añadido para recibir el onClick del botón de guardar
+  onClickButton: PropTypes.func.isRequired, // Añadido para recibir el onClick del botón de guardar
   onCloseClick: PropTypes.func.isRequired, // Añadido para recibir el onClick del botón de cerrar
 };
 

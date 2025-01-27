@@ -19,10 +19,67 @@
     cursor: pointer
 
   &__content
-    display: flex
-    flex-wrap: wrap
-    gap: 10px // Reduce el espacio entre los elementos
+    display: grid
+    justify-items: center
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr))
+    gap: 2rem
+    margin-left: 2rem
+    margin-right: 2rem
+    margin-bottom: 4rem
 
   &__item
-    flex: 1 1 calc(33.333% - 10px)
     box-sizing: border-box
+    cursor: pointer
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out
+
+  &__content.hidden .vault-page__item
+    opacity: 0
+    transform: translateX(-100%)
+
+  &__overlay
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.5)
+    display: flex
+    justify-content: center
+    align-items: center
+    z-index: 1000
+    transition: opacity 0.3s ease-in
+    opacity: 1
+
+  &__overlay.transitioning
+    opacity: 1
+
+  &__overlay.slide-in
+    animation: slideInFromLeft 1s ease-out forwards
+
+  &__overlay.slide-out
+    animation: slideOutToLeft 1s ease-out forwards
+
+@keyframes slideInFromLeft
+  0%
+    transform: translateX(-100%)
+    opacity: 0
+  100%
+    transform: translateX(0)
+    opacity: 1
+
+@keyframes slideOutToLeft
+  0%
+    transform: translateX(0)
+    opacity: 1
+  100%
+    transform: translateX(-100%)
+    opacity: 0
+
+@keyframes float
+  0%, 100%
+    transform: translateY(0)
+  50%
+    transform: translateY(-10px)
+
+.float
+  animation: float 3s ease-in-out infinite
