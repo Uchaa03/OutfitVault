@@ -23,7 +23,7 @@ const LoginPage = () => {
         try {
             const data = await loginUser(values.username, values.password);
             if (data.token) {
-                login(data.token, { username: values.username }); // Set the user in the context
+                login(data.token, values.username); // Set the user in the context
                 navigate("/vault"); // Navigate to the vault or any other protected route
             }
             resetForm();

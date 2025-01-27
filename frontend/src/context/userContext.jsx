@@ -27,22 +27,25 @@ export const UserProvider = ({ children }) => {
             console.log("Datos en local storage")
             localStorage.setItem("authToken", token)
             localStorage.setItem("timeExpiration", timeExpiration.toISOString())
+            localStorage.setItem("username", user)
+
         }
     }, [token, timeExpiration]);
 
     useEffect(() => {
         // Get data from local storage
         const storedToken = localStorage.getItem("authToken");
-        const storedTimeExpiration = localStorage.getItem("timeExpiration");
+        const storedTimeExpiration = localStorage.getItem("timeExpiration")
+        const storedUsername = localStorage.getItem("username");
 
-        if (storedToken && storedTimeExpiration) {
+        if (storedToken && storedTimeExpiration && storedUsername) {
             //Convert data to js
             const expirationDate = new Date(storedTimeExpiration);
 
             // Restore session
             setToken(storedToken);
             setTimeExpiration(expirationDate);
-            setUser(storedToken);
+            setUser(storedUsername);
         } else {
             // Clean data is empty
             clearToken();
@@ -66,6 +69,7 @@ export const UserProvider = ({ children }) => {
         //Delete
         localStorage.removeItem("authToken")
         localStorage.removeItem("timeExpiration")
+        localStorage.removeItem("username")
     };
 
     return (
