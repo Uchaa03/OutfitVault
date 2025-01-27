@@ -1,11 +1,13 @@
+$color-text-secondary: #4D4D4D
+
 .item-card
   display: flex
   align-items: center
+  position: absolute
   background-size: contain
   background-repeat: no-repeat
-  padding: 2rem
-  width: 100%
-  border-radius: 10px
+  padding: 4rem
+  width: 68%
   background-image: url(/assets/img/OutfitCard.svg)
 
   &__image
@@ -20,11 +22,18 @@
 
     h2
       font-family: "Jersey 15"
-      font-size: 2rem
+      font-size: 3rem
 
     p
       font-family: "Handjet"
-      font-size: 1.5rem
+      font-weight: 700
+      font-size: 2rem
+
+      span
+        font-family: inherit
+        font-weight: 400
+        font-size: 2rem
+        color: $color-text-secondary
       
   &__name
     font-size: 1.5rem

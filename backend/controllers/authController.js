@@ -73,6 +73,31 @@ export const login = async (req, res) => {
   }
 };
 
+import jwt from 'jsonwebtoken';
+import User from '../models/userModel.js'; // Asegúrate de importar tu modelo de usuario
+
+export const getUserDetails = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1]; // Obtener el token del encabezado de autorización
+    if (!token) {
+      return res.status(401).json({ success: false, message: 'No token provided' });
+    }
+
+    // Verificar el token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.userId).select('username email'); // Obtener el usuario por ID y seleccionar solo el nombre de usuario y el correo electrónico
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error('Error getting user details:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
 // Controller to change the username of the logged-in user
 export const changeUsername = async (req, res) => {
   const { newUsername } = req.body;

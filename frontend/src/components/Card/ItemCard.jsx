@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Button from '../button/button.jsx';
 const ItemCard = ({ name, color, category, style, itemImage }) => {
   return (
     <article className="item-card">
@@ -30,12 +30,12 @@ const ItemCard = ({ name, color, category, style, itemImage }) => {
         </svg>
       <section className="item-card__details">
         <h2 className="item-card__name">{name}</h2>
-        <p className="item-card__color">Color: {color}</p>
-        <p className="item-card__category">Categoría: {category}</p>
-        <p className="item-card__style">Estilo: {style}</p>
+        <p className="item-card__color"> Color: <span> {color} </span></p>
+        <p className="item-card__category">Categoría: <span >{category} </span></p>
+        <p className="item-card__style">Estilo: <span> {style} </span></p>
         <footer className="item-card__buttons">
-          <button className="item-card__button">Button 1</button>
-          <button className="item-card__button">Button 2</button>
+          <Button className="item-card__button">Guardar</Button>
+          <Button className="item-card__button-error">Button 2</Button>
         </footer>
       </section>
     </article>
