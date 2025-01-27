@@ -64,9 +64,10 @@ export const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
-        clearToken();
-        clearUser();
-        //Delete
+        clearToken()
+        clearUser()
+        clearTimeExpiration()
+        //Delete from localstorage
         localStorage.removeItem("authToken")
         localStorage.removeItem("timeExpiration")
         localStorage.removeItem("username")
