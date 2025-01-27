@@ -112,7 +112,7 @@ export const saveClothToUser = async (req, res) => {
     user.cloths.push(clothData);
     await user.save();
 
-    res.status(200).json({ success: true, message: 'Cloth associated with user successfully', cloth: newCloth });
+    res.status(200).json({ success: true, message: 'Cloth associated with user successfully', cloth: clothData });
   } catch (error) {
     console.error('Error saving cloth to user:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
