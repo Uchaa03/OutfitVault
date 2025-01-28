@@ -9,8 +9,8 @@ import authRoutes from './routes/authRoutes.js';
 import { connectDB } from './config/db.js';
 import logger from './middleware/logger.js';
 
-// Load environment variables from .env.local file
-dotenv.config({ path: './backend/.env.local' });
+// Load environment variables from .env file
+dotenv.config({ path: '../backend/.env' });
 
 // Configure Cloudinary
 cloudinary.config({

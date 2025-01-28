@@ -1,81 +1,120 @@
-// Variables
-$primary-color: #1f1f1f
-$secondary-color: #D9D9D9
-$shadow-color: #4D4D4D
-$border-color: #141414
-$card-border: "/public/assets/img/card-border.svg"
-$background-texture: "/public/assets/img/background_texture.png"
-$filters-exit-button: "/public/assets/img/filters_exit_button.svg"
+.vault-page
+  &__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 6rem
+    margin-left: 12rem
+    margin-right: 12rem
+    gap: 6rem
+    margin-top: 3rem
 
-// Mixins
-@mixin flex-center($direction: row)
-  display: flex
-  flex-direction: $direction
-  justify-content: flex-start
-  align-items: center
+    h1
+      font-family: 'Jersey 15', serif
+      font-size: 3rem
 
-// vault
-.vault
-  @include flex-center(row)
-  width: 100%
-  height: auto
-  flex-grow: 1
-  overflow: auto
-  position: relative
+  &__button
+    padding: 10px 20px
+    font-size: 16px
+    cursor: pointer
 
-  &__layout
-    flex-direction: column
+  &__content
+    display: grid
+    justify-items: center
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr))
+    gap: 2rem
+    margin-left: 2rem
+    margin-right: 2rem
+    margin-bottom: 4rem
+
+  &__item
+    box-sizing: border-box
+    cursor: pointer
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out
+
+  &__content.hidden .vault-page__item
+    opacity: 0
+    transform: translateX(-100%)
+
+  &__overlay
+    position: fixed
+    top: 0
+    left: 0
     width: 100%
     height: 100%
-
-  &__filters
+    background: rgba(0, 0, 0, 0.5)
     display: flex
-    flex-direction: column
-    position: absolute
-    right: 0
-    width: 15em
+    justify-content: center
+    align-items: center
+    z-index: 1000
+    transition: opacity 0.3s ease-in
+    opacity: 1
+
+  &__overlay.transitioning
+    opacity: 1
+
+  &__filter-backdrop
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
     height: 100%
-    flex-grow: 1
-    padding: .5em
-    gap: .5em
-    background-color: $secondary-color
-    border-left: 5px solid $border-color
+    background: rgba(0, 0, 0, 0.5)
+    z-index: 2000
+    transition: opacity 0.3s ease
 
-    max-width: 15em
+  &__filter-panel
+    position: fixed
+    top: 0
+    right: 0
+    width: 40%
+    height: 100%
+    background: #1f1f1f
+    z-index: 2001
+    padding: 2rem
+    animation: slideInFromRight 0.3s ease-out forwards
 
-    &__selection
-     display: flex
-     flex-direction: column
+  &__filter-close
+    position: absolute
+    top: 2rem
+    right: 2rem
+    background: none
+    border: none
+    color: white
+    font-size: 2rem
+    cursor: pointer
+    padding: 0.5rem
+    transition: color 0.3s ease
+    &:hover
+      color: #666
 
-    &__exit
-      padding: 0
-      margin: 0
-      border: none
-      font: inherit /* Inherit font style from parent */
-      cursor: pointer /* Ensures the button looks clickable */
+@keyframes slideInFromLeft
+  0%
+    transform: translateX(-100%)
+    opacity: 0
+  100%
+    transform: translateX(0)
+    opacity: 1
 
-      display: flex
-      align-self: flex-end
-      width: 2em
-      height: 2em
-      justify-content: center
-      align-items: center
+@keyframes slideOutToLeft
+  0%
+    transform: translateX(0)
+    opacity: 1
+  100%
+    transform: translateX(-100%)
+    opacity: 0
 
-      background: transparent url($filters-exit-button) center/contain no-repeat
+@keyframes slideInFromRight
+  0%
+    transform: translateX(100%)
+  100%
+    transform: translateX(0)
 
-  &__filter
-    
-    &__button
-      padding: 0
-      margin: 0
-      border: none
-      background: transparent
-      font: inherit /* Inherit font style from parent */
-      cursor: pointer /* Ensures the button looks clickable */
+@keyframes float
+  0%, 100%
+    transform: translateY(0)
+  50%
+    transform: translateY(-10px)
 
-    &__img
-      width: 7em
-      height: 7em
-
-
-  
+.float
+  animation: float 3s ease-in-out infinite

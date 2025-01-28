@@ -1,46 +1,88 @@
-import {createBrowserRouter} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
-import MainLayout from '../layouts/main_layout/MainLayout.jsx'
-import HomePage from '../pages/HomePage.jsx'
+import LayoutPublic from '../layouts/LayoutPublic.jsx';
+import PublicRoute from '../layouts/PublicRoute.jsx';
+import PrivateRoute from '../layouts/PrivateRoute.jsx';
+
+import ArmarioSection from '../pages/HomePage.jsx';
+import ErrorPage from '../pages/ErrorPage.jsx';
 import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
-import UploadPage from '../pages/UploadPage.jsx'
-import { UploadProvider } from '../contexts/UploadContext.jsx'
+import UploadPage from '../pages/UploadPage.jsx';
 import ContactPage from "../pages/ContactPage.jsx";
-import VaultPage from '../pages/VaultPage.jsx';
-
+import PromptPage from '../pages/PromptPage.jsx';
+import ProfilePage from "../pages/ProfilePage.jsx";
+import VaultPage from "../pages/VaultPage.jsx";
+import LoadingPage from '../pages/LoadingPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (<MainLayout />),
+    element: <LayoutPublic />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true,
-        element: <HomePage />,
+        element: <ArmarioSection />,
       },
       { path: 'login',
-        element: <LoginPage />,
+        element: 
+        (
+        <PublicRoute>
+          <LoginPage />
+        </PublicRoute>
+        )
       },
       { path: 'register',
-        element: <RegisterPage />,
-      },
-      { path: 'login',
-        element: <LoginPage />,
-      },
-      { path: 'contact',
-        element: <ContactPage />,
+        element: 
+        (
+          <PublicRoute>
+            <RegisterPage />
+          </PublicRoute>
+        )
       },
       {
-        path: 'vault',
-        element: <VaultPage />,
+        path: 'loading',
+        element: <LoadingPage />
+      },
+      { path: 'contact',
+        element: <ContactPage />
       },
       {
         path: 'upload',
         element:
-          <UploadProvider>
+        (
+          <PrivateRoute>
             <UploadPage />
-          </UploadProvider>,
-      }
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'prompt',
+        element:
+        (
+          <PrivateRoute>
+            <PromptPage />
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'profile',
+        element:
+        (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'vault',
+        element:
+        (
+          <PrivateRoute>
+            <VaultPage />
+          </PrivateRoute>
+        )
+      },
     ]
   }
 ]);

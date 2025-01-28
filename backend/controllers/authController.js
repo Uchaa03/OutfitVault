@@ -73,6 +73,21 @@ export const login = async (req, res) => {
   }
 };
 
+export const getUserDetails = async (req, res) => {
+  try {
+    const user = req.user; // Obtener el usuario del middleware `protect`
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.status(200).json({ success: true, user: { username: user.username, email: user.email } });
+  } catch (error) {
+    console.error('Error getting user details:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
 // Controller to change the username of the logged-in user
 export const changeUsername = async (req, res) => {
   const { newUsername } = req.body;

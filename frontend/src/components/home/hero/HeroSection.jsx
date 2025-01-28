@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import Button from '../../button/button';
 
 
 const HeroSection = () => {
@@ -12,9 +13,9 @@ const HeroSection = () => {
   return (
     <section className="hero">
       <h2>TODA TU ROPA ORGANIZADA SIN ESFUERZO</h2>
-      <button onClick={handleClick} className="button">
+      <Button  className="hero__button" onClick={handleClick}>
         Regístrate Ahora
-      </button>
+      </Button>
     </section>
   );
 };

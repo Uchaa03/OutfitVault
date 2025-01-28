@@ -1,0 +1,25 @@
+$shadow-color: #4D4D4D
+$card-border: "/public/assets/img/card-border.svg"
+$background-texture: "/assets/img/background_texture.svg"
+$why-use-card: "/public/assets/img/why_use-card.svg"
+
+// Mixins
+@mixin flex-center($direction: row)
+  display: flex
+  flex-direction: $direction
+  justify-content: center
+  align-items: center
+
+// Body
+body
+  font-family: 'Roboto', sans-serif
+  background-color: #f5f5f5
+  background-image: url($background-texture)
+  background-size: cover
+  background-repeat: repeat
+  background-position: center
+  color: var(--primary-color)
+  margin: 0
+  padding: 0
+  align-items: center
+  justify-content: center

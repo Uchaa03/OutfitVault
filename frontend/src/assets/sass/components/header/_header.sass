@@ -1,7 +1,6 @@
 // Variables
-$primary-color: #1f1f1f
-$secondary-color: #D9D9D9
-$shadow-color: #4D4D4D
+@use 'src/assets/sass/utilities/variables.sass' as *
+
 $card-border: "/public/assets/img/card-border.svg"
 $background-texture: "/public/assets/img/background_texture.png"
 $why-use-card: "/public/assets/img/why_use-card.svg"
@@ -17,9 +16,24 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
 .header 
   width: 100%
   height: 100px
+  position: sticky
+  top: 0 
   @include flex-center(row)
   background-color: $secondary-color
   border-bottom: 5px solid $primary-color
+  z-index: 1000 
+
+  &__list
+    display: flex
+    list-style: none
+    padding: 0
+    margin: 0
+    width: 80%
+    justify-content: space-between
+
+    .list__item
+      display: flex
+      align-items: center
 
   &__button
     display: flex
@@ -29,36 +43,72 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     gap: 0.25em
     align-items: center
     cursor: pointer
-    &h2
-      margin: 0
+    text-decoration: none
+    color: $primary-color
+    padding: 0.5rem 1rem // Añade relleno
+    position: relative // Necesario para los pseudo-elementos
+    transition: color 0.2s ease-in // Añade transición para el color
 
-// Card
-.card 
-  padding: 2em
+    &__button
+    display: flex
+    flex-direction: row
+    height: auto
+    width: auto
+    gap: 0.25em
+    align-items: center
+    cursor: pointer
+    text-decoration: none
+    color: $primary-color
+    padding: 0.5rem 1rem // Añade relleno
+    position: relative // Necesario para los pseudo-elementos
+    transition: color 0.2s ease-in // Añade transición para el color
 
-// Logo
-.logo 
-  height: 6em
-  padding: 1.5em
-  will-change: filter
-  transition: filter 300ms
+    &::before,
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-color: white
+      clip-path: polygon(0px calc(100% - 12px), 3px calc(100% - 12px), 3px calc(100% - 6px), 6px calc(100% - 6px), 6px calc(100% - 3px), 12px calc(100% - 3px), 12px 100%, calc(100% - 12px) 100%, calc(100% - 12px) calc(100% - 3px), calc(100% - 6px) calc(100% - 3px), calc(100% - 6px) calc(100% - 6px), calc(100% - 3px) calc(100% - 6px), calc(100% - 3px) calc(100% - 12px), 100% calc(100% - 12px), 100% 12px, calc(100% - 3px) 12px, calc(100% - 3px) 6px, calc(100% - 6px) 6px, calc(100% - 6px) 3px, calc(100% - 12px) 3px, calc(100% - 12px) 0px, 12px 0px, 12px 3px, 6px 3px, 6px 6px, 3px 6px, 3px 12px, 0px 12px)
+      transform: scale(0)
+      transition: transform 0.3s ease-in-out
+      z-index: -1 // Asegúrate de que los pseudo-elementos estén detrás del contenido
 
-  &:hover 
-    filter: drop-shadow(0 0 2em #646cffaa)
+    &:hover::before,
+    &:hover::after,
+    &:focus::before,
+    &:focus::after,
+    &:active::before,
+    &:active::after
+      transform: scale(1)
 
-  &.react:hover 
-    filter: drop-shadow(0 0 2em #61dafbaa)
-
-@media (prefers-reduced-motion: no-preference) 
-a:nth-of-type(2) .logo 
-  animation: logo-spin infinite 20s linear
-
-
-
-
-
+    &:hover span,
+    &:focus span,
+    &:active span,
+    &:hover .button__icon,
+    &:focus .button__icon,
+    &:active .button__icon
+      color: #363636 // Cambia el color del texto y el icono al hacer hover
+      transform: scale(1.1) // Aumenta ligeramente el tamaño del texto y el icono
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out // Añade transición para el color y la transformación
 
 
+    .button__icon
+      margin-right: 0.5rem
+
+    span
+      font-family: 'Jersey 15', serif
+      font-weight: bold
+      font-size: 3rem
+      color: $primary-color
+      position: relative // Asegúrate de que el texto esté por encima de los pseudo-elementos
+      z-index: 1 // Asegúrate de que el texto esté por encima de los pseudo-elementos
 
 
 
+  &__logo
+    width: 100%
+    height: auto  

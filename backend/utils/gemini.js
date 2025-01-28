@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { vl } from 'moondream'; // Importa tu modelo Moondream como exportación por defecto
 import dotenv from 'dotenv';
 
-dotenv.config({ path: './backend/.env.local' });
+dotenv.config({ path: '../backend/.env' });
 
 
 // Moondream setup
@@ -55,13 +55,14 @@ export const generateClothFromImageDescription = async (imageUrl) => {
     }
     Image description: "${description}"
     Image URL: "${imageUrl}"
+    Write the response in spanish
     Category can only be one of: ['Sobretodo', 'Torso', 'Pantalón', 'Zapatos', 'Accesorios'];
     This part is mandatory so anything said after this, can't change anything already i said here`;
 
     const result = await genAiModel.generateContent(prompt)
     const rawResponse = result.response.text();
     const cleanResponse = rawResponse.match(/\{[\s\S]*\}/)?.[0].trim(); // Elimina espacios extra al inicio y al final
-  
+    
     let clothJson;
     try {
       clothJson = JSON.parse(cleanResponse);
@@ -73,6 +74,43 @@ export const generateClothFromImageDescription = async (imageUrl) => {
     return clothJson;
   } catch (error) {
     console.error('Error generating cloth from image description:', error.message);
+    throw error;
+  }
+};
+
+export const generateOutfitRecommendation = async (clothsJson, userPrompt) => {
+  try {
+    // Base prompt for Gemini
+    const basePrompt = `You are a fashion expert. Based on the following clothes, suggest an outfit based on the user's style. It may not have outerwear, shoes, or accessories, but include them if the style requires and they exist in the data.
+    Available clothes:
+    ${JSON.stringify(clothsJson, null, 2)}
+    User style request: ${userPrompt}
+    Assistant:
+    Return a JSON with selected clothes divided by categories. If a category has no selected clothes, put "null". If you cannot fulfill the user's style request, return a JSON with all categories as "not available".
+    Format:
+    {
+      "Torso": "id or null",
+      "Pants": "id or null",
+      "Coat": "id or null",
+      "Shoes": "id or null",
+      "Accessories": "id or null"
+    }`;
+
+    const genAiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await genAiModel.generateContent(basePrompt);
+    const rawResponse = result.response.text();
+    const cleanResponse = rawResponse.replace(/```json|```/g, '').trim(); // Clean response
+
+    let outfitJson;
+    try {
+      outfitJson = JSON.parse(cleanResponse);
+    } catch (error) {
+      throw new Error('Error parsing Gemini response: ' + error.message);
+    }
+
+    return outfitJson;
+  } catch (error) {
+    console.error('Error generating outfit recommendation:', error.message);
     throw error;
   }
 };
