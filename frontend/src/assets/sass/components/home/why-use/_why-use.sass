@@ -1,5 +1,5 @@
 // Variables
-$why-use-card: "/public/assets/img/why_use-card.svg"
+$why-use-card: "/assets/img/why_use-card.svg"
 
 // Mixins
 @mixin flex-center($direction: row)
@@ -14,6 +14,13 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
   padding: 2rem
   width: 100%
 
+  h2
+      font-family: 'Jersey 25'
+      font-size: 6rem
+      padding-bottom: 4rem
+      margin: 0
+
+
   &__cards
     display: flex
     justify-content: space-between
@@ -24,6 +31,21 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
   &__card
     background: url($why-use-card) center/contain no-repeat
     margin: 1rem
-    width: 15rem
-    height: 20rem
+    width: 50rem
+    height: 35rem
     padding: 2rem
+
+    h3
+      font-family: 'Jersey 15'
+      font-size: 3rem
+      padding-left: 2.5rem
+      padding-right: 2.5rem
+      padding-top: 2rem
+    p
+      font-family: 'Handjet', serif
+      font-weight: 400
+      font-size: 1.5rem
+      padding-top: 1rem
+      text-align: center
+      margin-right: 6rem
+      margin-left: 6rem

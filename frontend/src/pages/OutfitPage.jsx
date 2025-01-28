@@ -1,12 +1,13 @@
-
-
+import React from 'react'
+import userContext from "../context/userContext.jsx";
+import {Navigate} from "react-router-dom";
 
 const OutfitPage = () => {
-  return (
-    <main>
-      <h1>Outfit Page</h1>
-    </main>
-  )
-}
+    const token = userContext()
+    if (!token) return <Navigate to="/login"/>
 
+    return (
+        <div>OutfitPage</div>
+    )
+}
 export default OutfitPage

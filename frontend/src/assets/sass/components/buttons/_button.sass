@@ -1,0 +1,61 @@
+// Variables
+$bg-image: "/assets/img/ButtonBG.svg"
+$hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
+
+// Mixins
+@mixin button-styles($width: 9em, $height: 3em, $line-height: 2em, $margin-top: 2rem, $margin-right: 0em, $font-size: 3rem, $background-size: auto, $padding-bottom: 0.3em, $padding-right: 0.3em, $padding-bottom-hover: 0em, $padding-right-hover: 0em)
+  display: inline-block
+  font-family: "Jersey 25", sans-serif
+  font-size: $font-size
+  margin-top: $margin-top
+  font-weight: bold
+  text-align: center
+  cursor: pointer
+  background-color: transparent
+  box-sizing: border-box
+  background-image: url($bg-image)
+  background-position: center
+  background-repeat: no-repeat
+  background-size: $background-size
+  border-radius: 5px
+  border: none
+  width: $width
+  height: $height
+  line-height: $line-height
+  margin-right: $margin-right
+  transition: box-shadow 0.2s ease
+  padding-bottom: $padding-bottom
+  padding-right: $padding-right
+
+  &:hover
+    background-image: url($hover-bg-image)
+    padding-bottom: $padding-bottom-hover
+    padding-right: $padding-right-hover
+    box-shadow: none
+
+.hero__button
+  @include button-styles()
+
+.footer__button
+  @include button-styles(7em, 2em, 1em, 0em, 2em, 2rem, contain)
+
+
+.section__header
+  .header__button
+    @include button-styles(7em, 2em, 1.8em, 0em, 0em, 1.8em, contain, 2.3em, 0.7em, 2.1em, 0.5em)
+
+.form__button
+  @include button-styles(7em, 2em, 0em, 11em, 0em, 2em, contain)
+
+.prompt__button
+  @include button-styles(9em, 3em, 1em, 0em, 0em, 2rem, contain)
+
+.item-card__button
+  @include button-styles(7em, 2em, 1em, 0em, 0em, 2rem, contain)
+
+.buttons__button
+  @include button-styles(7em, 2em, 1em, 1em, em, 2rem, contain)
+
+
+.vault-page__button
+  @include button-styles(8em, 2em, 1em, 0em, 0em, 2rem, contain, 0.5em, 0.6em, 0.4em, 0.2em)

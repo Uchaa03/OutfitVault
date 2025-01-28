@@ -1,0 +1,50 @@
+$color-text-secondary: #4D4D4D
+
+.item-card
+  display: flex
+  align-items: center
+  position: absolute
+  background-size: cover
+  background-repeat: round
+  padding: 4rem
+  width: 68%
+  background-image: url(/assets/img/OutfitCard.svg)
+
+  &__image
+    width: 55%
+    height: 100%
+    margin-right: 2rem
+
+  &__details
+    flex: 2
+    padding-left: 1rem
+
+    h2
+      font-family: "Jersey 15"
+      font-size: 3rem
+
+    p
+      font-family: "Handjet"
+      font-weight: 700
+      font-size: 2rem
+
+      span
+        font-family: inherit
+        font-weight: 400
+        font-size: 2rem
+        color: $color-text-secondary
+      
+  &__name
+    font-size: 1.5rem
+    font-weight: bold
+
+  &__color, &__category, &__style
+    margin: 0.5rem 0
+
+  &__buttons
+    margin-top: 1rem
+
+  &__button
+    margin-right: 0.5rem
+
+
