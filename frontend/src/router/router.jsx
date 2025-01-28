@@ -43,6 +43,10 @@ const router = createBrowserRouter([
         element: <ContactPage />
       },
       {
+        path: 'vault',
+        element: <VaultPage />,
+      },
+      {
         path: 'upload',
         element:
         (
