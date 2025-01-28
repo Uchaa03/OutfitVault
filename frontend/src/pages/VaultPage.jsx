@@ -4,6 +4,7 @@ import ItemCardMini from '../components/Card/ItemCardMini.jsx';
 import ItemCard from '../components/Card/ItemCard.jsx';
 import { useToken } from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
+import LoadingPage from './LoadingPage.jsx';
 
 const VaultPage = () => {
   const token = useToken();
@@ -12,6 +13,7 @@ const VaultPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCloths = async () => {
@@ -24,6 +26,10 @@ const VaultPage = () => {
         setCloths(response.data.cloths);
       } catch (error) {
         console.error('Error fetching cloths:', error);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     };
 
@@ -46,8 +52,7 @@ const VaultPage = () => {
       setSelectedCloth(response.data.cloth);
       setAnimationClass('slide-in');
       setTimeout(() => {
-        setAnimationClass('float');
-        setIsTransitioning(false);
+        // Is called when the animation ends
       }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);
@@ -91,6 +96,17 @@ const VaultPage = () => {
     document.body.style.overflow = 'auto';
   };
 
+  const handleLoadingFinish = () => {
+    // This function is called when the loading animation finishes
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return (
+      <LoadingPage isVisible={isLoading} onFinish={handleLoadingFinish} />
+    );
+  }
+
   return (
     <section className="vault-page">
       <header className="vault-page__header">
@@ -103,10 +119,17 @@ const VaultPage = () => {
           Filtrar
         </Button>
       </header>
-      <main className={`vault-page__content ${selectedCloth ? 'hidden' : ''}`}>
+      <main className="vault-page__content">
         {cloths.map(cloth => (
-          <section key={cloth._id} className="vault-page__item" onClick={() => handleCardClick(cloth._id)}>
-            <ItemCardMini name={truncateName(cloth.name)} itemImage={cloth.imageUrl} />
+          <section 
+            key={cloth._id} 
+            className="vault-page__item" 
+            onClick={() => handleCardClick(cloth._id)}
+          >
+            <ItemCardMini 
+              name={truncateName(cloth.name)} 
+              itemImage={cloth.imageUrl} 
+            />
           </section>
         ))}
       </main>
@@ -136,7 +159,7 @@ const VaultPage = () => {
             >
               ×
             </button>
-            {/* Filter content will go here */}
+            {/* Filters content here */}
           </div>
         </>
       )}

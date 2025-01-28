@@ -13,6 +13,7 @@ import ContactPage from "../pages/ContactPage.jsx";
 import PromptPage from '../pages/PromptPage.jsx';
 import ProfilePage from "../pages/ProfilePage.jsx";
 import VaultPage from "../pages/VaultPage.jsx";
+import LoadingPage from '../pages/LoadingPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             <RegisterPage />
           </PublicRoute>
         )
+      },
+      {
+        path: 'loading',
+        element: <LoadingPage />
       },
       { path: 'contact',
         element: <ContactPage />

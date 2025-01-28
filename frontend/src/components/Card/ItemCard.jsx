@@ -2,7 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/button.jsx';
 
-const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick }) => {
+const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick, error }) => {
+  if (error) {
+    return (
+      <article className={`item-card item-card--error ${className}`}>
+        <section className="item-card__details item-card__details--error">
+          <h2>La prenda subida no es válida</h2>
+          <footer className="item-card__buttons">
+            <Button className="item-card__button-error" onClick={onCloseClick}>X</Button>
+          </footer>
+        </section>
+      </article>
+    );
+  }
+
   return (
     <article className={`item-card ${className}`}>
         <svg
@@ -42,14 +55,16 @@ const ItemCard = ({ className, name, color, category, style, itemImage, buttonAc
 };
 
 ItemCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  style: PropTypes.string.isRequired,
-  itemImage: PropTypes.string.isRequired,
-  className: PropTypes.string, // Añadido para recibir la clase
-  onClickButton: PropTypes.func.isRequired, // Añadido para recibir el onClick del botón de guardar
-  onCloseClick: PropTypes.func.isRequired, // Añadido para recibir el onClick del botón de cerrar
+  name: PropTypes.string,
+  color: PropTypes.string,
+  category: PropTypes.string,
+  style: PropTypes.string,
+  itemImage: PropTypes.string,
+  className: PropTypes.string,
+  buttonActionName: PropTypes.string,
+  onClickButton: PropTypes.func,
+  onCloseClick: PropTypes.func.isRequired,
+  error: PropTypes.bool
 };
 
 export default ItemCard;

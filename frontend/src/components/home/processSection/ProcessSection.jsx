@@ -15,7 +15,7 @@ const ProcessSection = () => {
       reverse: false,
     },
     {
-      title: "ORGANIZAR TU ARMARIO",
+      title: "HAZ TU VAULT",
       description: "Ordena todo virtualmente por categorías.",
       image: "/assets/img/process_photo.svg",
       overlayImage: "/assets/img/process_photo_organization.svg",
