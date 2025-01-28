@@ -3,7 +3,16 @@ import dotenv from 'dotenv';
 
 dotenv.config(); // Ensure environment variables are loaded
 
-// Function to connect to MongoDB
+/**
+ * Connects to MongoDB using the URI provided in the environment variable.
+ * This function initializes the MongoDB connection using mongoose, and
+ * logs a success message with the host if the connection is successful.
+ *
+ * @function
+ * @async
+ * @throws {Error} Will exit the process if the connection fails.
+ * @returns {void}
+ */
 export const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {

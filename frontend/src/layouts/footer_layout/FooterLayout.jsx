@@ -1,6 +1,16 @@
 import ContactButton from '../../components/footer/ContactButton.jsx';
 
-
+/**
+ * FooterLayout component represents the footer section of the page,
+ * providing information such as terms and conditions, along with a
+ * contact button for further inquiries.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FooterLayout />
+ * )
+ */
 const FooterLayout = () => {
   return (
     <section className={'footer'}>
@@ -10,7 +20,7 @@ const FooterLayout = () => {
       </p>
       <ContactButton />
     </section>
-  )
-}
+  );
+};
 
-export default FooterLayout
+export default FooterLayout;

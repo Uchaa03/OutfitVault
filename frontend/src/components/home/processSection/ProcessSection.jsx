@@ -1,7 +1,14 @@
-import React from 'react';
-import Process from './Process.jsx'
-
-
+/**
+ * ProcessSection component renders a collection of process steps.
+ * Each process step is represented by a `Process` component with its associated title, description, image, and overlay.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <ProcessSection />
+ *
+ * @returns {JSX.Element} The rendered section containing multiple process steps.
+ */
 const ProcessSection = () => {
 
   const processes = [

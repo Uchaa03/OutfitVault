@@ -1,9 +1,17 @@
-import React from "react";
 import WhyUseCard from './WhyUseCard.jsx'
 
-
+/**
+ * WhyUseSection component displays a section highlighting the benefits of using OutfitVault.
+ * It maps through a list of reasons and renders a `WhyUseCard` for each one.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <WhyUseSection />
+ *
+ * @returns {JSX.Element} The rendered section displaying the benefits of using OutfitVault.
+ */
 const WhyUseSection = () => {
-
   const reasons = [
     {
       title: "ORGANIZACIÓN TOTAL",

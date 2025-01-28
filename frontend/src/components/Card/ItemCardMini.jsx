@@ -1,8 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * A mini version of the item card that displays a smaller image and name of the item.
+ * This component is ideal for a compact display of items, such as in a grid or carousel.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <ItemCardMini
+ *    name="Mini Cool Jacket"
+ *    itemImage="path/to/image.jpg"
+ * />
+ *
+ * @param {Object} props - The props for the ItemCardMini component.
+ * @param {string} props.name - The name of the item.
+ * @param {string} props.itemImage - The image URL for the item.
+ *
+ * @returns {JSX.Element} The rendered ItemCardMini component.
+ */
 const ItemCardMini = ({ name, itemImage }) => {
-  // Genera un ID único para el patrón y la imagen
+  // Generate a unique ID for the pattern and image
   const uniqueId = `pattern-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
