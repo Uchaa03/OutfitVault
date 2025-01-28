@@ -11,6 +11,7 @@ const VaultPage = () => {
   const [selectedCloth, setSelectedCloth] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     const fetchCloths = async () => {
@@ -35,7 +36,7 @@ const VaultPage = () => {
 
   const handleCardClick = async (id) => {
     setIsTransitioning(true);
-    document.body.style.overflow = 'hidden'; // Bloquear el scroll
+    document.body.style.overflow = 'hidden';
     try {
       const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
         headers: {
@@ -47,7 +48,7 @@ const VaultPage = () => {
       setTimeout(() => {
         setAnimationClass('float');
         setIsTransitioning(false);
-      }, 1000); // Duración de la animación slide-in
+      }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);
       setIsTransitioning(false);
@@ -61,8 +62,8 @@ const VaultPage = () => {
       setSelectedCloth(null);
       setAnimationClass('');
       setIsTransitioning(false);
-      document.body.style.overflow = 'auto'; // Desbloquear el scroll
-    }, 1000); // Duración de la animación slide-out
+      document.body.style.overflow = 'auto';
+    }, 1000);
   };
 
   const handleDeleteCloth = async (id) => {
@@ -74,17 +75,33 @@ const VaultPage = () => {
       });
       setSelectedCloth(null);
       setCloths(cloths.filter(cloth => cloth._id !== id));
-      document.body.style.overflow = 'auto'; // Desbloquear el scroll
+      document.body.style.overflow = 'auto';
     } catch (error) {
       console.error('Error deleting cloth:', error);
     }
+  };
+
+  const handleFilterClick = () => {
+    setIsFilterOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleFilterClose = () => {
+    setIsFilterOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   return (
     <section className="vault-page">
       <header className="vault-page__header">
         <h1>Selecciona la prenda para ver más</h1>
-        <Button className="vault-page__button" aria-label="Filtrar">Filtrar</Button>
+        <Button 
+          className="vault-page__button" 
+          aria-label="Filtrar"
+          onClick={handleFilterClick}
+        >
+          Filtrar
+        </Button>
       </header>
       <main className={`vault-page__content ${selectedCloth ? 'hidden' : ''}`}>
         {cloths.map(cloth => (
@@ -107,6 +124,21 @@ const VaultPage = () => {
             onCloseClick={handleCloseClick}
           />
         </div>
+      )}
+      {isFilterOpen && (
+        <>
+          <div className="vault-page__filter-backdrop" onClick={handleFilterClose}></div>
+          <div className="vault-page__filter-panel">
+            <button 
+              className="vault-page__filter-close"
+              onClick={handleFilterClose}
+              aria-label="Cerrar filtros"
+            >
+              ×
+            </button>
+            {/* Filter content will go here */}
+          </div>
+        </>
       )}
     </section>
   );
