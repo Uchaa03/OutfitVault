@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import {
     emailValidation,
     passwordValidation,
-    passwordVerficationValidation,
+    passwordVerificationValidation,
     usernameValidation
 } from "../hooks/validationSchemaHook.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const RegisterPage = () => {
         email: emailValidation,
         username: usernameValidation,
         password: passwordValidation,
-        passwordVerification: passwordVerficationValidation,
+        passwordVerification: passwordVerificationValidation,
     });
 
     const navigate = useNavigate();

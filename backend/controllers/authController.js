@@ -20,42 +20,46 @@ import User from '../models/user.model.js';
  * app.post('/register', register);
  */
 export const register = async (req, res) => {
-  const { username, email, password } = req.body;
+    const { username, email, password } = req.body;
+  
+    try {
+      // Check if the user already exists
+      const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+      if (existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: existingUser.email === email ? "Email already in use" : "Username already in use",
+        });
+      }
 
-  try {
-    // Check if the user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ success: false, message: 'Email already in use' });
+
+      // Encrypt the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Create the new user
+      const newUser = new User({
+        username,
+        email,
+        password: hashedPassword,
+      });
+  
+      // Save the new user to the database
+      await newUser.save();
+      
+      // Create the JWT token
+      const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+      res.status(201).json({
+        success: true,
+        message: 'User registered successfully',
+        token, // Send the JWT token in the response
+      });
+    } catch (error) {
+      console.error('Error registering user:', error.message);
+      res.status(500).json({ success: false, message: 'Internal server error' });
     }
-
-    // Encrypt the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Create the new user
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
-
-    // Save the new user to the database
-    await newUser.save();
-
-    // Create the JWT token
-    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({
-      success: true,
-      message: 'User registered successfully',
-      token, // Send the JWT token in the response
-    });
-  } catch (error) {
-    console.error('Error registering user:', error.message);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-  }
-};
+  };
+  
 
 /**
  * Controller for user login.

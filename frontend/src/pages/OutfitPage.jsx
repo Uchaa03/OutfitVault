@@ -1,6 +1,6 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useUserContext } from "../context/userContext.jsx";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import OutfitCard from '../components/Card/OutfitCard.jsx';
 
 /**
  * OutfitPage Component
@@ -13,14 +13,45 @@ import { useUserContext } from "../context/userContext.jsx";
  * @returns {JSX.Element} The rendered OutfitPage component or a redirect to login.
  */
 const OutfitPage = () => {
-    const { token } = useUserContext(); // Retrieve token from user context
+  const location = useLocation();
+  const { outfit } = location.state || {};
 
-    // Redirect to log in if no authentication token is found
-    if (!token) return <Navigate to="/login" replace />;
+  const clothingItems = outfit
+    ? Object.entries(outfit)
+        .filter(([_, item]) => item && item.name !== null && item.imageUrl !== null)
+        .map(([category, item]) => ({
+          category,
+          name: item.name,
+          imageUrl: item.imageUrl
+        }))
+    : [];
 
+  if (clothingItems.length === 0) {
     return (
-      <div>OutfitPage</div>
+      <div className="outfit-page-container">
+        <h1>Tu Outfit Recomendado</h1>
+        <p>No hay ningun outfit disponible para sus peticiones</p>
+      </div>
     );
+  }
+
+  return (
+    <div className="outfit-page-container">
+      <div className="outfit-cards-container">
+        {clothingItems.map((item, index) => (
+          <OutfitCard
+            key={`${item.category}-${index}`}
+            category={item.category}
+            name={item.name}
+            imageUrl={item.imageUrl}
+            className={index % 2 === 0 ? 'outfit-card' : 'outfit-card2'}
+            icon="https://via.placeholder.com/50"
+            altIcon={`${item.category} Icon`}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default OutfitPage;

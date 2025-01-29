@@ -56,7 +56,7 @@ export const usernameValidation = Yup.string()
  *
  * @type {Yup.StringSchema}
  */
-export const passwordVerficationValidation = Yup.string()
+export const passwordVerificationValidation = Yup.string()
 .trim()
 .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
 .required("Confirmar la contraseña es necesario");

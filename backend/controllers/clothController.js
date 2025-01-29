@@ -1,6 +1,6 @@
 import multer from 'multer';
 import mongoose from 'mongoose';
-import { generateClothFromImageDescription } from '../utils/gemini.js';
+import { generateClothFromImageDescription, generateOutfitRecommendation } from '../utils/gemini.js';
 import User from '../models/user.model.js';
 import { uploadImageToCloudinary } from '../utils/imageUtils.js';
 
