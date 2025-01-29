@@ -5,11 +5,11 @@ import WhyUseSection from '../components/home/whyUseSection/WhyUseSection.jsx'
 
 export const HomePage = () => {
   return (
-    <main className="home" aria-label="Main content sections">
+    <section className="home" aria-label="Main content sections">
       <HeroSection/>
       <ProcessSection/>
       <WhyUseSection/>
-    </main>
+    </section>
   )
 }
 
