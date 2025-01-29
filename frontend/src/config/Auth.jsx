@@ -4,7 +4,6 @@ import {useToken} from "../store/authStore.jsx";
 // Change to the URL of your API backend
 const apiBackend = process.env.VITE_API_BASE_URL;
 
-console.log('API Backend:', apiBackend);
 export async function registerUser(username, email, password) {
     const userData = {
         username: username,
@@ -61,7 +60,25 @@ export async function getUser(token) {
         return response.data
     } catch (error) {
         if (error.response) {
-            console.error('Error al registrar usuario:', error.response.data.message);
+            console.error('Error al obtener detalles del usaurio:', error.response.data.message);
+        } else {
+            console.error('Error en la solicitud:', error.message);
+        }
+    }
+}
+
+export async function renewToken(token) {
+    try {
+        const response = await axios.get(`${apiBackend}api/auth/refresh-token`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            console.error('Error al renovar el token:', error.response.data.message);
         } else {
             console.error('Error en la solicitud:', error.message);
         }

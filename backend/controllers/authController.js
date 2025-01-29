@@ -114,3 +114,32 @@ export const changeUsername = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
+// Controller to refresh the JWT token
+export const refreshToken = async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // For get token
+
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'No token provided' });
+  }
+
+  try {
+    // Verify the current token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find the user
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Generate a new token
+    const newToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ success: true, token: newToken });
+  } catch (error) {
+    console.error('Error refreshing token:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+}

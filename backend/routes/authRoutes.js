@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, changeUsername, getUserDetails } from '../controllers/authController.js';
+import {register, login, changeUsername, getUserDetails, refreshToken} from '../controllers/authController.js';
 import { protect } from '../middleware/protect.js';
 
 const router = express.Router();
@@ -14,5 +14,8 @@ router.post('/login', login);
 router.put('/change-username', protect, changeUsername);
 
 router.get('/user-details', protect, getUserDetails);
+
+//Route for refresh token
+router.get('/refresh-token',protect, refreshToken)
 
 export default router;
