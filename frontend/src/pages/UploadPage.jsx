@@ -21,6 +21,7 @@ const UploadPage = () => {
     const [loading, setLoading] = useState(false);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [animationClass, setAnimationClass] = useState('');
+    const [hasError, setHasError] = useState(false);
 
     /**
      * Handles the file selection and upload process.

@@ -1,14 +1,14 @@
 
 
 
-const HatFilter = () => {
+const AccesoriosFilter = ({handleArrayUpdate}) => {
   const handleClick = () => {
     console.log('Hat Selector clicked')
     // TODO: Implement functionality to Selector outfits by hat
   }
 
   return (
-      <button onClick={handleClick()} className={'vault__filter__button'}>
+      <button onClick={() => handleArrayUpdate('Accesorios')} className={'vault__filter__button'}>
         <img
             src={'/assets/img/selectors/hat.svg'}
             alt={'Hat Selector'}
@@ -18,4 +18,4 @@ const HatFilter = () => {
   )
 }
 
-export default HatFilter
+export default AccesoriosFilter

@@ -5,8 +5,7 @@ import ItemCard from '../components/Card/ItemCard.jsx';
 import { useToken } from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
 import LoadingPage from './LoadingPage.jsx';
-import FiltersContainer
-  from '../components/vault/FiltersMenu/FiltersContainer.jsx';
+import FiltersContainer from '../components/vault/FiltersMenu/FiltersContainer.jsx';
 
 /**
  * VaultPage component that displays a collection of cloth items.
@@ -31,25 +30,39 @@ const VaultPage = () => {
    * @async
    * @returns {Promise<void>} Resolves when the data is fetched.
    */
+  const fetchCloths = async () => {
+    try {
+      const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setCloths(response.data.cloths);
+    } catch (error) {
+      console.error('Error fetching cloths:', error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  };
   useEffect(() => {
-    const fetchCloths = async () => {
-      try {
-        const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        setCloths(response.data.cloths);
-      } catch (error) {
-        console.error('Error fetching cloths:', error);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-      }
-    };
     fetchCloths();
   }, [token]);
+
+  /**
+   * Filters the cloth items based on an array of selected categories.
+   *
+   * @param {string[]} filterArray - Array of selected categories to filter by.
+   * @returns {void} Filtered list of cloth items.
+   */
+  const filterCloths = async (filterArray) => {
+    await fetchCloths();
+    if (!filterArray || filterArray.length !== 0) {
+      setCloths(cloths.filter(cloth => filterArray.includes(cloth.category)));
+    }
+    console.log('Filtered list of cloth items', cloths)
+  };
 
   /**
    * Truncates the cloth name to a maximum length of 12 characters, adding an ellipsis if necessary.
@@ -167,17 +180,19 @@ const VaultPage = () => {
         </Button>
       </header>
       <main className="vault-page__content">
-        {cloths.map(cloth => (
-          <section 
-            key={cloth._id} 
-            className="vault-page__item" 
-            onClick={() => handleCardClick(cloth._id)}
-          >
-            <ItemCardMini 
-              name={truncateName(cloth.name)} 
-              itemImage={cloth.imageUrl} 
-            />
-          </section>
+        {
+          //This is a temporary solution to duplicate id's
+          cloths.map((cloth, index) => (
+            <section
+                key={`${cloth._id}-${index}`}  // Ensures uniqueness
+                className="vault-page__item"
+                onClick={() => handleCardClick(cloth._id)}
+            >
+              <ItemCardMini
+                  name={truncateName(cloth.name)}
+                  itemImage={cloth.imageUrl}
+              />
+            </section>
         ))}
       </main>
       {selectedCloth && (
@@ -204,8 +219,9 @@ const VaultPage = () => {
               onClick={handleFilterClose}
               aria-label="Cerrar filtros"
             >
+              X
             </button>
-            <FiltersContainer />
+            <FiltersContainer filterCloths={filterCloths}/>
           </div>
         </>
       )}

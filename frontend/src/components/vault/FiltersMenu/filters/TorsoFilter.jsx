@@ -1,14 +1,13 @@
 
 
 
-const TorsoFilter = () => {
+const TorsoFilter = ({handleArrayUpdate}) => {
   const handleClick = () => {
-    console.log('Torso selector clicked')
-    // TODO: Implement functionality to filter outfits by belt
+
   }
 
   return (
-      <button onClick={handleClick()} className={'vault__filter__button'}>
+      <button onClick={() => handleArrayUpdate('Torso')} className={'vault__filter__button'}>
         <img
             src={'/assets/img/selectors/torso.svg'}
             alt={'Torso Selector'}
