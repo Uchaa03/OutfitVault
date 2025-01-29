@@ -13,35 +13,35 @@ const PromptPage = () => {
     setPrompt(event.target.value);
   };
 
-const handleRecommendOutfit = async () => {
-  try {
-    const recommendedOutfit = await recommendOutfit(prompt, token);
-    console.log(recommendedOutfit);
-    navigate('/outfit', { state: { outfit: recommendedOutfit } });
-  } catch (error) {
-    console.error('Error recommending outfit:', error);
-  }
-};
+  const handleRecommendOutfit = async () => {
+    try {
+      const recommendedOutfit = await recommendOutfit(prompt, token);
+      console.log(recommendedOutfit);
+      navigate('/outfit', { state: { outfit: recommendedOutfit.outfit } }); // Asegúrate de que 'clothIds' es un array de IDs
+    } catch (error) {
+      console.error('Error recommending outfit:', error);
+    }
+  };
 
   return (
     <section className='section__prompt'>
-        <section className='prompt'>
-          <h1>¿Alguna idea para hoy?</h1>
-          <form className='prompt__field' aria-label="Generar Outfit" onSubmit={(e) => e.preventDefault()}>
-            <textarea
-              id="idea-input"
-              type="text"
-              name="prompt"
-              className='prompt__input'
-              placeholder='Escribe aquí tu idea'
-              value={prompt}
-              onChange={handleInputChange}
-            />
-            <Button className='prompt__button' onClick={handleRecommendOutfit}>
-              Generar Outfit
-            </Button>
-          </form>
-        </section>
+      <section className='prompt'>
+        <h1>¿Alguna idea para hoy?</h1>
+        <form className='prompt__field' aria-label="Generar Outfit" onSubmit={(e) => e.preventDefault()}>
+          <textarea
+            id="idea-input"
+            type="text"
+            name="prompt"
+            className='prompt__input'
+            placeholder='Escribe aquí tu idea'
+            value={prompt}
+            onChange={handleInputChange}
+          />
+          <Button className='prompt__button' onClick={handleRecommendOutfit}>
+            Generar Outfit
+          </Button>
+        </form>
+      </section>
     </section>
   );
 };

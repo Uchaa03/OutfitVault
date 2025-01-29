@@ -14,6 +14,7 @@ import PromptPage from '../pages/PromptPage.jsx';
 import ProfilePage from "../pages/ProfilePage.jsx";
 import VaultPage from "../pages/VaultPage.jsx";
 import LoadingPage from '../pages/LoadingPage.jsx';
+import OutfitPage from '../pages/OutfitPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,13 @@ const router = createBrowserRouter([
           </PrivateRoute>
         )
       },
+      {
+        path: 'outfit',
+        element:
+        (
+          <OutfitPage />
+        )
+      }
     ]
   }
 ]);
