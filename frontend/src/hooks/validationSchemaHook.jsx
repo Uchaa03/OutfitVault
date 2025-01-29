@@ -25,7 +25,7 @@ export const usernameValidation = Yup.string()
     .max(9, "El usuario debe tener máximo 9 caracteres")
     .required("El Nombre de Usuario es obligatorio")
 
-export const passwordVerficationValidation = Yup.string()
+export const passwordVerificationValidation = Yup.string()
     .trim()
     .oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
     .required("Confirmar la contraseña es necesario")

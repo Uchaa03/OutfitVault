@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {useToken} from "../store/authStore.jsx";
 
 // Change to the URL of your API backend
 const apiBackend = process.env.VITE_API_BASE_URL;
@@ -11,13 +10,14 @@ export async function registerUser(username, email, password) {
         email: email,
         password: password
     };
-
+    console.log('Registering user', userData);
     try {
         const response = await axios.post(`${apiBackend}api/auth/register`, userData, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response, "Users registered")
         return response.data
     } catch (error) {
         if (error.response) {
