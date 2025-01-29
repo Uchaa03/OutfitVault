@@ -4,6 +4,9 @@ import ItemCardMini from '../components/Card/ItemCardMini.jsx';
 import ItemCard from '../components/Card/ItemCard.jsx';
 import { useToken } from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
+import LoadingPage from './LoadingPage.jsx';
+import FiltersContainer
+  from '../components/vault/FiltersMenu/FiltersContainer.jsx';
 
 const VaultPage = () => {
   const token = useToken();
@@ -11,6 +14,8 @@ const VaultPage = () => {
   const [selectedCloth, setSelectedCloth] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchCloths = async () => {
@@ -23,6 +28,10 @@ const VaultPage = () => {
         setCloths(response.data.cloths);
       } catch (error) {
         console.error('Error fetching cloths:', error);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     };
 
@@ -35,7 +44,7 @@ const VaultPage = () => {
 
   const handleCardClick = async (id) => {
     setIsTransitioning(true);
-    document.body.style.overflow = 'hidden'; // Bloquear el scroll
+    document.body.style.overflow = 'hidden';
     try {
       const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
         headers: {
@@ -45,9 +54,8 @@ const VaultPage = () => {
       setSelectedCloth(response.data.cloth);
       setAnimationClass('slide-in');
       setTimeout(() => {
-        setAnimationClass('float');
-        setIsTransitioning(false);
-      }, 1000); // Duración de la animación slide-in
+        // Is called when the animation ends
+      }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);
       setIsTransitioning(false);
@@ -61,8 +69,8 @@ const VaultPage = () => {
       setSelectedCloth(null);
       setAnimationClass('');
       setIsTransitioning(false);
-      document.body.style.overflow = 'auto'; // Desbloquear el scroll
-    }, 1000); // Duración de la animación slide-out
+      document.body.style.overflow = 'auto';
+    }, 1000);
   };
 
   const handleDeleteCloth = async (id) => {
@@ -74,22 +82,56 @@ const VaultPage = () => {
       });
       setSelectedCloth(null);
       setCloths(cloths.filter(cloth => cloth._id !== id));
-      document.body.style.overflow = 'auto'; // Desbloquear el scroll
+      document.body.style.overflow = 'auto';
     } catch (error) {
       console.error('Error deleting cloth:', error);
     }
   };
 
+  const handleFilterClick = () => {
+    setIsFilterOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const handleFilterClose = () => {
+    setIsFilterOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  const handleLoadingFinish = () => {
+    // This function is called when the loading animation finishes
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return (
+      <LoadingPage isVisible={isLoading} onFinish={handleLoadingFinish} />
+    );
+  }
+
   return (
     <section className="vault-page">
       <header className="vault-page__header">
         <h1>Selecciona la prenda para ver más</h1>
-        <Button className="vault-page__button" aria-label="Filtrar">Filtrar</Button>
+        <Button 
+          className="vault-page__button" 
+          aria-label="Filtrar"
+          onClick={handleFilterClick}
+        >
+          Filtrar
+        </Button>
       </header>
-      <main className={`vault-page__content ${selectedCloth ? 'hidden' : ''}`}>
+      <main className="vault-page__content">
         {cloths.map(cloth => (
-          <section key={cloth._id} className="vault-page__item" onClick={() => handleCardClick(cloth._id)}>
-            <ItemCardMini name={truncateName(cloth.name)} itemImage={cloth.imageUrl} />
+          <section 
+            key={cloth._id} 
+            className="vault-page__item" 
+            onClick={() => handleCardClick(cloth._id)}
+          >
+            <ItemCardMini 
+              name={truncateName(cloth.name)} 
+              itemImage={cloth.imageUrl} 
+            />
           </section>
         ))}
       </main>
@@ -108,22 +150,22 @@ const VaultPage = () => {
           />
         </div>
       )}
+      {isFilterOpen && (
+        <>
+          <div className="vault-page__filter-backdrop" onClick={handleFilterClose}></div>
+          <div className="vault-page__filter-panel">
+            <button 
+              className="vault-page__filter-close"
+              onClick={handleFilterClose}
+              aria-label="Cerrar filtros"
+            >
+            </button>
+            <FiltersContainer />
+          </div>
+        </>
+      )}
     </section>
   );
 };
-
-export default VaultPage;
-import VaultLayout from '../layouts/page_layouts/VaultLayout.jsx';
-import FiltersMenu from '../components/vault/FiltersMenu/FiltersMenu.jsx';
-
-
-const VaultPage = () => {
-  return (
-      <section className={'vault'}>
-        <VaultLayout />
-        <FiltersMenu />
-      </section>
-  )
-}
 
 export default VaultPage;

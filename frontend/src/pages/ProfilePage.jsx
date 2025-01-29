@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {getUser} from "../config/Auth.jsx";
 import {useToken} from "../store/authStore.jsx";
 import {useUserContext} from "../context/userContext.jsx";
+import LoadingPage from './LoadingPage.jsx'; 
 
 const ProfilePage = () => {
     const token = useToken()
@@ -20,7 +21,7 @@ const ProfilePage = () => {
     }, [token]);
 
     if (loading) {
-        return <p>Cargando...</p>;
+        return <LoadingPage isVisible={loading} onFinish={() => setLoading(false)} />;
     }
 
     return (
