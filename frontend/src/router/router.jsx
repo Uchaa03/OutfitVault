@@ -11,17 +11,8 @@ import ContactPage from '../pages/ContactPage.jsx'
 import PromptPage from '../pages/PromptPage.jsx'
 import ProfilePage from '../pages/ProfilePage.jsx'
 import VaultPage from '../pages/VaultPage.jsx'
-
-import ArmarioSection from '../pages/HomePage.jsx';
-import ErrorPage from '../pages/ErrorPage.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import RegisterPage from '../pages/RegisterPage.jsx';
-import UploadPage from '../pages/UploadPage.jsx';
-import ContactPage from "../pages/ContactPage.jsx";
-import PromptPage from '../pages/PromptPage.jsx';
-import ProfilePage from "../pages/ProfilePage.jsx";
-import VaultPage from "../pages/VaultPage.jsx";
 import LoadingPage from '../pages/LoadingPage.jsx';
+
 
 /**
  * Router configuration for the public and private routes in the application.

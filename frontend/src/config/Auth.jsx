@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {useToken} from "../store/authStore.jsx";
 
 // Change to the URL of your API backend
 const apiBackend = process.env.VITE_API_BASE_URL;

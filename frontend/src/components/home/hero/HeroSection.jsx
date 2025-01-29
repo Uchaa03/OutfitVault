@@ -1,3 +1,6 @@
+import {useNavigate} from 'react-router-dom';
+import Button from '../../button/button.jsx';
+
 /**
  * HeroSection component that renders a promotional section with a heading and a registration button.
  * When the button is clicked, it navigates the user to the registration page.

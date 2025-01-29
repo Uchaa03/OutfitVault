@@ -1,3 +1,5 @@
+import {useEffect} from 'react';
+
 /**
  * Process component that displays a section with a title, description, and images.
  * It uses an IntersectionObserver to animate elements when they become visible in the viewport.

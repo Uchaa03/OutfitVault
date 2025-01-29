@@ -1,3 +1,5 @@
+import Process from './Process.jsx';
+
 /**
  * ProcessSection component renders a collection of process steps.
  * Each process step is represented by a `Process` component with its associated title, description, image, and overlay.

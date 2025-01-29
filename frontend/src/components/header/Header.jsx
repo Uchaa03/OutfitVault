@@ -5,6 +5,7 @@ import ProfileButton from './buttons/ProfileButton.jsx'
 import LoginButton from './buttons/LoginButton.jsx'
 import HomeButton from './buttons/HomeButton.jsx'
 import VaultButton from './buttons/VaultButton.jsx'
+import {useUserContext} from '../../context/userContext.jsx';
 
 /**
  * Header component that renders the navigation bar with buttons and logo.

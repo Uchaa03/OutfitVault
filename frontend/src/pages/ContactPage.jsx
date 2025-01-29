@@ -1,8 +1,8 @@
 import React from 'react'
-import FormLayout from "../layouts/FormLayout.jsx";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { requestValidation, usernameValidation } from "../hooks/validationSchemaHook.jsx";
+import FormLayout from './FormLayout.jsx';
 
 /**
  * ContactPage Component

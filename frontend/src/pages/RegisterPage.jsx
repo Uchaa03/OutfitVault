@@ -1,4 +1,3 @@
-import FormLayout from "../layouts/FormLayout.jsx";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,6 +9,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
+import FormLayout from './FormLayout.jsx';
 
 /**
  * RegisterPage component for user registration.
