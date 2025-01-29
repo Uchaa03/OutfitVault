@@ -8,6 +8,13 @@ import LoadingPage from './LoadingPage.jsx';
 import FiltersContainer
   from '../components/vault/FiltersMenu/FiltersContainer.jsx';
 
+/**
+ * VaultPage component that displays a collection of cloth items.
+ * The user can view details of each cloth item, delete items, and apply filters.
+ *
+ * @component
+ * @returns {JSX.Element} The VaultPage component.
+ */
 const VaultPage = () => {
   const token = useToken();
   const [cloths, setCloths] = useState([]);
@@ -17,6 +24,13 @@ const VaultPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Fetches the list of cloth items from the server when the component is mounted.
+   * Updates the state with the fetched cloth items.
+   *
+   * @async
+   * @returns {Promise<void>} Resolves when the data is fetched.
+   */
   useEffect(() => {
     const fetchCloths = async () => {
       try {
@@ -34,14 +48,27 @@ const VaultPage = () => {
         }, 1000);
       }
     };
-
     fetchCloths();
   }, [token]);
 
+  /**
+   * Truncates the cloth name to a maximum length of 12 characters, adding an ellipsis if necessary.
+   *
+   * @param {string} name - The name of the cloth to be truncated.
+   * @returns {string} The truncated cloth name.
+   */
   const truncateName = (name) => {
     return name.length > 12 ? name.substring(0, 14) + '...' : name;
   };
 
+  /**
+   * Handles the click on a cloth item to fetch and display its details.
+   * Triggers a transition animation while loading the details.
+   *
+   * @async
+   * @param {string} id - The unique identifier of the selected cloth.
+   * @returns {Promise<void>} Resolves when the selected cloth's details are fetched.
+   */
   const handleCardClick = async (id) => {
     setIsTransitioning(true);
     document.body.style.overflow = 'hidden';
@@ -62,6 +89,10 @@ const VaultPage = () => {
     }
   };
 
+  /**
+   * Handles the closing of the selected cloth details panel.
+   * Triggers a transition animation to hide the details and restores the page overflow.
+   */
   const handleCloseClick = () => {
     setAnimationClass('slide-out');
     setIsTransitioning(true);
@@ -73,6 +104,14 @@ const VaultPage = () => {
     }, 1000);
   };
 
+  /**
+   * Handles the deletion of a cloth item from the vault.
+   * Triggers an API request to delete the cloth and updates the state to remove it from the UI.
+   *
+   * @async
+   * @param {string} id - The unique identifier of the cloth to be deleted.
+   * @returns {Promise<void>} Resolves when the cloth is deleted.
+   */
   const handleDeleteCloth = async (id) => {
     try {
       await axios.delete(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
@@ -88,11 +127,17 @@ const VaultPage = () => {
     }
   };
 
+  /**
+   * Opens the filter panel to allow the user to filter cloth items.
+   */
   const handleFilterClick = () => {
     setIsFilterOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
+  /**
+   * Closes the filter panel.
+   */
   const handleFilterClose = () => {
     setIsFilterOpen(false);
     document.body.style.overflow = 'auto';
@@ -113,8 +158,8 @@ const VaultPage = () => {
     <section className="vault-page">
       <header className="vault-page__header">
         <h1>Selecciona la prenda para ver más</h1>
-        <Button 
-          className="vault-page__button" 
+        <Button
+          className="vault-page__button"
           aria-label="Filtrar"
           onClick={handleFilterClick}
         >
@@ -154,7 +199,7 @@ const VaultPage = () => {
         <>
           <div className="vault-page__filter-backdrop" onClick={handleFilterClose}></div>
           <div className="vault-page__filter-panel">
-            <button 
+            <button
               className="vault-page__filter-close"
               onClick={handleFilterClose}
               aria-label="Cerrar filtros"

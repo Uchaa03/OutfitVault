@@ -4,7 +4,7 @@ import { useUserContext } from "../context/userContext";
 /**
  * PrivateRoute component that restricts access to authenticated users.
  * @component
- * @param {Object} props - The props object.
+ * @param {Object} props - The prop object.
  * @param {React.ReactNode} props.children - The children components that will be rendered if the user is authenticated.
  * @returns {JSX.Element} The PrivateRoute component.
  */

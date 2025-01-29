@@ -1,37 +1,46 @@
-import React from 'react'
-import { useUserContext } from '../../context/userContext';
-import HomeButton from '../header/buttons/HomeButton.jsx';
-import AddOutfitButton from '../header/buttons/AddOutfitButton.jsx';
-import HeaderLogo from '../header/logo/HeaderLogo.jsx';
-import OutfitsButton from '../header/buttons/OutfitsButton.jsx';
-import LoginButton from '../header/buttons/LoginButton.jsx';
-import ProfileButton from '../header/buttons/ProfileButton.jsx';
-import VaultButton from '../header/buttons/VaultButton.jsx';
+import AddOutfitButton from './buttons/AddOutfitButton.jsx'
+import HeaderLogo from './logo/HeaderLogo.jsx'
+import OutfitsButton from './buttons/OutfitsButton.jsx'
+import ProfileButton from './buttons/ProfileButton.jsx'
+import LoginButton from './buttons/LoginButton.jsx'
+import HomeButton from './buttons/HomeButton.jsx'
+import VaultButton from './buttons/VaultButton.jsx'
 
+/**
+ * Header component that renders the navigation bar with buttons and logo.
+ * It displays different buttons depending on whether the user is logged in.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <Header />
+ *
+ * @returns {JSX.Element} The rendered header with navigation buttons and logo.
+ */
 const Header = () => {
-    const { user } = useUserContext(); // Get the user state from the global context
+  const { user } = useUserContext(); // Get the user state from the global context
 
-    return (
-      <header className="header">
-        <ul className="header__list">
-          <li className="list__item">
-            {user ? <VaultButton /> : <HomeButton />}
-          </li>
-          <li className="list__item">
-            <AddOutfitButton />
-          </li>
-          <li className="list__item">
-            <HeaderLogo />
-          </li>
-          <li className="list__item">
-            <OutfitsButton />
-          </li>
-          <li className="list__item">
-            {user ? <ProfileButton /> : <LoginButton />}
-          </li>
-        </ul>
-      </header>
-    );
-  }
+  return (
+    <header className="header">
+      <ul className="header__list">
+        <li className="list__item">
+          {user ? <VaultButton /> : <HomeButton />}
+        </li>
+        <li className="list__item">
+          <AddOutfitButton />
+        </li>
+        <li className="list__item">
+          <HeaderLogo />
+        </li>
+        <li className="list__item">
+          <OutfitsButton />
+        </li>
+        <li className="list__item">
+          {user ? <ProfileButton /> : <LoginButton />}
+        </li>
+      </ul>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
