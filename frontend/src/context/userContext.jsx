@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
     const timeExpiration = useTimeExpiration();
     const setTimeExpiration = useSetTimeExpiration();
     const clearTimeExpiration = useClearTimeExpiration();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (token && timeExpiration) { //Save data in local storage
@@ -73,7 +72,6 @@ export const UserProvider = ({ children }) => {
         localStorage.removeItem("authToken")
         localStorage.removeItem("timeExpiration")
         localStorage.removeItem("username")
-        navigate("/")
     };
 
     return (

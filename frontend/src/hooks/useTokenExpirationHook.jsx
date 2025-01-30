@@ -20,18 +20,17 @@ const useTokenExpirationHook = () => {
         //Wait for 1 min for set Warning message
         const timeout = setTimeout(() => {
             setShowWarning(true) // Show Warning of expiration
-
             // If user don't do it anything close session
             const logoutTimeout = setTimeout(() => {
                 console.log("Tu sesión ha expirado. Cerrando sesión...")
                 logout()
-            }, 60000)
-7
+            }, expirationTime - 60000)
+
             return () => {
                 clearTimeout(logoutTimeout)
                 setShowWarning(false)
             }
-        }, expirationTime - 60000)
+        },  60000)
 
         return () => clearTimeout(timeout)
 
