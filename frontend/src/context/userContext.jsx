@@ -8,6 +8,7 @@ import {
     useClearUser,
     useTimeExpiration, useSetTimeExpiration, useClearTimeExpiration
 } from "../store/authStore.jsx";
+import {useNavigate} from "react-router-dom";
 
 const UserContext = createContext();
 
@@ -41,7 +42,6 @@ export const UserProvider = ({ children }) => {
         if (storedToken && storedTimeExpiration && storedUsername) {
             //Convert data to js
             const expirationDate = new Date(storedTimeExpiration);
-
             // Restore session
             setToken(storedToken);
             setTimeExpiration(expirationDate);
@@ -61,6 +61,7 @@ export const UserProvider = ({ children }) => {
         setToken(newToken);
         setUser(userData);
         setTimeExpiration(dateExpiration);
+
     };
 
     const logout = () => {
