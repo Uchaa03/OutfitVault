@@ -13,26 +13,66 @@
   background-repeat: no-repeat
   background-size: contain
   padding: 8em 7em
+  @media (max-width: 768px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 64%
+    height: auto
+    padding: 8em 6em
+  @media (max-width: 680px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 64%
+    height: auto
+    padding: 8em 5em
+  @media (max-width: 635px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 80%
+    height: auto
+    padding: 8em 5em
+  @media (max-width: 485px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 85%
+    height: auto
+    padding: 8em 4em
+  @media (max-width: 440px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 95%
+    height: auto
+    padding: 8em 3em
+  @media (max-width: 405px)
+    background-image: url("/assets/img/boxFormsLightMobile.svg")
+    width: 100%
+    height: auto
+    padding: 8em 3em
 
 .section__header
   width: 100%
   display: flex
   justify-content: space-between
+  align-items: center 
+  @media (max-width: 768px)
+    flex-direction: column
+    gap: 1em
 
 .header__title
   font-size: 4rem
   font-family: "Jersey 15", serif
-  text-align: left
+  @media (max-width: 768px)
+    font-size: 3rem
 
 .section__form
   display: flex
   justify-content: space-between
   margin-top: 1em
   min-height: 65%
+  @media (max-width: 768px)
+    flex-direction: column
+    position: relative
 
 .form__img
   width: 25%
-
+  @media (max-width: 768px)
+    display: none
+    
 .form__fieldset
   width: 75%
   display: flex
@@ -40,7 +80,10 @@
   align-items: flex-end
   justify-content: center
   border: none
-
+  @media (max-width: 768px)
+    width: 100%
+    order: 1
+    align-items: center
 
 .fieldset__label
   width: 80%
@@ -48,6 +91,8 @@
   font-weight: 700
   text-align: left
   font-family: 'Handjet', serif
+  @media (max-width: 768px)
+    width: 100%
 
 .fieldset__input
   width: 80%
@@ -59,9 +104,10 @@
   padding-left: 0.5em
   margin-bottom: 0.5em
   box-shadow: 8px 8px 0.3px 0 #141414
+  @media (max-width: 768px)
+    width: 100%
   &:focus
     outline: none
-
 
 .fieldset__textarea
   width: 80%
@@ -75,9 +121,15 @@
   margin-bottom: 0.5em
   box-shadow: 8px 8px 0.3px 0 #141414
   resize: none
+  @media (max-width: 768px)
+    width: 100%
   &:focus
     outline: none
 
-
 .form__button
   position: absolute
+  @media (max-width: 768px)
+    position: relative
+    order: 2
+    margin: 1em 0
+    align-self: center

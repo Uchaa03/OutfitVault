@@ -15,26 +15,27 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
 
 // FooterLayout
 .footer
-  width: 100%
-  height: 100px
-  background-color: $secondary-color
-  border-top: 5px solid $primary-color
-  background-color: $secondary-color
-  display: flex
-  justify-content: space-between
-  align-items: center
-
-  &__terms-and-conditions
-    max-width: 25em
-    margin: 1em
-
-  &__contact
-    margin: 1em
+    width: 100%
+    min-height: 100px
+    background-color: $secondary-color
+    border-top: 5px solid $primary-color
+    display: flex
+    justify-content: space-between
     align-items: center
-    width: 50%
-    height: 70%
+    padding: 1rem 2rem
 
-  p
-    font-family: 'Handjet', serif
-    font-weight: 400
-    font-size: 1.5rem
+    &__terms-and-conditions
+        max-width: 25em
+        margin: 0
+        font-family: 'Handjet', serif
+        font-weight: 400
+        font-size: 1.5rem
+
+    &__button
+        margin: 0
+
+    @media screen and (max-width: 768px)
+        padding: 1rem
+        
+        &__terms-and-conditions
+            font-size: 1.2rem
