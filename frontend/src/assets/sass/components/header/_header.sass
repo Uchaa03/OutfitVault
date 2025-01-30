@@ -1,5 +1,6 @@
 // Variables
 @use 'src/assets/sass/utilities/variables.sass' as *
+@use '../buttons/button' as * // Importar mixins de _button.sass
 
 $card-border: "/public/assets/img/card-border.svg"
 $background-texture: "/public/assets/img/background_texture.png"
@@ -13,27 +14,81 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
   align-items: center
 
 // HeaderLayout
-.header 
+.header
   width: 100%
   height: 100px
   position: sticky
-  top: 0 
+  top: 0
   @include flex-center(row)
   background-color: $secondary-color
   border-bottom: 5px solid $primary-color
-  z-index: 1000 
+  z-index: 1000
+
+  &__container
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 20%
+    padding: 0 2rem
+    margin-left: 2rem
+
+
+  &__menu-button
+    display: none
+    background: none
+    border: none
+    font-size: 2rem
+    color: $primary-color
+    cursor: pointer
 
   &__list
     display: flex
     list-style: none
     padding: 0
-    margin: 0
+    margin-right: 2rem
     width: 80%
     justify-content: space-between
 
     .list__item
       display: flex
       align-items: center
+
+  &__list--mobile
+    display: none
+    flex-direction: column
+    width: 100%
+    background-color: #f9f9f9
+    position: absolute
+    top: 80px // Alinear justo debajo del header
+    left: 0
+    padding: 0 // Eliminado el padding vertical
+
+    .list__item
+      margin: 0 // Eliminado el margen para que los items estén pegados
+      text-align: center
+      border: 1px solid #000 // Borde negro
+      padding: 0.5rem 1rem // Padding interno
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
+
+      &:hover,
+      &:focus
+        background-color: #e0e0e0 // Fondo gris al hacer hover
+        color: #363636 // Cambio de color al hacer hover
+
+      .button__icon
+        margin-right: 0.5rem
+
+      span
+        font-family: 'Jersey 15', serif
+        font-weight: bold
+        font-size: 3rem
+        color: $primary-color
+        position: relative
+        z-index: 1
 
   &__button
     display: flex
@@ -45,23 +100,9 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     cursor: pointer
     text-decoration: none
     color: $primary-color
-    padding: 0.5rem 1rem // Añade relleno
-    position: relative // Necesario para los pseudo-elementos
-    transition: color 0.2s ease-in // Añade transición para el color
-
-    &__button
-    display: flex
-    flex-direction: row
-    height: auto
-    width: auto
-    gap: 0.25em
-    align-items: center
-    cursor: pointer
-    text-decoration: none
-    color: $primary-color
-    padding: 0.5rem 1rem // Añade relleno
-    position: relative // Necesario para los pseudo-elementos
-    transition: color 0.2s ease-in // Añade transición para el color
+    padding: 0.5rem 1rem
+    position: relative
+    transition: color 0.2s ease-in
 
     &::before,
     &::after
@@ -75,7 +116,7 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
       clip-path: polygon(0px calc(100% - 12px), 3px calc(100% - 12px), 3px calc(100% - 6px), 6px calc(100% - 6px), 6px calc(100% - 3px), 12px calc(100% - 3px), 12px 100%, calc(100% - 12px) 100%, calc(100% - 12px) calc(100% - 3px), calc(100% - 6px) calc(100% - 3px), calc(100% - 6px) calc(100% - 6px), calc(100% - 3px) calc(100% - 6px), calc(100% - 3px) calc(100% - 12px), 100% calc(100% - 12px), 100% 12px, calc(100% - 3px) 12px, calc(100% - 3px) 6px, calc(100% - 6px) 6px, calc(100% - 6px) 3px, calc(100% - 12px) 3px, calc(100% - 12px) 0px, 12px 0px, 12px 3px, 6px 3px, 6px 6px, 3px 6px, 3px 12px, 0px 12px)
       transform: scale(0)
       transition: transform 0.3s ease-in-out
-      z-index: -1 // Asegúrate de que los pseudo-elementos estén detrás del contenido
+      z-index: -1
 
     &:hover::before,
     &:hover::after,
@@ -91,10 +132,9 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     &:hover .button__icon,
     &:focus .button__icon,
     &:active .button__icon
-      color: #363636 // Cambia el color del texto y el icono al hacer hover
-      transform: scale(1.1) // Aumenta ligeramente el tamaño del texto y el icono
-      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out // Añade transición para el color y la transformación
-
+      color: #363636
+      transform: scale(1.1)
+      transition: color 0.3s ease-in-out, transform 0.3s ease-in-out
 
     .button__icon
       margin-right: 0.5rem
@@ -104,11 +144,71 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
       font-weight: bold
       font-size: 3rem
       color: $primary-color
-      position: relative // Asegúrate de que el texto esté por encima de los pseudo-elementos
-      z-index: 1 // Asegúrate de que el texto esté por encima de los pseudo-elementos
-
-
+      position: relative
+      z-index: 1
 
   &__logo
-    width: 100%
-    height: auto  
+    width: 150px // Reducir ancho del logo en escritorio
+    height: auto
+
+@media (max-width: 980px)
+  .header
+    @include flex-center(row) // Mantener dirección de fila en móvil
+    height: 80px // Ajustar altura si es necesario
+    padding: 0 1rem // Ajustar padding para móviles
+
+    &__container
+      margin-left: 0
+      width: 100% // Ocupa todo el ancho en móvil
+      padding: 0 1rem // Ajustar padding interno
+
+    &__menu-button
+      display: block // Mostrar el botón de menú en móvil
+      @include button-styles(7em, 2em, 1.8em, 0em, 0em, 1.8rem, contain, 0.5em, 0.3em, 0em, 0em)
+
+    &__list
+      display: none // Ocultar la lista principal en móvil
+
+    &__list--mobile
+      display: flex
+      flex-direction: column
+      width: 100%
+      background-color: #f9f9f9
+      position: absolute
+      top: 80px // Alinear justo debajo del header
+      left: 0
+      padding: 0 // Eliminado el padding vertical
+
+      .list__item
+        margin: 0 // Eliminado el margen para que los items estén pegados
+        text-align: center
+        border: 1px solid #000 // Añadir borde negro
+        padding: 0.5rem 1rem // Añadir padding interno
+        display: flex
+        justify-content: center
+        align-items: center
+        cursor: pointer
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
+
+        &:hover,
+        &:focus
+          background-color: #e0e0e0 // Fondo gris al hacer hover
+          color: #363636 // Cambio de color al hacer hover
+
+        .button__icon
+          margin-right: 0.5rem
+
+        span
+          font-family: 'Jersey 15', serif
+          font-weight: bold
+          font-size: 3rem
+          color: $primary-color
+          position: relative
+          z-index: 1
+
+    &__logo
+      margin-right: 0
+      width: 120px // Tamaño ajustado para dispositivos móviles
+
+    &__list--mobile
+      padding: 0 // Eliminado el padding vertical

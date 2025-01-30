@@ -1,28 +1,77 @@
-// Variables
-@use 'src/assets/sass/utilities/variables.sass' as *
+// Breakpoints
+$mobile: 480px
+$tablet: 768px
+$desktop: 1024px
+$large-desktop: 1200px
 
-$card-border: "/public/assets/img/card-border.svg"
-$background-texture: "/public/assets/img/background_texture.png"
-$why-use-card: "/public/assets/img/why_use-card.svg"
+// Animation
+@keyframes fadeInUp 
+  0% 
+    opacity: 0
+    transform: translateY(20px)
+  
+  100% 
+    opacity: 1
+    transform: translateY(0)
 
-// Mixins
-@mixin flex-center($direction: row)
-  display: flex
-  flex-direction: $direction
-  justify-content: space-around
-  align-items: center
-
-// Hero
+// Base styles (mobile-first)
 .hero
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
-  padding-bottom: 12rem
-
+  padding: 4rem 1rem 6rem
+  animation: fadeInUp 0.8s ease forwards
+  width: 100%
+  
   h2
     font-family: 'Jersey 25'
-    width: 50%
-    padding-top: 8rem
-    font-size: 4rem
+    width: 90%
+    padding-top: 4rem
+    font-size: 2.5rem
+    text-align: center
+    line-height: 1.2
+  
+  p
+    font-family: 'Handjet'
+    width: 90%
+    font-size: 1.5rem
+    padding-top: 1.5rem
+    text-align: center
+
+  // Tablet styles
+  @media (min-width: $tablet)
+    padding: 6rem 2rem 8rem
     
+    h2
+      width: 70%
+      font-size: 3rem
+      padding-top: 6rem
+    
+    p
+      width: 70%
+      font-size: 1.8rem
+
+  // Desktop styles
+  @media (min-width: $desktop)
+    padding-bottom: 12rem
+    
+    h2
+      width: 50%
+      font-size: 4rem
+      padding-top: 8rem
+    
+    p
+      width: 50%
+      font-size: 2rem
+      padding-top: 2rem
+
+  // Large desktop styles
+  @media (min-width: $large-desktop)
+    h2
+      width: 40%
+      font-size: 4.5rem
+    
+    p
+      width: 40%
+      font-size: 2.2rem

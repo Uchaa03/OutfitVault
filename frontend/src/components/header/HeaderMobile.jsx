@@ -7,8 +7,9 @@ import OutfitsButton from '../header/buttons/OutfitsButton.jsx';
 import LoginButton from '../header/buttons/LoginButton.jsx';
 import ProfileButton from '../header/buttons/ProfileButton.jsx';
 import VaultButton from '../header/buttons/VaultButton.jsx';
+import Button from '../button/button.jsx';
 
-const Header = () => {
+const HeaderMobile = () => {
     const { user } = useUserContext();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -16,44 +17,26 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
-
     return (
-        <header className="header">
+        <header className="header header--mobile">
             <div className="header__container">
                 <HeaderLogo />
-                <button className="header__menu-button" onClick={toggleMenu}>
+                <Button className="header__menu-button" onClick={toggleMenu}>
                     Menu
-                </button>
+                </Button>
             </div>
-            <ul className="header__list">
-                <li className="list__item">
-                    {user ? <VaultButton /> : <HomeButton />}
-                </li>
-                <li className="list__item">
-                    <AddOutfitButton />
-                </li>
-                <li className="list__item">
-                    <OutfitsButton />
-                </li>
-                <li className="list__item">
-                    {user ? <ProfileButton /> : <LoginButton />}
-                </li>
-            </ul>
             {isMenuOpen && (
                 <ul className="header__list header__list--mobile">
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className="list__item">
                         {user ? <VaultButton /> : <HomeButton />}
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className="list__item">
                         <AddOutfitButton />
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className="list__item">
                         <OutfitsButton />
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className="list__item">
                         {user ? <ProfileButton /> : <LoginButton />}
                     </li>
                 </ul>
@@ -62,4 +45,4 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default HeaderMobile;

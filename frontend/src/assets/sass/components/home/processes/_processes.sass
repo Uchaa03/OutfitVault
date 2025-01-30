@@ -26,7 +26,7 @@
   0%, 100%
     transform: translateY(0)
   50%
-    transform: translateY(-10px) // Ajusta la cantidad de movimiento hacia arriba
+    transform: translateY(-10px) 
 
 // Processes
 .processes 
@@ -52,23 +52,27 @@
       padding-right: 0rem
       text-align: left
 
+      .process__button
+        margin-top: 2rem
+        align-self: flex-start
+
       h2
         font-family: 'Jersey 25'
         font-size: 6rem
-        margin: 0 // Ensure no margin to align with p
+        margin: 0 
 
       p
         font-family: 'Handjet', serif
         font-weight: 400
         font-size: 2rem
-        margin: 0 // Ensure no margin to align with h2
+        margin: 0 
         width: 70%
 
     .process__photo-container
       position: relative
       width: 50rem
       height: 35rem
-      animation: float 2s steps(2) infinite // Aplica la animación con pasos discretos
+      animation: float 2s steps(2) infinite
 
     .process__photo 
       width: 100%
@@ -81,7 +85,7 @@
       transform: translate(-50%, -50%)
       max-width: 50%
       max-height: 50%
-      pointer-events: none // Ensure the overlay image does not interfere with interactions
+      pointer-events: none
 
     &--reverse .process__text
       text-align: right
@@ -90,6 +94,9 @@
       
       p
         width: 100%
+
+      .process__button
+        align-self: flex-end
   
     &--reverse .process__photo-container
       padding-right: 9rem
