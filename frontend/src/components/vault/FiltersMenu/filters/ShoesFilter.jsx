@@ -1,21 +1,12 @@
 import { useState } from 'react'
 
-const ShoesFilter = ({}) => {
+const ShoesFilter = ({handleArrayUpdate}) => {
   const filterName = 'Zapatos';
   const [isSelected, setIsSelected] = useState(false);
 
-  const handleFilterClick = (filterName) => {
-    setFilters((prevArray) => {
-      // Add the filter name if not already present
-      return prevArray.includes(filterName)
-        ? prevArray.filter(item => item !== filterName)
-        : [...prevArray, filterName];
-    });
-  };
-
   const handleClick = () => {
     setIsSelected(!isSelected);
-    handleFilterClick(filterName);
+    handleArrayUpdate(filterName);
   }
 
   return (
@@ -26,7 +17,7 @@ const ShoesFilter = ({}) => {
         className={`vault-page__filters__selector${isSelected ? '__selected' : ''}`}
       >
         <img
-          src={'/assets/img/selectors/Zapatos-filter.svg'}
+          src={'/assets/img/selectors/shoes.svg'}
           alt={'Shoes Selector'}
           className={`vault-page__filters__img`}
         />

@@ -1,23 +1,12 @@
 import { useState } from 'react'
-import useClothesStore from '../../../../store/clothesStore.jsx'
 
-const TorsoFilter = ({}) => {
+const TorsoFilter = ({handleArrayUpdate}) => {
   const filterName = 'Torso';
   const [isSelected, setIsSelected] = useState(false);
-  const {setFilters} = useClothesStore();
-
-  const handleFilterClick = (filterName) => {
-    setFilters((prevArray) => {
-      // Add the filter name if not already present
-      return prevArray.includes(filterName)
-        ? prevArray.filter(item => item !== filterName)
-        : [...prevArray, filterName];
-    });
-  };
 
   const handleClick = () => {
     setIsSelected(!isSelected);
-    handleFilterClick(filterName);
+    handleArrayUpdate(filterName);
   }
 
   return (
@@ -28,7 +17,7 @@ const TorsoFilter = ({}) => {
         className={`vault-page__filters__selector${isSelected ? '__selected' : ''}`}
       >
         <img
-          src={'/assets/img/selectors/Torso-filter.svg'}
+          src={'/assets/img/selectors/torso.svg'}
           alt={'Torso Selector'}
           className={`vault-page__filters__img`}
         />
