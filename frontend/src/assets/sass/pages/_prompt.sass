@@ -10,6 +10,12 @@ $color-input-text: #F5F5F5 // Define el color del texto del input
     font-weight: bold
     font-size: 4rem
     margin-top: 4rem
+    @media (max-width: 768px)
+      font-size: 3rem
+      text-align: center
+    @media (max-width: 480px)
+      font-size: 2.5rem
+      margin-top: 2rem
 
   .prompt__field
     margin-top: 2rem
@@ -24,9 +30,15 @@ $color-input-text: #F5F5F5 // Define el color del texto del input
     align-items: center 
     justify-content: center 
     padding-top: 0.5rem
+    @media (max-width: 768px)
+      height: 18em
+      margin: 2rem 1rem
+    @media (max-width: 675px)
+      height: 42em
+      background-image: url(../assets/img/prompt_bg_mobile.svg)
 
   .prompt__input
-    width: 30% 
+    width: 35%
     height: 50%
     border: none
     padding: 1rem
@@ -36,21 +48,34 @@ $color-input-text: #F5F5F5 // Define el color del texto del input
     clip-path: polygon(0px calc(100% - 8px), 2px calc(100% - 8px), 2px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 2px), 8px calc(100% - 2px), 8px 100%, calc(100% - 8px) 100%, calc(100% - 8px) calc(100% - 2px), calc(100% - 4px) calc(100% - 2px), calc(100% - 4px) calc(100% - 4px), calc(100% - 2px) calc(100% - 4px), calc(100% - 2px) calc(100% - 8px), 100% calc(100% - 8px), 100% 8px, calc(100% - 2px) 8px, calc(100% - 2px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 2px, calc(100% - 8px) 2px, calc(100% - 8px) 0px, 8px 0px, 8px 2px, 4px 2px, 4px 4px, 2px 4px, 2px 8px, 0px 8px)
     background-color: $color-bg-input
     resize: none
-
-    &:focus
-      outline: none 
-      border: 5px solid 
-      
+    @media (max-width: 1500px)
+      width: 45%
+      font-size: 2rem
+    @media (max-width: 1100px)
+      width: 60%
+      font-size: 1.8rem
+    @media (max-width: 1000px)
+      width: 70%
+      font-size: 1.8rem
+    @media (max-width: 675px)
+      width: 49%
+      height: 70%
+    @media (max-width: 520px)
+      width: 60%
+      font-size: 1.5rem
 
   .prompt__input::placeholder
     color: $color-input-text
     font-family: 'Handjet', serif
     font-size: 2rem
+    @media (max-width: 768px)
+      font-size: 1.8rem
+    @media (max-width: 480px)
+      font-size: 1.5rem
 
   .prompt__button
     margin-top: 1rem
-  
-  
-
+    @media (max-width: 480px)
+      margin-top: 0.5rem
     
     
