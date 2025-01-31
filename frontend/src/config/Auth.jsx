@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {useToken} from "../store/authStore.jsx";
 
 // Change to the URL of your API backend
 const apiBackend = process.env.VITE_API_BASE_URL;
@@ -79,6 +78,27 @@ export async function renewToken(token) {
     } catch (error) {
         if (error.response) {
             console.error('Error al renovar el token:', error.response.data.message);
+        } else {
+            console.error('Error en la solicitud:', error.message);
+        }
+    }
+}
+
+export async function updateUsername(newUsername, token) {
+    try {
+        console.log(token)
+        const response = await axios.put(`${apiBackend}api/auth/change-username`,{ newUsername }, {
+
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+
+            },
+        });
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            console.error('Error al registrar usuario:', error.response.data.message);
         } else {
             console.error('Error en la solicitud:', error.message);
         }
