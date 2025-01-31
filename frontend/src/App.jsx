@@ -5,9 +5,8 @@
  */
 
 import './assets/sass/main.sass';
-import { RouterProvider } from 'react-router-dom';
-import router from './router/router.jsx';
 import { UserProvider } from './context/userContext.jsx';
+import AppContent from "./components/AppContent.jsx";
 
 /**
  * The main entry point of the application that sets up the routing and context.
@@ -20,13 +19,12 @@ import { UserProvider } from './context/userContext.jsx';
  * @returns {JSX.Element} The rendered application component with routing and context.
  */
 function App() {
-  return (
-    <UserProvider>
-      <div className="app-container">
-        <RouterProvider router={router} />
-      </div>
-    </UserProvider>
-  );
+    return (
+        <UserProvider>
+
+            <AppContent />
+        </UserProvider>
+    );
 }
 
 export default App;

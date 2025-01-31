@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/button/button.jsx';
 import { recommendOutfit } from '../config/Recommend-outfit.jsx';
 import { useToken } from '../store/authStore.jsx';
+import LoadingPage from './LoadingPage.jsx';
 
 /**
  * PromptPage Component
@@ -16,6 +17,7 @@ import { useToken } from '../store/authStore.jsx';
  */
 const PromptPage = () => {
   const [prompt, setPrompt] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const token = useToken();
   const navigate = useNavigate();
 
@@ -32,22 +34,21 @@ const PromptPage = () => {
    * Upon successful recommendation, the user is navigated to the outfit page.
    */
   const handleRecommendOutfit = async () => {
-    if (!prompt.trim()) {
-      console.log('Please enter a prompt');
-      return;
-    }
-
-    setLoading(true); // Set loading state to true
+    setIsLoading(true);
     try {
       const recommendedOutfit = await recommendOutfit(prompt, token);
       console.log(recommendedOutfit);
-      navigate('/outfit', { state: { outfit: recommendedOutfit.outfit } }); // Asegúrate de que 'clothIds' es un array de IDs
+      navigate('/outfit', { state: { outfit: recommendedOutfit.outfit } });
     } catch (error) {
       console.error('Error recommending outfit:', error);
     } finally {
-      setLoading(false); // Reset loading state after operation
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage isVisible={isLoading} onFinish={() => setIsLoading(false)} />;
+  }
 
   return (
     <section className='section__prompt'>

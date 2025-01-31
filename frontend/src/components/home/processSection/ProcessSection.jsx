@@ -22,6 +22,7 @@ const ProcessSection = () => {
       overlayImage: "/assets/img/process_photo_upload.svg",
       overlayAlt: "Icono de subir foto",
       reverse: false,
+      buttonText: "Agrega"
     },
     {
       title: "HAZ TU VAULT",
@@ -31,6 +32,7 @@ const ProcessSection = () => {
       overlayAlt: "Icono de una persona organizando algo",
       alt: "Armario",
       reverse: true,
+      buttonText: "Vault"
     },
     {
       title: "CREA TUS OUTFITS",
@@ -40,6 +42,7 @@ const ProcessSection = () => {
       overlayAlt: "Icono de varios cuadrados con un simbolo de mas",
       alt: "Outfit",
       reverse: false,
+      buttonText: "Generar"
     },
   ];
 
@@ -55,6 +58,7 @@ const ProcessSection = () => {
           overlayImage={process.overlayImage}
           overlayAlt={process.overlayAlt}
           reverse={process.reverse}
+          buttonText={process.buttonText}
         />
       ))}
     </section>

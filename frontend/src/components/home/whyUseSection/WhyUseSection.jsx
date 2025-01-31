@@ -1,30 +1,20 @@
-import WhyUseCard from './WhyUseCard.jsx'
+import React from "react";
+import WhyUseDropdown from './WhyUseDropdown.jsx';
 
-/**
- * WhyUseSection component displays a section highlighting the benefits of using OutfitVault.
- * It maps through a list of reasons and renders a `WhyUseCard` for each one.
- *
- * @component
- * @example
- * // Usage example:
- * <WhyUseSection />
- *
- * @returns {JSX.Element} The rendered section displaying the benefits of using OutfitVault.
- */
 const WhyUseSection = () => {
   const reasons = [
     {
-      title: "ORGANIZACIÓN TOTAL",
+      title: "Organización total",
       description:
         "Toma fotos de tu ropa desde cualquier dispositivo y súbelas fácilmente al sistema. Digitaliza tu home en minutos y ten todas tus prendas al alcance de un clic.",
     },
     {
-      title: "AHORRA TIEMPO",
+      title: "Ahorra tiempo",
       description:
         "Clasifica tu ropa en categorías como camisetas, pantalones, vestidos y más. Mantén todo ordenado de manera virtual para que encontrar lo que necesitas sea rápido y sencillo.",
     },
     {
-      title: "ESTILO SIEMPRE IMPECABLE",
+      title: "Estilo siempre impecable",
       description:
         "Combina tus prendas favoritas y descubre nuevas ideas para armar el look perfecto. Personaliza tus combinaciones para cada ocasión y ten siempre a mano el outfit ideal.",
     },
@@ -32,10 +22,10 @@ const WhyUseSection = () => {
 
   return (
     <section className="whyuse">
-      <h2>¿POR QUÉ USAR OUTFITVAULT?</h2>
-      <div className="whyuse__cards">
+      <h2 className="whyuse__title">¿POR QUÉ USAR OUTFITVAULT?</h2>
+      <div className="whyuse__dropdown">
         {reasons.map((reason, index) => (
-          <WhyUseCard
+          <WhyUseDropdown
             key={index}
             title={reason.title}
             description={reason.description}

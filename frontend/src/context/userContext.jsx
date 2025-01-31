@@ -60,7 +60,6 @@ export const UserProvider = ({ children }) => {
 
         if (storedToken && storedTimeExpiration && storedUsername) {
             const expirationDate = new Date(storedTimeExpiration);
-
             // Restore session
             setToken(storedToken);
             setTimeExpiration(expirationDate);
@@ -86,6 +85,7 @@ export const UserProvider = ({ children }) => {
         setToken(newToken);
         setUser(userData);
         setTimeExpiration(dateExpiration);
+
     };
 
     /**

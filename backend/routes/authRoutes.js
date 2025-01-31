@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, changeUsername, getUserDetails } from '../controllers/authController.js';
+import {register, login, changeUsername, getUserDetails, refreshToken} from '../controllers/authController.js';
 import { protect } from '../middleware/protect.js';
 
 const router = express.Router();
@@ -48,5 +48,8 @@ router.put('/change-username', protect, changeUsername);
  * @returns {Object} 401 - Unauthorized (e.g., invalid or expired JWT).
  */
 router.get('/user-details', protect, getUserDetails);
+
+//Route for refresh token
+router.get('/refresh-token',protect, refreshToken)
 
 export default router;
