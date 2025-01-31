@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useUserContext } from "../context/userContext.jsx";
-import {useSetTimeExpiration, useTimeExpiration} from "../store/authStore.jsx";
+import {
+    useRenewToken,
+    useSetRenewToken,
+    useTimeExpiration,
+} from "../store/authStore.jsx";
 
 const useTokenExpirationHook = () => {
     const { logout } = useUserContext();
     const [showWarning, setShowWarning] = useState(false); // For showing the renew token or close session box
     const expirationDate = useTimeExpiration();
+    const setRenewToken = useSetRenewToken()
+    const renewToken = useRenewToken()
 
     useEffect(() => {
         if (!expirationDate) return;
@@ -24,9 +30,14 @@ const useTokenExpirationHook = () => {
 
             // If the user doesn't do anything, close the session after another minute
             const logoutTimeout = setTimeout(() => {
-                console.log("Tu sesión ha expirado. Cerrando sesión...");
-                setShowWarning(false);
-                logout();
+                if (renewToken){
+                    console.log("El token se modifico, no hay que cerrar sesión")
+                    setRenewToken(false)
+                }else{
+                    console.log("Tu sesión ha expirado. Cerrando sesión...");
+                    setShowWarning(false);
+                    logout();
+                }
             }, 60000);
 
             // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
@@ -34,8 +45,6 @@ const useTokenExpirationHook = () => {
                 clearTimeout(logoutTimeout);
             };
         },  60000); // Directly use expirationTime - 60000
-
-        // Cleanup function to clear the warning timeout if the component unmounts or the token is renewed
         return () => {
             clearTimeout(warningTimeout);
         };

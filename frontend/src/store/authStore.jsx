@@ -4,12 +4,14 @@ const authStore = create((set) => ({
     token: null, // Initial State
     timeExpiration: null,
     user: null, // Initial State
+    renewToken: false, // Initial State
     setToken: (newToken) => set({ token: newToken }),
     clearToken: () => set({ token: null }),
     setTimeExpiration: (newTimeExpiration) => set({ timeExpiration: newTimeExpiration }),
     clearTimeExpiration: () => set({ timeExpiration: null }),
     setUser: (userData) => set({ user: userData }),
     clearUser: () => set({ user: null }),
+    setRenewToken: (renewToken) => set({ renewToken: renewToken }),
 }));
 
 // Hooks for call store functions
@@ -22,3 +24,5 @@ export const useClearUser = () => authStore((state) => state.clearUser); // Dele
 export const useTimeExpiration = () => authStore((state) => state.timeExpiration); // Access to time expiration
 export const useSetTimeExpiration = () => authStore((state) => state.setTimeExpiration); // NO ejecutar la función aquí
 export const useClearTimeExpiration = () => authStore((state) => state.clearTimeExpiration); // NO ejecutar la función aquí
+export const useRenewToken = () => authStore((state) => state.renewToken); // Access to boolean
+export const useSetRenewToken = () => authStore((state) => state.setRenewToken); // Change the boolean

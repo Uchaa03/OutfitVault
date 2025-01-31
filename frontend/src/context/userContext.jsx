@@ -28,7 +28,6 @@ export const UserProvider = ({ children }) => {
             localStorage.setItem("authToken", token)
             localStorage.setItem("timeExpiration", timeExpiration.toISOString())
             localStorage.setItem("username", user)
-
         }
     }, [token, timeExpiration]);
 
@@ -81,5 +80,3 @@ export const UserProvider = ({ children }) => {
 };
 
 export const useUserContext = () => useContext(UserContext);
-
-export default UserContext;
