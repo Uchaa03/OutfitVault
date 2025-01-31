@@ -1,12 +1,13 @@
 import React from 'react';
 import { useUserContext } from "../../context/userContext.jsx";
 import { renewToken } from "../../config/Auth.jsx";
-import {useSetToken} from "../../store/authStore.jsx";
+import {useSetTimeExpiration, useSetToken} from "../../store/authStore.jsx";
 
 const CardExpirationToken = ({ setShowWarning }) => {
     const { logout, login } = useUserContext(); // Asegúrate de tener la función login en el contexto
     const storedToken = localStorage.getItem("authToken");
     const setToken = useSetToken();
+    const setTimeExpiration = useSetTimeExpiration();
 
 
     const handleRenewToken = async () => {
@@ -15,6 +16,10 @@ const CardExpirationToken = ({ setShowWarning }) => {
             if (response.success) {
                 // Actualiza el token en el estado global y en el localStorage
                 localStorage.setItem("authToken", response.token);
+                const newDateExpiration =  new Date(localStorage.getItem("timeExpiration"));
+                newDateExpiration.setHours(newDateExpiration.getHours() + 1);
+                localStorage.setItem("timeExpiration", newDateExpiration.toISOString());
+                setTimeExpiration(newDateExpiration);
                 setToken(response.token);
                 setShowWarning(false); // Oculta la tarjeta de advertencia
             } else {
