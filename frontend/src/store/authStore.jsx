@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-const authStore = create((set) => ({
+export const authStore = create((set) => ({
     token: null, // Initial State
     timeExpiration: null,
     user: null, // Initial State
