@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useUserContext } from "../context/userContext.jsx";
-import {useSetTimeExpiration, useTimeExpiration} from "../store/authStore.jsx";
+import {
+    authStore,
+    useRenewToken,
+    useSetRenewToken,
+    useTimeExpiration,
+} from "../store/authStore.jsx";
 
 const useTokenExpirationHook = () => {
     const { logout } = useUserContext();
     const [showWarning, setShowWarning] = useState(false); // For showing the renew token or close session box
     const expirationDate = useTimeExpiration();
+    const setRenewToken = useSetRenewToken()
 
     useEffect(() => {
         if (!expirationDate) return;
-        console.log(expirationDate)
         const expirationTime = expirationDate.getTime() - Date.now(); // Get actual time for expiration
-        console.log(expirationTime);
 
         if (expirationTime <= 0) {
             logout(); // If token has expired, logout directly
@@ -24,18 +28,22 @@ const useTokenExpirationHook = () => {
 
             // If the user doesn't do anything, close the session after another minute
             const logoutTimeout = setTimeout(() => {
-                console.log("Tu sesión ha expirado. Cerrando sesión...");
-                setShowWarning(false);
-                logout();
+                const renewToken = authStore.getState().renewToken //Direct call
+                if (renewToken){
+                    console.log("El token se modifico, no hay que cerrar sesión")
+                    setRenewToken(false)
+                }else{
+                    console.log("Tu sesión ha expirado. Cerrando sesión...");
+                    setShowWarning(false);
+                    logout();
+                }
             }, 60000);
 
             // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
             return () => {
                 clearTimeout(logoutTimeout);
             };
-        },  60000); // Directly use expirationTime - 60000
-
-        // Cleanup function to clear the warning timeout if the component unmounts or the token is renewed
+        },  expirationTime - 60000); // Directly use expirationTime - 60000
         return () => {
             clearTimeout(warningTimeout);
         };

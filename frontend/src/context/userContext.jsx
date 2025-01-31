@@ -40,11 +40,11 @@ export const UserProvider = ({ children }) => {
      * whenever the token or expiration time changes.
      */
     useEffect(() => {
-        if (token && timeExpiration) { // Save data in local storage
-            console.log("Datos en local storage");
-            localStorage.setItem("authToken", token);
-            localStorage.setItem("timeExpiration", timeExpiration.toISOString());
-            localStorage.setItem("username", user);
+        if (token && timeExpiration) { //Save data in local storage
+            localStorage.setItem("authToken", token)
+            localStorage.setItem("timeExpiration", timeExpiration.toISOString())
+            localStorage.setItem("username", user)
+
         }
     }, [token, timeExpiration]);
 
@@ -59,6 +59,7 @@ export const UserProvider = ({ children }) => {
         const storedUsername = localStorage.getItem("username");
 
         if (storedToken && storedTimeExpiration && storedUsername) {
+            //Convert data to js
             const expirationDate = new Date(storedTimeExpiration);
             // Restore session
             setToken(storedToken);
@@ -115,5 +116,3 @@ export const UserProvider = ({ children }) => {
  * @returns {Object} The user context value containing the user data, login, and logout methods.
  */
 export const useUserContext = () => useContext(UserContext);
-
-export default UserContext;

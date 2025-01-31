@@ -24,16 +24,18 @@ import { create } from "zustand";
  * @property {function} setUser - A function to set the user data.
  * @property {function} clearUser - A function to clear the user data.
  */
-const authStore = create((set) => ({
+export const authStore = create((set) => ({
     token: null, // Initial State
     timeExpiration: null,
     user: null, // Initial State
+    renewToken: false, // Initial State
     setToken: (newToken) => set({ token: newToken }),
     clearToken: () => set({ token: null }),
     setTimeExpiration: (newTimeExpiration) => set({ timeExpiration: newTimeExpiration }),
     clearTimeExpiration: () => set({ timeExpiration: null }),
     setUser: (userData) => set({ user: userData }),
     clearUser: () => set({ user: null }),
+    setRenewToken: (renewToken) => set({ renewToken: renewToken }),
 }));
 
 /**
@@ -103,4 +105,6 @@ export const useSetTimeExpiration = () => authStore((state) => state.setTimeExpi
  * @note This function should not be executed directly. Instead, use it to
  * clear the expiration time for the authentication token.
  */
-export const useClearTimeExpiration = () => authStore((state) => state.clearTimeExpiration);
+// Is necesary doc this functions
+export const useRenewToken = () => authStore((state) => state.renewToken); // Access to boolean
+export const useSetRenewToken = () => authStore((state) => state.setRenewToken); // Change the boolean
