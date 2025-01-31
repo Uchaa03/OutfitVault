@@ -1,0 +1,25 @@
+<svg width="148" height="120" viewBox="-30 -20 200 160" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#filter0_d_332_245)">
+        <path d="M106.337 111V101.465H134.011V92.3953H142.848V111H106.337Z" fill="#141414"/>
+        <path d="M124.709 83.7906H133.546V91.9302V92.1627V92.6278H60.5226V101.698H51.6854V110.767H24.2435V101.698H14.4761V92.6278H23.7784V83.5581H32.8482V74.0232H124.709V83.7906Z" fill="#141414"/>
+        <path d="M133.546 92.1627V91.9302M133.546 91.9302V83.7906H124.709V74.0232H32.8482V83.5581H23.7784V92.6278H14.4761V101.698H24.2435V110.767H51.6854V101.698H60.5226V92.6278H133.546V91.9302ZM106.337 101.465V111H142.848V92.3953H134.011V101.465H106.337Z" stroke="#141414"/>
+        <path d="M124.709 19.1395H115.639V55.6512L33.0807 56.1163V19.1395H41.9179V10.0698H106.336V1H24.0109V10.0698H14.7086V19.1395H5.40625V92.3953H14.7086V83.093H23.3132V73.7907H33.0807V64.9535H124.709V19.1395Z" fill="#141414"/>
+        <path d="M115.639 10.5349H106.336V18.6744H115.639V10.5349Z" fill="#141414"/>
+        <path d="M60.5225 37.7442V28.2093H69.3597V19.1395H88.4295V28.2093H78.8946V37.7442H60.5225Z" fill="#141414"/>
+        <path d="M124.709 19.1395H115.639V55.6512L33.0807 56.1163V19.1395H41.9179V10.0698H106.336V1H24.0109V10.0698H14.7086V19.1395H5.40625V92.3953H14.7086V83.093H23.3132V73.7907H33.0807V64.9535H124.709V19.1395Z" stroke="#141414"/>
+        <path d="M115.639 10.5349H106.336V18.6744H115.639V10.5349Z" stroke="#141414"/>
+        <path d="M60.5225 37.7442V28.2093H69.3597V19.1395H88.4295V28.2093H78.8946V37.7442H60.5225Z" stroke="#141414"/>
+    </g>
+    <defs>
+        <filter id="filter0_d_332_245" x="0.90625" y="0.5" width="146.442" height="119" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dy="4"/>
+            <feGaussianBlur stdDeviation="2"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_332_245"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_332_245" result="shape"/>
+        </filter>
+    </defs>
+</svg>

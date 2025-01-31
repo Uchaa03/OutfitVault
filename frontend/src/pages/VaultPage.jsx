@@ -5,7 +5,10 @@ import ItemCard from '../components/Card/ItemCard.jsx';
 import { useToken } from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
 import LoadingPage from './LoadingPage.jsx';
-import FiltersContainer from '../components/vault/FiltersMenu/FiltersContainer.jsx';
+import useClothesStore from '../store/clothesStore.jsx'
+import VaultFilters from '../components/vault/VaultFilters.jsx'
+import { Clothes } from '../apiServices/apiServices.jsx'
+import VaultCard from '../components/vault/cards/VaultCard.jsx'
 
 /**
  * VaultPage component that displays a collection of cloth items.
@@ -16,53 +19,18 @@ import FiltersContainer from '../components/vault/FiltersMenu/FiltersContainer.j
  */
 const VaultPage = () => {
   const token = useToken();
-  const [cloths, setCloths] = useState([]);
   const [selectedCloth, setSelectedCloth] = useState(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const {cloths, setCloths} = useClothesStore();
+  // const [cloths, setCloths] = useState([]);
 
-  /**
-   * Fetches the list of cloth items from the server when the component is mounted.
-   * Updates the state with the fetched cloth items.
-   *
-   * @async
-   * @returns {Promise<void>} Resolves when the data is fetched.
-   */
-  const fetchCloths = async () => {
-    try {
-      const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      setCloths(response.data.cloths);
-    } catch (error) {
-      console.error('Error fetching cloths:', error);
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    }
-  };
+
   useEffect(() => {
-    fetchCloths();
+    setCloths(Clothes.getAllClothes())
   }, [token]);
-
-  /**
-   * Filters the cloth items based on an array of selected categories.
-   *
-   * @param {string[]} filterArray - Array of selected categories to filter by.
-   * @returns {void} Filtered list of cloth items.
-   */
-  const filterCloths = async (filterArray) => {
-    await fetchCloths();
-    if (!filterArray || filterArray.length !== 0) {
-      setCloths(cloths.filter(cloth => filterArray.includes(cloth.category)));
-    }
-    console.log('Filtered list of cloth items', cloths)
-  };
 
   /**
    * Truncates the cloth name to a maximum length of 12 characters, adding an ellipsis if necessary.
@@ -148,14 +116,6 @@ const VaultPage = () => {
     document.body.style.overflow = 'hidden';
   };
 
-  /**
-   * Closes the filter panel.
-   */
-  const handleFilterClose = () => {
-    setIsFilterOpen(false);
-    document.body.style.overflow = 'auto';
-  };
-
   const handleLoadingFinish = () => {
     // This function is called when the loading animation finishes
     setIsLoading(false);
@@ -168,7 +128,8 @@ const VaultPage = () => {
   }
 
   return (
-    <section className="vault-page">
+    <section className={`vault-page${filtersIsOpen || cardIsOpen ? 'blur' : ''}`}>
+
       <header className="vault-page__header">
         <h1>Selecciona la prenda para ver más</h1>
         <Button
@@ -179,52 +140,37 @@ const VaultPage = () => {
           Filtrar
         </Button>
       </header>
+
       <main className="vault-page__content">
         {
-          //This is a temporary solution to duplicate id's
+          //key={`${cloth._id}-${index}`} is a temporary solution to duplicate id's
           cloths.map((cloth, index) => (
-            <section
-                key={`${cloth._id}-${index}`}  // Ensures uniqueness
-                className="vault-page__item"
-                onClick={() => handleCardClick(cloth._id)}
-            >
-              <ItemCardMini
-                  name={truncateName(cloth.name)}
-                  itemImage={cloth.imageUrl}
-              />
-            </section>
-        ))}
+            <VaultCard
+              cloth={cloth}
+              key={`${cloth._id}-${index}`}
+            />
+          ))
+        }
       </main>
+
       {selectedCloth && (
-        <div className={`vault-page__overlay ${isTransitioning ? 'transitioning' : ''}`}>
-          <ItemCard
-            className={animationClass === 'float' ? 'float' : ''}
-            name={selectedCloth.name}
-            color={selectedCloth.color}
-            category={selectedCloth.category}
-            style={selectedCloth.style}
-            itemImage={selectedCloth.imageUrl}
-            buttonActionName={"Borrar"}
-            onClickButton={() => handleDeleteCloth(selectedCloth._id)}
-            onCloseClick={handleCloseClick}
-          />
-        </div>
+        <ItemCard
+          className={animationClass === 'float' ? 'float' : ''}
+          name={selectedCloth.name}
+          color={selectedCloth.color}
+          category={selectedCloth.category}
+          style={selectedCloth.style}
+          itemImage={selectedCloth.imageUrl}
+          buttonActionName={"Borrar"}
+          onClickButton={() => handleDeleteCloth(selectedCloth._id)}
+          onCloseClick={handleCloseClick}
+        />
       )}
-      {isFilterOpen && (
-        <>
-          <div className="vault-page__filter-backdrop" onClick={handleFilterClose}></div>
-          <div className="vault-page__filter-panel">
-            <button
-              className="vault-page__filter-close"
-              onClick={handleFilterClose}
-              aria-label="Cerrar filtros"
-            >
-              X
-            </button>
-            <FiltersContainer filterCloths={filterCloths}/>
-          </div>
-        </>
-      )}
+
+      <VaultFilters
+        isFilterOpen={isFilterOpen}
+        handleFilterClose={handleFilterClose}
+      />
     </section>
   );
 };
