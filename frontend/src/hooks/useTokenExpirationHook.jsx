@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useUserContext } from "../context/userContext.jsx";
 import {
     authStore,
-    useRenewToken,
     useSetRenewToken,
     useTimeExpiration,
 } from "../store/authStore.jsx";

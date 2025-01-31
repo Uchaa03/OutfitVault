@@ -97,6 +97,9 @@ export const useTimeExpiration = () => authStore((state) => state.timeExpiration
  */
 export const useSetTimeExpiration = () => authStore((state) => state.setTimeExpiration);
 
+export const useClearTimeExpiration = () => authStore((state) => state.clearTimeExpiration);
+
+
 /**
  * Custom hook to clear the `timeExpiration` from the store.
  *
@@ -106,5 +109,4 @@ export const useSetTimeExpiration = () => authStore((state) => state.setTimeExpi
  * clear the expiration time for the authentication token.
  */
 // Is necesary doc this functions
-export const useRenewToken = () => authStore((state) => state.renewToken); // Access to boolean
 export const useSetRenewToken = () => authStore((state) => state.setRenewToken); // Change the boolean
