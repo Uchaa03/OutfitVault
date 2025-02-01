@@ -32,9 +32,13 @@ const ContactPage = () => {
                     <form className="section__form" onSubmit={handleSubmit}>
                         <img className="form__img" src="/assets/img/IconUser.svg" alt="Imagen de registro"/>
                         <fieldset className="form__fieldset">
-                            <label className="fieldset__label" htmlFor="username">Nombre de Usuario</label>
+                            <label className="fieldset__label" htmlFor="username">
+                                Nombre de Usuario
+                                {errors.username && touched.username &&
+                                    (<img alt="Input Erroneo" className={"input__error"} src="/assets/img/wrong.png"/>)}
+                            </label>
                             <input
-                                className="fieldset__input"
+                                className={errors.username && touched.username?"fieldset__input fieldset__input--error":"fieldset__input"}
                                 type="text"
                                 name="username"
                                 placeholder="Crea tu nombre de Usuario"
@@ -42,17 +46,19 @@ const ContactPage = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            {errors.username && touched.username && (<p>{errors.username}</p>)}
-                            <label className="fieldset__label" htmlFor="request">Mensaje</label>
+                            <label className="fieldset__label" htmlFor="request">
+                                Mensaje
+                                {errors.request && touched.request &&
+                                    (<img alt="Input Erroneo" className={"input__error"} src="/assets/img/wrong.png"/>)}
+                            </label>
                             <textarea
-                                className="fieldset__textarea"
+                                className={errors.request && touched.request?"fieldset__textarea fieldset__textarea--error":"fieldset__textarea"}
                                 name="request"
                                 placeholder="Introduce tu Mensaje"
                                 value={values.request}
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            {errors.request && touched.request && (<p>{errors.request}</p>)}
                         </fieldset>
                         <button type="submit" disabled={isSubmitting} className="form__button">Enviar</button>
                     </form>

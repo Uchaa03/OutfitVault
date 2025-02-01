@@ -41,7 +41,7 @@ export async function loginUser(username, password) {
         return response.data
     } catch (error) {
         if (error.response) {
-            console.error('Error al registrar usuario:', error.response.data.message);
+            console.error('Error al loguear usuario:', error.response.data.message);
         } else {
             console.error('Error en la solicitud:', error.message);
         }
