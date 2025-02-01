@@ -90,7 +90,18 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
   @include button-styles(8em, 2em, 1em, 3em, 0em, 2rem, contain, 0.2em, 0.2em, 0em, 0em, 3rem)
 
 .process__button
-  @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain)
+  @include button-styles(7em, 2em, 1em, 1em, 0em, 3rem, contain)
+  @media (max-width: 1695px)
+    @include button-styles(7em, 2em, 1em, 1em, 0em, 2.5rem, contain)
+  @media (max-width: 1494px)
+    @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain)
+  @media (max-width: 1200px)
+    @include button-styles(7em, 2em, 1em, 1em, 0em, 1.5rem, contain)
+  @media (max-width: 1024px)
+    @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain)
+
+
+
 
 .token__button
   @include button-styles(7em, 2em, 0em, 0em, 0em, 1.5rem, contain)

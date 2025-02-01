@@ -25,16 +25,15 @@ const Process = ({ title, description, image, alt, overlayImage, overlayAlt, rev
   return (
     <>
       <section className={`hidden process ${reverse ? "process--reverse" : ""}`}>
-        <article className="process__text">
+        <article className={`process__text ${reverse ? "process__text--reverse" : ""}`}>
           <h2>{title}</h2>
           <p>{description}</p>
           <Button className="process__button">{buttonText}</Button>
+          <figure className="process__photo-container">
+            <img src={image} alt={alt} className="process__photo"/>
+            <img src={overlayImage} alt={overlayAlt} className="process__overlay-photo"/>
+          </figure>
         </article>
-        
-        <figure className="process__photo-container">
-          <img src={image} alt={alt} className="process__photo" />
-          <img src={overlayImage} alt={overlayAlt} className="process__overlay-photo" />
-        </figure>
       </section>
     </>
   );
