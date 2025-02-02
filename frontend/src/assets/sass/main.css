@@ -2070,13 +2070,14 @@ footer {
   background: none;
   border: none;
   position: absolute;
-  top: 8%;
+  top: 12%;
   right: 1rem;
-  width: 10%;
+  width: 5rem;
 }
-@media (min-width: 980px) {
+@media (max-width: 980px) {
   .darkmode__button {
-    top: 10%;
+    top: 8%;
+    width: 2.5rem;
   }
 }
 
