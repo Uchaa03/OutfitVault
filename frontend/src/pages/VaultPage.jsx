@@ -69,22 +69,6 @@ const VaultPage = () => {
   }, [token]);
 
   /**
-   * Filters the cloth items based on an array of selected categories.
-   *
-   * @param {string[]} filterArray - Array of selected categories to filter by.
-   * @returns {void} Filtered list of cloth items.
-   */
-  const filterCloths = async (filterArray) => {
-    await fetchCloths();
-    if (!filterArray || filterArray.length !== 0) {
-      setCloths(cloths.filter(cloth => filterArray.includes(cloth.category)));
-    } else {
-      fetchCloths()
-    }
-    console.log('Filtered list of cloth items', cloths)
-  };
-
-  /**
    * Truncates the cloth name to a maximum length of 12 characters, adding an ellipsis if necessary.
    *
    * @param {string} name - The name of the cloth to be truncated.
@@ -96,11 +80,6 @@ const VaultPage = () => {
 
   /**
    * Handles the click on a cloth item to fetch and display its details.
-   * Triggers a transition animation while loading the details.
-   *
-   * @async
-   * @param {string} id - The unique identifier of the selected cloth.
-   * @returns {Promise<void>} Resolves when the selected cloth's details are fetched.
    */
   const handleCardClick = async (id) => {
     setIsTransitioning(true);
@@ -123,8 +102,7 @@ const VaultPage = () => {
   };
 
   /**
-   * Handles the closing of the selected cloth details panel.
-   * Triggers a transition animation to hide the details and restores the page overflow.
+   * Handles closing the cloth details panel.
    */
   const handleCloseClick = () => {
     setAnimationClass('slide-out');
@@ -138,12 +116,7 @@ const VaultPage = () => {
   };
 
   /**
-   * Handles the deletion of a cloth item from the vault.
-   * Triggers an API request to delete the cloth and updates the state to remove it from the UI.
-   *
-   * @async
-   * @param {string} id - The unique identifier of the cloth to be deleted.
-   * @returns {Promise<void>} Resolves when the cloth is deleted.
+   * Handles deletion of a cloth item.
    */
   const handleDeleteCloth = async (id) => {
     try {
@@ -161,7 +134,7 @@ const VaultPage = () => {
   };
 
   /**
-   * Opens the filter panel to allow the user to filter cloth items.
+   * Opens the filter panel.
    */
   const handleFilterClick = () => {
     previousFocusRef.current = document.activeElement;
@@ -182,7 +155,7 @@ const VaultPage = () => {
     setIsLoading(false);
   };
 
-  // Focus and close handling for filter panel when open
+  // Accessibility: focus handling and ESC key to close filter panel
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape' && isFilterOpen) {
@@ -219,24 +192,24 @@ const VaultPage = () => {
         </Button>
       </header>
       <main className="vault-page__content">
-      {cloths.length === 0 ? (
-        <p className="vault-page__no-cloths">
-          No hay ropa que mostrar actualmente.
-        </p>
-      ) : (
-        cloths.map(cloth => (
-          <section 
-            key={cloth._id} 
-            className="vault-page__item" 
-            onClick={() => handleCardClick(cloth._id)}
-          >
-            <ItemCardMini 
-              name={truncateName(cloth.name)} 
-              itemImage={cloth.imageUrl} 
-            />
-          </section>
-        ))
-      )}
+        {cloths.length === 0 ? (
+          <p className="vault-page__no-cloths">
+            No hay ropa que mostrar actualmente.
+          </p>
+        ) : (
+          cloths.map(cloth => (
+            <section 
+              key={cloth._id} 
+              className="vault-page__item" 
+              onClick={() => handleCardClick(cloth._id)}
+            >
+              <ItemCardMini 
+                name={truncateName(cloth.name)} 
+                itemImage={cloth.imageUrl} 
+              />
+            </section>
+          ))
+        )}
       </main>
       {selectedCloth && (
         <div className={`vault-page__overlay ${isTransitioning ? 'transitioning' : ''}`}>
@@ -247,7 +220,7 @@ const VaultPage = () => {
             category={selectedCloth.category}
             style={selectedCloth.style}
             itemImage={selectedCloth.imageUrl}
-            buttonActionName={"Borrar"}
+            buttonActionName="Borrar"
             onClickButton={() => handleDeleteCloth(selectedCloth._id)}
             onCloseClick={handleCloseClick}
           />
@@ -268,8 +241,10 @@ const VaultPage = () => {
             aria-modal="true"
             tabIndex="-1"
           >
-            <h2 id="filter-title" className='vault-page__filter-title'>Seleccione que parte quiere ver</h2>
-            <figure className='vault-page__character' role="group" aria-label="Categorías de ropa">
+            <h2 id="filter-title" className="vault-page__filter-title">
+              Seleccione que parte quiere ver
+            </h2>
+            <figure className="vault-page__character" role="group" aria-label="Categorías de ropa">
               <Cap 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por gorras" 
@@ -309,6 +284,7 @@ const VaultPage = () => {
               X
             </button>
           </div>
+        </>
       )}
     </section>
   );
