@@ -5,51 +5,161 @@ import { protect } from '../middleware/protect.js';
 const router = express.Router();
 
 /**
- * @route POST /register
- * @description Registers a new user in the system.
+ * @route POST /auth/register
+ * @baseUrl https://outfitvault-.onrender.com
+ * @localUrl http://localhost:5000
+ * @description Registers a new user
  * @access Public
- * @param {string} email - User's email address.
- * @param {string} password - User's password.
- * @param {string} username - User's desired username.
- * @returns {Object} 201 - Successful registration response with user info.
- * @returns {Object} 400 - Bad request (e.g., missing fields, invalid input).
+ * 
+ * @body {String} email - User's email
+ * @body {String} password - User's password
+ * @body {String} username - User's username
+ * 
+ * @example
+ * // Request
+ * POST /auth/register
+ * {
+ *   "email": "user@example.com",
+ *   "password": "password123",
+ *   "username": "username123"
+ * }
+ * 
+ * // Success Response - 201
+ * {
+ *   "success": true,
+ *   "message": "User registered successfully",
+ *   "token": "jwt_token_here"
+ * }
+ * 
+ * // Error Response - 400
+ * {
+ *   "success": false,
+ *   "message": "Email already in use"
+ * }
  */
 router.post('/register', register);
 
 /**
- * @route POST /login
- * @description Authenticates a user and returns a JWT token.
+ * @route POST /auth/login
+ * @baseUrl https://outfitvault-.onrender.com
+ * @localUrl http://localhost:5000
+ * @description Authenticates a user
  * @access Public
- * @param {string} email - User's email address.
- * @param {string} password - User's password.
- * @returns {Object} 200 - Successful login response with JWT token.
- * @returns {Object} 401 - Unauthorized (e.g., incorrect credentials).
+ * 
+ * @body {String} username - User's username
+ * @body {String} password - User's password
+ * 
+ * @example
+ * // Request
+ * POST /auth/login
+ * {
+ *   "username": "username123",
+ *   "password": "password123"
+ * }
+ * 
+ * // Success Response - 200
+ * {
+ *   "success": true,
+ *   "token": "jwt_token_here"
+ * }
+ * 
+ * // Error Response - 400
+ * {
+ *   "success": false,
+ *   "message": "Invalid credentials"
+ * }
  */
 router.post('/login', login);
 
 /**
- * @route PUT /change-username
- * @description Allows the logged-in user to change their username.
+ * @route PUT /auth/change-username
+ * @baseUrl https://outfitvault-.onrender.com
+ * @localUrl http://localhost:5000
+ * @description Changes user's username
  * @access Private
- * @middleware protect - Protects the route, ensuring only authenticated users can access it.
- * @param {string} username - New username for the user.
- * @returns {Object} 200 - Successful response with updated user info.
- * @returns {Object} 400 - Bad request (e.g., invalid username).
- * @returns {Object} 401 - Unauthorized (e.g., invalid or expired JWT).
+ * 
+ * @header {String} Authorization - Bearer token
+ * @body {String} newUsername - New username
+ * 
+ * @example
+ * // Request
+ * PUT /auth/change-username
+ * Authorization: Bearer <token>
+ * {
+ *   "newUsername": "newUsername123"
+ * }
+ * 
+ * // Success Response - 200
+ * {
+ *   "success": true,
+ *   "message": "Username updated successfully"
+ * }
+ * 
+ * // Error Response - 400
+ * {
+ *   "success": false,
+ *   "message": "Username already in use"
+ * }
  */
 router.put('/change-username', protect, changeUsername);
 
 /**
- * @route GET /user-details
- * @description Retrieves the details of the currently authenticated user.
+ * @route GET /auth/user-details
+ * @baseUrl https://outfitvault-.onrender.com
+ * @localUrl http://localhost:5000
+ * @description Gets authenticated user details
  * @access Private
- * @middleware protect - Protects the route, ensuring only authenticated users can access it.
- * @returns {Object} 200 - Successful response with user details.
- * @returns {Object} 401 - Unauthorized (e.g., invalid or expired JWT).
+ * 
+ * @header {String} Authorization - Bearer token
+ * 
+ * @example
+ * // Request
+ * GET /auth/user-details
+ * Authorization: Bearer <token>
+ * 
+ * // Success Response - 200
+ * {
+ *   "success": true,
+ *   "user": {
+ *     "username": "username123",
+ *     "email": "user@example.com"
+ *   }
+ * }
+ * 
+ * // Error Response - 401
+ * {
+ *   "success": false,
+ *   "message": "Not authorized"
+ * }
  */
 router.get('/user-details', protect, getUserDetails);
 
-//Route for refresh token
-router.get('/refresh-token',protect, refreshToken)
+/**
+ * @route GET /auth/refresh-token
+ * @baseUrl https://outfitvault-.onrender.com
+ * @localUrl http://localhost:5000
+ * @description Refreshes JWT token
+ * @access Private
+ * 
+ * @header {String} Authorization - Bearer token
+ * 
+ * @example
+ * // Request
+ * GET /auth/refresh-token
+ * Authorization: Bearer <token>
+ * 
+ * // Success Response - 200
+ * {
+ *   "success": true,
+ *   "token": "new_jwt_token_here"
+ * }
+ * 
+ * // Error Response - 401
+ * {
+ *   "success": false,
+ *   "message": "Token expired"
+ * }
+ */
+router.get('/refresh-token', protect, refreshToken);
 
 export default router;
