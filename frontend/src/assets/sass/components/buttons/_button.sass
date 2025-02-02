@@ -42,14 +42,18 @@ $large-desktop: 1200px
   background-size: $background-size
   border: none
   cursor: pointer
-  transition: all 0.2s ease
+  transform: translateZ(0)
+  -webkit-transform: translateZ(0)
+  backface-visibility: hidden
+  -webkit-backface-visibility: hidden
+  transition: padding 0.2s ease
   margin-right: $margin-right
   margin-bottom: $margin-bottom
   padding-bottom: $padding-bottom
   padding-right: $padding-right
+  
   &--dark
     background-image: var(--mobile--button-dark)
-
 
   @include responsive-button($width, $height, $line-height, $margin-top, $font-size)
 
@@ -63,6 +67,7 @@ $large-desktop: 1200px
     padding-bottom: $padding-bottom-hover
     padding-right: $padding-right-hover
     box-shadow: none
+  
   &--dark:hover
     background-image: var(--button-dark-hover)
 
