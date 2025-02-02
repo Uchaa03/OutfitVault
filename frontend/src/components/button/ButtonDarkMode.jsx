@@ -18,12 +18,9 @@ const ButtonDarkMode = () => {
      * It updates the dark mode state and switches the theme icon.
      */
     const handleClick = () => {
-        setDarkMode(prevMode => {
-            const newMode = !prevMode;
-            console.log(newMode);  // Log after state change for accurate value
-            return newMode;
-        });
-    };
+        setDarkMode(!darkMode)
+        console.log(darkMode)
+    }
 
     return (
         <img
