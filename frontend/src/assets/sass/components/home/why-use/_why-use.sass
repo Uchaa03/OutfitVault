@@ -28,9 +28,11 @@
     text-align: center
     font-size: 2.5rem
     margin-bottom: 2rem
-    color: #333
+    color: var(--color-dark)
     font-family: 'Jersey 25', sans-serif
     font-weight: 600
+    &--dark
+      color: var(--color-contrast)
 
     @include tablet
       font-size: 3rem
@@ -64,6 +66,8 @@
     align-items: center
     width: 100%
     padding: 0.5rem
+    &--dark
+      color: var(--color-contrast)
 
     @include desktop
       padding: 0
@@ -74,6 +78,8 @@
     color: #333
     font-family: 'Handjet', sans-serif
     font-weight: 500
+    &--dark
+      color: var(--color-contrast)
 
     @include tablet
       font-size: 2.5rem
@@ -100,6 +106,8 @@
     border-top: 3px solid #333
     width: 100%
     margin: 0.25rem 0
+    &--dark
+      border-top: 3px solid var(--color-contrast)
 
     @include tablet
       border-top: 4px solid #333
@@ -131,6 +139,8 @@
     color: #666
     line-height: 1.4
     font-family: 'Handjet', sans-serif
+    &--dark
+      color: var(--color-neutral)
 
     @include tablet
       font-size: 1.75rem

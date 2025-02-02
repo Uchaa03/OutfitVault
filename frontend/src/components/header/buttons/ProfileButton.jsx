@@ -1,6 +1,7 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
-import { useUserContext } from "../../../context/userContext.jsx";
+import React from 'react'
+import {NavLink} from "react-router-dom";
+import {useUserContext} from "../../../context/userContext.jsx";
+import {useDarkMode} from "../../../store/authStore.jsx";
 
 /**
  * ProfileButton component that renders a button for navigating to the profile page.
@@ -14,14 +15,18 @@ import { useUserContext } from "../../../context/userContext.jsx";
  * @returns {JSX.Element} The rendered ProfileButton component with the user's name if logged in.
  */
 const ProfileButton = () => {
-  const { user } = useUserContext(); // Fetching user information from context
+    const { user } = useUserContext();
+    const darkMode = useDarkMode();
 
-  return (
-    <NavLink to="/profile" className="header__button">
-      <img src='/assets/img/login_icon.svg'  alt='Outfit Icon' className='button__icon'/>
-      <span>{user}</span> {/* Pending: Display logged-in user's name */}
-    </NavLink>
-  );
-};
-
-export default ProfileButton;
+    return (
+        <NavLink to="/profile" className={darkMode ? "header__button header__button--dark" : "header__button"}>
+            <img src={darkMode?
+                "/assets/img/User_Icon_Dark.svg":
+                "/assets/img/User_Icon_Light.svg"}
+                 alt='Outfit Icon'
+                 className='button__icon'
+            />
+            <span>{user}</span> {/*Pendiente Mostrar nombre de usuario con un estado de logued*/}
+        </NavLink>    )
+}
+export default ProfileButton

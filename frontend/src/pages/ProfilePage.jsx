@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {getUser} from "../config/Auth.jsx";
 import {useToken} from "../store/authStore.jsx";
 import {useUserContext} from "../context/userContext.jsx";
-import LoadingPage from './LoadingPage.jsx';
+import LoadingPage from './LoadingPage.jsx'; 
 
 /**
  * ProfilePage Component
@@ -15,10 +15,10 @@ import LoadingPage from './LoadingPage.jsx';
  * @returns {JSX.Element} The rendered profile page or a loading message if data is being fetched.
  */
 const ProfilePage = () => {
-    const token = useToken(); // Get the authentication token from the auth store
-    const [userData, setUserdata] = useState({}); // State to store user data
-    const [loading, setLoading] = useState(true); // State for loading indicator
-    const { logout } = useUserContext(); // Get the logout function from context
+    const token = useToken()
+    const [userData, setUserdata] = useState({})
+    const [loading, setLoading] = useState(true)
+    const { logout } = useUserContext();
 
     useEffect(() => {
         /**
@@ -27,59 +27,48 @@ const ProfilePage = () => {
          * or when the token changes.
          */
         const fetchUserData = async () => {
-            try {
-                const data = await getUser(token); // Fetch user data from server using the token
-                setUserdata(data); // Update state with fetched data
-                setLoading(false); // Set loading to false after data is fetched
-            } catch (error) {
-                console.error("Error fetching user data:", error); // Handle any errors during fetch
-            }
-        };
-
-        if (token) {
-            fetchUserData(); // Fetch user data only if there's a valid token
+            const data = await getUser(token)
+            setUserdata(data)
+            setLoading(false)
         }
-    }, [token]); // Dependency array ensures the effect runs when the token changes
+
+        fetchUserData()
+    }, [token]);
 
     if (loading) {
         return <LoadingPage isVisible={loading} onFinish={() => setLoading(false)} />;
     }
 
-    return (
-      <main className="main__profile">
-          <section className="profile__section">
-              <header className="section__header">
-                  <h1 className="header__title">Perfil de Usuario</h1>
-              </header>
-              <section className="section__data">
-                  <article className="data__article">
-                      <p className="article__text">
-                          <span className="article__title">Usuario: </span>
-                          {userData.user.username} {/* Display username */}
-                      </p>
-                      <p className="article__text">
-                          <span className="article__title">Correo: </span>
-                          {userData.user.email} {/* Display user email */}
-                      </p>
-                      <section className="article__buttons">
-                          <button className="buttons__button">Editar Usuario</button>
-                          <button
-                            className="buttons__button"
-                            onClick={() => logout()} // Call logout function on click
-                          >
-                              Cerrar Sesión
-                          </button>
-                      </section>
-                  </article>
-                  <img
-                    className="data__img"
-                    src="/assets/img/IconUser.svg"
-                    alt="Imagen de perfil de usuario" // Alt text for the profile image
-                  />
-              </section>
-          </section>
-      </main>
-    );
-};
+    const setEdit = () => {
+        setIsEditing(!isEditing); //Change the value
+    };
 
-export default ProfilePage;
+    return (
+        <main className="main__profile">
+            <section className="profile__section">
+                <header className="section__header">
+                    <h1 className="header__title">Perfil de Usuario</h1>
+                </header>
+                <section className="section__data">
+                    <article className="data__article">
+                        <p className="article__text">
+                            <span className="article__title">Usuario: </span>
+                            {userData.user.username}
+                        </p>
+                        <p className="article__text">
+                            <span className="article__title">Correo: </span>
+                            {userData.user.email}
+                        </p>
+                        <section className="article__buttons">
+                            <button className="buttons__button">Editar Usuario</button>
+                            <button className="buttons__button" onClick={() => logout()}>Cerrar Sesión</button>
+                        </section>
+                    </article>
+                    <img className="data__img" src="/assets/img/IconUser.svg" alt="Imagen de perfil de usuairo"/>
+                </section>
+            </section>
+        </main>
+    )
+}
+
+export default ProfilePage

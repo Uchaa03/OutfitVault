@@ -1,24 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import {useDarkMode} from "../../../store/authStore.jsx";
 
-/**
- * HomeButton component that renders a button to navigate to the homepage.
- * The button includes an icon and the text "Inicio".
- *
- * @component
- * @example
- * // Usage example:
- * <HomeButton />
- *
- * @returns {JSX.Element} The rendered HomeButton component.
- */
 const HomeButton = () => {
+    const darkMode = useDarkMode();
 
-  return (
-    <NavLink to="/" className="header__button">
-      <img src={'/assets/img/home_icon.svg'}  alt={'Home Icon'} className={'button__icon'}/>
-      <span>Inicio</span>
-    </NavLink>
-  );
-};
+    return (
+      <NavLink to="/" className={darkMode ? "header__button header__button--dark" : "header__button"}>
+        <img src={darkMode?
+            "/assets/img/Home_Icon_Dark.svg":
+            "/assets/img/Home_Icon_Light.svg"}  alt={'Home Icon'} className={'button__icon'}/>
+        <span>Inicio</span>
+      </NavLink>
+  )
+}
 
 export default HomeButton;

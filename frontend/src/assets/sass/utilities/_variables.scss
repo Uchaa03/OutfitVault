@@ -1,0 +1,22 @@
+:root {
+  //Web Colors
+  --color-neutral: #D9D9D9;
+  --color-primary: #4D4D4D;
+  --color-secondary: #858585;
+  --color-contrast: #F5F5F5;
+  --color-dark: #141414;
+  --color-error: #C24747;
+
+  //Variable Buttons SVG
+  --button-light: url("/assets/img/Button_Light.svg");
+  --button-dark: url("/assets/img/Button_Dark.svg");
+  --button-light-hover: url("/assets/img/Button_Light_Hovered.svg");
+  --button-dark-hover: url("/assets/img/Button_Dark_Hovered.svg");
+  --mobile--button-light: url("/assets/img/Button_Mobile_Light.svg");
+  --mobile--button-dark: url("frontend/public/assets/img/Button_Mobile_Dark.png");
+
+  //Variable Background
+  --background-light: url("/assets/img/Background_Texture_Light.svg");
+  --background-dark: url("/assets/img/Background_Texture_Dark.svg");
+
+}

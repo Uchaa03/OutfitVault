@@ -1,4 +1,3 @@
-// Variables
 
 
 // Mixins
@@ -33,48 +32,135 @@
   @include flex-center(column)
 
   .process
-    @include flex-center(row)
     width: 100%
     padding-bottom: 6rem
     max-width: 100%
 
-
-
-    &--reverse 
-      flex-direction: row-reverse
-
     .process__text 
-      display: flex
-      flex-direction: column
+      display: grid
+      grid-template-areas: "title figure" "content figure" "button figure"
+      grid-template-rows: auto auto 1fr
+      grid-template-columns: 2fr 1fr
       justify-content: center
       height: 100%
       padding-left: 12rem
-      padding-right: 0rem
+      padding-right: 12rem
       text-align: left
+      @media (max-width: 1494px)
+        padding-left: 10rem
+        padding-right: 10rem
+      @media (max-width: 1200px)
+        padding-left: 8rem
+        padding-right: 8rem
+      @media (max-width: 1024px)
+        grid-template-areas: "title title" "content figure" "button figure"
+        grid-template-rows: 0.6fr auto 1fr
+        padding-left: 6rem
+        padding-right: 6rem
+      @media (max-width: 905px)
+        grid-template-columns: 1.2fr 1fr
+        padding-left: 3rem
+        padding-right: 3rem
+        @media (max-width: 735px)
+          padding-left: 2.5rem
+          padding-right: 2.5rem
+        @media (max-width: 610px)
+          padding-left: 2rem
+          padding-right: 2rem
+        @media (max-width: 455px)
+          padding-left: 1.2rem
+          padding-right: 1.2rem
+      &--dark
+        color: var(--color-contrast)
 
-      .process__button
-        margin-top: 2rem
-        align-self: flex-start
+      .process__button--dark
+        color: var(--color-contrast)
+
+      &--reverse
+        grid-template-areas: "figure title" "figure content" "figure button"
+        grid-template-rows: auto auto 1fr
+        grid-template-columns: 1fr 2fr
+        @media (max-width: 1024px)
+          grid-template-areas: "title title" "figure content" "figure button"
+          grid-template-rows: 0.6fr auto 1fr
+        @media (max-width: 905px)
+          grid-template-columns: 1fr 1.2fr
+
+
+
+        .process__button
+          justify-self: right
+
 
       h2
-        font-family: 'Jersey 25'
-        font-size: 6rem
-        margin: 0 
+        grid-area: title
+        font-family: 'Jersey 25',sans-serif
+        font-size: 8rem
+        margin-top: 7rem
+        @media (max-width: 1695px)
+          font-size: 6rem
+          margin-top: 2rem
+        @media (max-width: 1494px)
+          font-size: 4.8rem
+          margin-top: 2rem
+        @media (max-width: 1200px)
+          font-size: 4.2rem
+        @media (max-width: 1024px)
+          font-size: 6rem
+          text-align: center
+        @media (max-width: 905px)
+          font-size: 5rem
+        @media (max-width: 735px)
+          font-size: 4rem
+        @media (max-width: 610px)
+          font-size: 3rem
+        @media (max-width: 410px)
+          font-size: 2.5rem
+
+
+
+
 
       p
+        grid-area: content
         font-family: 'Handjet', serif
-        font-weight: 400
-        font-size: 2rem
+        font-weight: 500
+        font-size: 2.5rem
         margin: 0 
-        width: 70%
+        width: 90%
+        @media (max-width: 1695px)
+          font-size: 2.2rem
+        @media (max-width: 1494px)
+          font-size: 1.8rem
+        @media (max-width: 1200px)
+          font-size: 1.8rem
+          margin-top: 2rem
+        @media (max-width: 1024px)
+          font-size: 2rem
+          margin-top: 1rem
+        @media (max-width: 735px)
+          font-size: 1.6rem
+          margin-top: 1rem
+        @media (max-width: 610px)
+          font-size: 1.2rem
+          margin-top: 1rem
+        @media (max-width: 410px)
+          font-size: 1rem
+          margin-top: 0.8rem
+
+
+
+
+
 
     .process__photo-container
+      grid-area: figure
       position: relative
-      width: 50rem
-      height: 35rem
+      width: 100%
+      height: 100%
       animation: float 2s steps(2) infinite
 
-    .process__photo 
+    .process__photo
       width: 100%
       height: 100%
 
@@ -89,19 +175,38 @@
 
     &--reverse .process__text
       text-align: right
-      padding-right: 0rem
-      padding-left: 3rem
-      
+      padding-right: 12rem
+      padding-left: 12rem
+      @media (max-width: 1494px)
+        padding-left: 10rem
+        padding-right: 10rem
+      @media (max-width: 1200px)
+        padding-left: 8rem
+        padding-right: 8rem
+      @media (max-width: 1024px)
+        padding-left: 6rem
+        padding-right: 6rem
+      @media (max-width: 905px)
+        padding-left: 3rem
+        padding-right: 3rem
+        @media (max-width: 735px)
+          padding-left: 2.5rem
+          padding-right: 2.5rem
+        @media (max-width: 610px)
+          padding-left: 2rem
+          padding-right: 2rem
+        @media (max-width: 455px)
+          padding-left: 1.2rem
+          padding-right: 1.2rem
+
+      .process__photo
+        width: 100%
+        height: 100%
+
       p
         width: 100%
 
-      .process__button
-        align-self: flex-end
-  
-    &--reverse .process__photo-container
-      padding-right: 9rem
-      padding-left: 0rem
-
     &--reverse .process__overlay-photo
-      left: 40%
+      left: 50%
       transform: translate(-50%, -50%)
+

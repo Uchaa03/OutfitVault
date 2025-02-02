@@ -1,5 +1,6 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React from 'react'
+import {NavLink} from "react-router-dom";
+import {useDarkMode} from "../../../store/authStore.jsx";
 
 /**
  * VaultButton component that renders a button for navigating to the vault page.
@@ -12,12 +13,14 @@ import { NavLink } from "react-router-dom";
  * @returns {JSX.Element} The rendered VaultButton component.
  */
 const VaultButton = () => {
-  return (
-    <NavLink to="/vault" className="header__button">
-      <img src='/assets/img/IconLock.svg'  alt='Vault Icon' className='button__icon'/>
-      <span>Vault</span>
-    </NavLink>
-  );
-};
+    const darkMode = useDarkMode();
 
-export default VaultButton;
+    return (
+        <NavLink to="/vault" className={darkMode ? "header__button header__button--dark" : "header__button"}>
+            <img src={darkMode?
+                "/assets/img/Vault_Icon_Dark.svg":
+                "/assets/img/Vault_Icon_Light.svg"}  alt='Outfit Icon' className='button__icon'/>
+            <span>Vault</span>
+        </NavLink>    )
+}
+export default VaultButton

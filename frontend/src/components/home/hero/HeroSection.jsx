@@ -1,5 +1,6 @@
-import {useNavigate} from 'react-router-dom';
-import Button from '../../button/button.jsx';
+import { useNavigate } from 'react-router-dom'
+import Button from '../../button/button';
+import {useDarkMode} from "../../../store/authStore.jsx";
 
 /**
  * HeroSection component that renders a promotional section with a heading and a registration button.
@@ -20,11 +21,13 @@ const HeroSection = () => {
     navigate("/register"); // Redirect to the registration page
   };
 
-  return (
-    <section className="hero">
+    const darkMode = useDarkMode();
+
+    return (
+    <section className={darkMode ? "hero hero--dark" : "hero"}>
       <h2>TODA TU ROPA ORGANIZADA SIN ESFUERZO</h2>
       <p>Siempre yendo bien vestido a todas partes</p>
-      <Button  className="hero__button" onClick={handleClick}>
+      <Button  className={darkMode ? "hero__button hero__button--dark" : "hero__button"} onClick={handleClick}>
         Regístrate Ahora
       </Button>
     </section>

@@ -1,7 +1,10 @@
 import React from "react";
 import WhyUseDropdown from './WhyUseDropdown.jsx';
+import {useDarkMode} from "../../../store/authStore.jsx";
 
 const WhyUseSection = () => {
+  const darkMode = useDarkMode();
+
   const reasons = [
     {
       title: "Organización total",
@@ -22,7 +25,7 @@ const WhyUseSection = () => {
 
   return (
     <section className="whyuse">
-      <h2 className="whyuse__title">¿POR QUÉ USAR OUTFITVAULT?</h2>
+      <h2 className={darkMode ? "whyuse__title whyuse__title--dark" : "whyuse__title"}>¿POR QUÉ USAR OUTFITVAULT?</h2>
       <div className="whyuse__dropdown">
         {reasons.map((reason, index) => (
           <WhyUseDropdown

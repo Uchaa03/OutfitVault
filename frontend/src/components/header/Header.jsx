@@ -7,6 +7,7 @@ import OutfitsButton from '../header/buttons/OutfitsButton.jsx';
 import LoginButton from '../header/buttons/LoginButton.jsx';
 import ProfileButton from '../header/buttons/ProfileButton.jsx';
 import VaultButton from '../header/buttons/VaultButton.jsx';
+import {useDarkMode} from "../../store/authStore.jsx";
 
 /**
  * Header component that renders the navigation bar with buttons and logo.
@@ -31,11 +32,13 @@ const Header = () => {
         setIsMenuOpen(false);
     };
 
+    const darkMode = useDarkMode();
+
     return (
-        <header className="header">
+        <header className={darkMode ? "header header--dark" : "header"}>
             <div className="header__container">
                 <HeaderLogo />
-                <button className="header__menu-button" onClick={toggleMenu}>
+                <button className={darkMode ? "header__menu-button header__menu-button--dark" : "header__menu-button"} onClick={toggleMenu}>
                     Menu
                 </button>
             </div>
@@ -55,16 +58,16 @@ const Header = () => {
             </ul>
             {isMenuOpen && (
                 <ul className="header__list header__list--mobile">
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className={darkMode ? "list__item list__item--dark" : "list__item"} onClick={closeMenu}>
                         {user ? <VaultButton /> : <HomeButton />}
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className={darkMode ? "list__item list__item--dark" : "list__item"} onClick={closeMenu}>
                         <AddOutfitButton />
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className={darkMode ? "list__item list__item--dark" : "list__item"} onClick={closeMenu}>
                         <OutfitsButton />
                     </li>
-                    <li className="list__item" onClick={closeMenu}>
+                    <li className={darkMode ? "list__item list__item--dark" : "list__item"} onClick={closeMenu}>
                         {user ? <ProfileButton /> : <LoginButton />}
                     </li>
                 </ul>
