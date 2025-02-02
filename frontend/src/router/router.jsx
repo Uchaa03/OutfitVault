@@ -13,24 +13,22 @@ import PromptPage from '../pages/PromptPage.jsx';
 import ProfilePage from '../pages/ProfilePage.jsx';
 import VaultPage from '../pages/VaultPage.jsx';
 import OutfitPage from '../pages/OutfitPage.jsx';
+import { useUserContext } from '../context/userContext.jsx';
 
+// Component to conditionally render the home element based on authentication
+const HomeRoute = () => {
+  const { user } = useUserContext();
+  return user ? (
+    <PrivateRoute>
+      <VaultPage />
+    </PrivateRoute>
+  ) : (
+    <PublicRoute>
+      <ArmarioSection />
+    </PublicRoute>
+  );
+};
 
-/**
- * Router configuration for the public and private routes in the application.
- * This router defines the paths, components, and layout for each route.
- *
- * The public routes include Login, Register, and Contact pages, while private routes such as Upload, Prompt, Profile, and Vault
- * require authentication and are wrapped with the `PrivateRoute` component.
- *
- * @module router
- * @example
- * // Usage example:
- * import router from './path/to/router';
- *
- * // This router is used to define the routing structure of the application.
- *
- * @returns {BrowserRouter} The router object that handles navigation and routing within the application.
- */
 const router = createBrowserRouter([
   {
     path: '/',
@@ -39,11 +37,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <PublicRoute>
-            <ArmarioSection />
-          </PublicRoute>
-        )
+        element: <HomeRoute />
       },
       {
         path: 'login',
