@@ -47,9 +47,14 @@ const OutfitPage = () => {
   };
 
   // Construct an array of clothing items from the outfit object.
+  // Only include items where both name and imageUrl are valid (not null, not empty, and not the string "null").
   const clothingItems = outfit
     ? Object.entries(outfit)
-        .filter(([category, item]) => item && item.name && item.imageUrl)
+        .filter(([category, item]) => 
+          item &&
+          item.name != null && item.name !== "" && item.name !== "null" &&
+          item.imageUrl != null && item.imageUrl !== "" && item.imageUrl !== "null"
+        )
         .map(([category, item]) => ({
           category,
           name: item.name,
@@ -83,7 +88,7 @@ const OutfitPage = () => {
     <div className="outfit-page-container">
       <div className="outfit-cards-container">
         {clothingItems.map((item, index) => {
-          // Alternating layout: even indexes get one style, odd get another.
+          // Alternating layout: even indexes get one style, odd indexes get another.
           const isEven = index % 2 === 0;
           const cardClass = isEven ? 'outfit-card' : 'outfit-card2';
           const animationClass = isEven ? 'from-left' : 'from-right';
