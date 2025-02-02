@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button/button.jsx';
+import {useDarkMode} from "../../store/authStore.jsx";
 
 /**
  * A reusable ItemCard component that displays item details, including an image, name, color, category, style, and action buttons.
@@ -19,9 +20,11 @@ import Button from '../button/button.jsx';
  * @returns {JSX.Element} The rendered ItemCard component.
  */
 const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick, error }) => {
+  const darkMode = useDarkMode();
+
   if (error) {
     return (
-      <article className={`item-card item-card--error ${className}`}>
+      <article className={darkMode ? `item-card ${className} item-card--dark`: `item-card ${className}`}>
         <section className="item-card__details item-card__details--error">
           <h2>La prenda subida no es válida</h2>
           <footer className="item-card__buttons">
@@ -33,7 +36,7 @@ const ItemCard = ({ className, name, color, category, style, itemImage, buttonAc
   }
 
     return (
-        <article className={`item-card ${className}`}>
+        <article className={darkMode ? `item-card ${className} item-card--dark`: `item-card ${className}`}>
           <svg
               width="485"
               height="409"

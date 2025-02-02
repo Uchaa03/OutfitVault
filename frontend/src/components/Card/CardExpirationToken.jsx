@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from "../../context/userContext.jsx";
 import { renewToken } from "../../config/Auth.jsx";
-import { useDarkMode, useSetTimeExpiration, useSetToken } from "../../store/authStore.jsx";
+import {useDarkMode, useSetRenewToken, useSetTimeExpiration, useSetToken} from "../../store/authStore.jsx";
 import Button from '../button/button.jsx';
 
 /**
@@ -26,6 +26,7 @@ const CardExpirationToken = ({ setShowWarning }) => {
   const setTimeExpiration = useSetTimeExpiration();
   const dialogRef = useRef(null);
   const darkMode = useDarkMode();
+  const setRenewToken = useSetRenewToken();
 
   useEffect(() => {
     // Focus management when the component mounts
@@ -50,6 +51,7 @@ const CardExpirationToken = ({ setShowWarning }) => {
         setTimeExpiration(newDateExpiration);
         setToken(response.token);
         setShowWarning(false);
+        setRenewToken(true);
       } else {
         console.error('Error renewing token:', response.message);
       }
