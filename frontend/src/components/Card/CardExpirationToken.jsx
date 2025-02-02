@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useUserContext } from "../../context/userContext.jsx";
 import { renewToken } from "../../config/Auth.jsx";
 import { useSetTimeExpiration, useSetToken } from "../../store/authStore.jsx";
+import Button from '../button/button.jsx';
 
 const CardExpirationToken = ({ setShowWarning }) => {
   const { logout, login } = useUserContext();
@@ -58,20 +59,20 @@ const CardExpirationToken = ({ setShowWarning }) => {
           ¿Quieres renovar la sesión?
         </p>
         <div className='token__buttons' role="group" aria-label="Opciones de sesión">
-          <button 
+          <Button 
             className="token__button" 
             onClick={handleRenewToken}
             aria-label="Renovar sesión actual"
           >
             Renovar Sesión
-          </button>
-          <button 
+          </Button>
+          <Button 
             className="token__button" 
             onClick={handleLogout}
             aria-label="Cerrar sesión y salir"
           >
             Cerrar Sesión
-          </button>
+          </Button>
         </div>
       </main>
     </div>

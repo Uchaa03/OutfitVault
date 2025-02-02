@@ -1,5 +1,6 @@
 import React from "react";
 import {useSetUser} from "../../store/authStore.jsx";
+import Button from "../button/button.jsx";
 
 const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
     const setUser = useSetUser();
@@ -16,8 +17,8 @@ const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
                 {userData.user.email}
             </p>
             <section className="article__buttons">
-                <button className="buttons__button" onClick={setEdit}>Editar Usuario</button>
-                <button className="buttons__button" onClick={() => logout()}>Cerrar Sesión</button>
+                <Button className="buttons__button" onClick={setEdit}>Editar Usuario</Button>
+                <Button className="buttons__button" onClick={() => logout()}>Cerrar Sesión</Button>
             </section>
         </article>
     );

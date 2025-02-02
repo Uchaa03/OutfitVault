@@ -4,6 +4,7 @@ import {usernameValidation} from "../../hooks/validationSchemaHook.jsx";
 import {Formik} from "formik";
 import {updateUsername} from "../../config/Auth.jsx";
 import {useNavigate} from "react-router-dom";
+import Button from "../button/button.jsx";
 
 const ProfileEditCard = ({ userData, setEdit }) => {
     const token = localStorage.getItem("authToken");
@@ -57,8 +58,8 @@ const ProfileEditCard = ({ userData, setEdit }) => {
                                 onChange={handleChange}
                             />
                             {errors.username && touched.username && (<p>{errors.username}</p>)}
-                            <button type="submit" disabled={isSubmitting} className="buttons__button">Guardar</button>
-                            <button className="buttons__button" onClick={setEdit}>Cancelar</button>
+                            <Button type="submit" disabled={isSubmitting} className="buttons__button">Guardar</Button>
+                            <Button className="buttons__button" onClick={setEdit}>Cancelar</Button>
                         </fieldset>
                     </form>
                 )
