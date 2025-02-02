@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import {getUser} from "../config/Auth.jsx";
-import {useToken} from "../store/authStore.jsx";
+import {useEditUser, useSetEditUser, useToken} from "../store/authStore.jsx";
 import {useUserContext} from "../context/userContext.jsx";
 import LoadingPage from './LoadingPage.jsx'; 
-
+import ProfileEditCard from '../components/Card/ProfileEditCard.jsx';
+import ProfileDisplayCard from '../components/Card/ProfileDisplayCard.jsx';
 /**
  * ProfilePage Component
  *
@@ -19,6 +20,8 @@ const ProfilePage = () => {
     const [userData, setUserdata] = useState({})
     const [loading, setLoading] = useState(true)
     const { logout } = useUserContext();
+    const isEditing = useEditUser();
+    const setIsEditing = useSetEditUser();
 
     useEffect(() => {
         /**

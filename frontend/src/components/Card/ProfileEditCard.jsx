@@ -57,7 +57,7 @@ const ProfileEditCard = ({ userData, setEdit }) => {
                                 onChange={handleChange}
                             />
                             {errors.username && touched.username && (<p>{errors.username}</p>)}
-                            <button type="submit" disabled={isSubmitting} className="buttons__button">Guardar Cambios</button>
+                            <button type="submit" disabled={isSubmitting} className="buttons__button">Guardar</button>
                             <button className="buttons__button" onClick={setEdit}>Cancelar</button>
                         </fieldset>
                     </form>
