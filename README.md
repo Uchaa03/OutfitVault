@@ -142,3 +142,10 @@ A continuación te presentamos una breve guía sobre cómo navegar y usar la apl
 ![image](https://github.com/user-attachments/assets/8a879ce2-d28f-47dd-b1f9-d8b09e65ca6f)
 
 ---
+
+Usuario de prueba:
+
+Username: Ibai133
+Password: Ibai12@@
+
+Url de despliegue: https://outfitvault-1.onrender.com/
