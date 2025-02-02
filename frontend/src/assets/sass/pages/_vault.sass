@@ -166,7 +166,7 @@ $mobile: 380px
   justify-content: center
   align-items: center
   
-  @media (min-width: $mobile)
+  @media (min-width: $mobile), (max-width: $mobile)
     max-width: 350px
     
   @media (min-width: 600px)
@@ -189,23 +189,29 @@ $mobile: 380px
   display: flex
   justify-content: center
   align-items: center
-  
-  @media (min-width: $mobile)
+
+  @media (min-width: $mobile), (max-width: $mobile)
     max-width: 350px
-    left: 8rem !important
+    top: 2.5rem
+    left: 7.5rem
 
   @media (min-width: 600px)
     max-width: 440px
-    
+    top: 3rem
+    left: 4rem
+
   @media (min-width: $tablet)
     max-width: 490px
-    
+    top: 2.5rem
+    left: 2.5rem
   @media (min-width: 900px)
     max-width: 550px
-    
+    top: 3rem
+    left: 3rem
   @media (min-width: $desktop)
     max-width: 600px
-  
+    top: 3.5rem
+    left: 2.5rem
 @keyframes slideInFromLeft
   0%
     transform: translateX(-100%)

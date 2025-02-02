@@ -8,12 +8,12 @@ $color-text-secondary: #4D4D4D
   background-repeat: round
   padding: 4rem
   width: 68%
-  background-image: url(/assets/img/OutfitCard.svg)
+  background-image: var(--card-item-light)
 
   @media (min-width: 1600px)
     width: 65%
     padding: 5rem
-  
+
   @media (min-width: 1400px)
     width: 66%
     padding: 4.5rem
@@ -23,8 +23,10 @@ $color-text-secondary: #4D4D4D
     padding: 2rem
     height: 80%
     width: 85%
-    background-image: url(/assets/img/OutfitCardMobile.svg)
-  
+    background-image: var(--card-item-mobile-light)
+    &--dark
+      background-image: var(--card-item-mobile-dark)
+
   @media (max-width: 768px)
     width: 90%
     height: 75%
@@ -34,6 +36,9 @@ $color-text-secondary: #4D4D4D
     width: 95%
     height: 70%
     padding: 1rem
+
+  &--dark
+    background-image: var(--card-item-dark)
 
   &__image
     width: 50%
@@ -83,7 +88,7 @@ $color-text-secondary: #4D4D4D
       text-align: center
 
     h2
-      font-family: "Jersey 15"
+      font-family: "Jersey 15",sans-serif
       font-size: 3.5rem
       line-height: 1.2
       @media (min-width: 1600px)
@@ -98,7 +103,7 @@ $color-text-secondary: #4D4D4D
         font-size: 2.5rem
 
     p
-      font-family: "Handjet"
+      font-family: "Handjet",sans-serif
       font-weight: 700
       font-size: 2.2rem
       margin: 0.8rem 0
@@ -120,7 +125,7 @@ $color-text-secondary: #4D4D4D
         font-family: inherit
         font-weight: 400
         font-size: inherit
-        color: $color-text-secondary
+        color: var(--color-primary)
       
   &__name
     font-size: 1.8rem
@@ -192,7 +197,7 @@ $color-text-secondary: #4D4D4D
       padding: 1rem
 
     h2
-      font-family: "Jersey 15"
+      font-family: "Jersey 15",sans-serif
       font-size: 3rem
       margin-bottom: 2rem
       color: white
