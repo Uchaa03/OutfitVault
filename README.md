@@ -56,7 +56,7 @@ Para instalar las dependencias tanto del backend como del frontend, realiza lo s
   npm run dev
   ```
 
-Ahora podrás acceder a la aplicación en tu navegador en `http://localhost:3000`.
+Ahora podrás acceder a la aplicación en tu navegador en `http://localhost:5000`.
 
 ---
 
