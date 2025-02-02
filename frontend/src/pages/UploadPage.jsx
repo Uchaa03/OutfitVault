@@ -23,6 +23,13 @@ const UploadPage = () => {
     const [animationClass, setAnimationClass] = useState('');
     const [hasError, setHasError] = useState(false);
 
+    const checkForUnknownFields = (cloth) => {
+      return cloth.name === "unknown" ||
+        cloth.color === "unknown" ||
+        cloth.category === "unknown" ||
+        cloth.style === "unknown";
+    };
+  
     /**
      * Handles the file selection and upload process.
      * It triggers when a user selects a file through the input element. The file is sent to the backend

@@ -4,20 +4,7 @@ import Button from '../button/button.jsx';
 
 /**
  * A reusable ItemCard component that displays item details, including an image, name, color, category, style, and action buttons.
- *
- * @component
- * @example
- * // Usage example:
- * <ItemCard
- *    name="Cool Jacket"
- *    color="Red"
- *    category="Outerwear"
- *    style="Casual"
- *    itemImage="path/to/image.jpg"
- *    buttonActionName="Save"
- *    onClickButton={handleSaveClick}
- *    onCloseClick={handleCloseClick}
- * />
+
  *
  * @param {Object} props - The props for the ItemCard component.
  * @param {string} props.name - The name of the item.
@@ -31,32 +18,19 @@ import Button from '../button/button.jsx';
  *
  * @returns {JSX.Element} The rendered ItemCard component.
  */
-const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick }) => {
-  const ItemCard = ({
-                      className,
-                      name,
-                      color,
-                      category,
-                      style,
-                      itemImage,
-                      buttonActionName,
-                      onClickButton,
-                      onCloseClick,
-                      error
-                    }) => {
-    if (error) {
-      return (
-          <article className={`item-card item-card--error ${className}`}>
-            <section className="item-card__details item-card__details--error">
-              <h2>La prenda subida no es válida</h2>
-              <footer className="item-card__buttons">
-                <Button className="item-card__button-error"
-                        onClick={onCloseClick}>X</Button>
-              </footer>
-            </section>
-          </article>
-      );
-    }
+const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick, error }) => {
+  if (error) {
+    return (
+      <article className={`item-card item-card--error ${className}`}>
+        <section className="item-card__details item-card__details--error">
+          <h2>La prenda subida no es válida</h2>
+          <footer className="item-card__buttons">
+            <Button className="item-card__button-error" onClick={onCloseClick}>X</Button>
+          </footer>
+        </section>
+      </article>
+    );
+  }
 
     return (
         <article className={`item-card ${className}`}>
@@ -115,6 +89,6 @@ const ItemCard = ({ className, name, color, category, style, itemImage, buttonAc
     onCloseClick: PropTypes.func.isRequired,
     error: PropTypes.bool
   };
-}
+
 
 export default ItemCard;

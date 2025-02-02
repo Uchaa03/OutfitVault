@@ -15,9 +15,9 @@ import Footer from '../components/footer/Footer.jsx';
  */
 const MainPage = () => {
   return (
-    <section className="main-page">
+    <section className="main-page" role="main" aria-label="Main application content">
       <Header />
-      <section className="content">
+      <section className="content" aria-label="Dynamic content section">
         <Outlet />
       </section>
       <Footer />

@@ -8,12 +8,11 @@ import LoadingPage from './LoadingPage.jsx';
 /**
  * PromptPage Component
  *
- * This component allows the user to input a prompt (an idea for an outfit) and
- * generates a recommended outfit based on that input. The user can submit the form
- * to navigate to the outfit recommendation page.
+ * Allows the user to input a prompt (an idea for an outfit) and generates a recommended outfit
+ * based on that input. Upon recommendation, navigates the user to the outfit page.
  *
  * @component
- * @returns {JSX.Element} The rendered prompt page with the input form.
+ * @returns {JSX.Element} The rendered PromptPage component.
  */
 const PromptPage = () => {
   const [prompt, setPrompt] = useState('');
@@ -22,16 +21,16 @@ const PromptPage = () => {
   const navigate = useNavigate();
 
   /**
-   * Handles the input change and updates the prompt state.
-   * @param {Object} event - The event triggered by the input change.
+   * Updates the prompt state when the input changes.
+   *
+   * @param {Object} event - The input change event.
    */
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
   };
 
   /**
-   * Handles outfit recommendation by calling the `recommendOutfit` function.
-   * Upon successful recommendation, the user is navigated to the outfit page.
+   * Calls the recommendOutfit API with the prompt and navigates to the outfit page.
    */
   const handleRecommendOutfit = async () => {
     setIsLoading(true);
@@ -51,20 +50,19 @@ const PromptPage = () => {
   }
 
   return (
-    <section className='section__prompt'>
-      <section className='prompt'>
+    <section className="section__prompt">
+      <section className="prompt">
         <h1>¿Alguna idea para hoy?</h1>
-        <form className='prompt__field' aria-label="Generar Outfit" onSubmit={(e) => e.preventDefault()}>
+        <form className="prompt__field" aria-label="Generar Outfit" onSubmit={(e) => e.preventDefault()}>
           <textarea
             id="idea-input"
-            type="text"
             name="prompt"
-            className='prompt__input'
-            placeholder='Escribe aquí tu idea'
+            className="prompt__input"
+            placeholder="Escribe aquí tu idea"
             value={prompt}
             onChange={handleInputChange}
           />
-          <Button className='prompt__button' onClick={handleRecommendOutfit}>
+          <Button className="prompt__button" onClick={handleRecommendOutfit}>
             Generar Outfit
           </Button>
         </form>

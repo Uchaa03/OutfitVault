@@ -93,7 +93,7 @@ const VaultPage = () => {
       setSelectedCloth(response.data.cloth);
       setAnimationClass('slide-in');
       setTimeout(() => {
-        // Animation end callback if needed
+        // Is called when the animation ends
       }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);

@@ -13,12 +13,12 @@ import React from 'react';
  */
 const FormLayout = ({ children }) => {
   return (
-    <main className="forms">
+    <main className="forms" role="main">
       <section className="forms__section">
         {children}
       </section>
     </main>
   );
-}
+};
 
 export default FormLayout;
