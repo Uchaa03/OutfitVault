@@ -14,7 +14,7 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
   // Mobile (default)
   width: $width * 0.8
   height: $height * 0.8
-  font-size: max(1.2rem, $font-size * 0.7)
+  font-size: $font-size * 0.7
   margin-top: $margin-top * 0.8
   line-height: $line-height * 0.8
   background-size: contain
@@ -74,14 +74,48 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
 .form__button
   @include button-styles(7em, 2em, 0em, 11em, 0em, 2rem, contain)
 
+  @media (min-width: 768px)
+    width: 7em
+    height: 2em
+    font-size: 1.8rem
+    margin-top: 11em
+    line-height: 0em
+
 .prompt__button
   @include button-styles(9em, 3em, 1em, 0em, 0em, 2rem, contain)
 
 .item-card__button
   @include button-styles(7em, 2em, 1em, 0em, 0em, 2rem, contain)
+  
+  @media (min-width: 1600px)
+    width: 8em
+    height: 2.5em
+    font-size: 2.4rem
+    line-height: 1.2em
+  
+  @media (min-width: $desktop)
+    width: 7em
+    height: 2em
+    font-size: 2rem
+    line-height: 1em
+  
+  @media (min-width: $tablet)
+    width: 6.5em
+    height: 1.9em
+    font-size: 1.9rem
+  
+  @media (min-width: 380px)
+    width: 5.5em
+    height: 1.8em
+    font-size: 1.9rem
 
 .buttons__button
   @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain)
+
+  @media (min-width: 380px)
+    font-size: 1.5rem
+    height: 2em
+    width: 7em
 
 .vault-page__button
   @include button-styles(8em, 2em, 1em, 0em, 0em, 2rem, contain, 0.5em, 0.6em, 0.4em, 0.2em)
@@ -92,3 +126,31 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
 .process__button
   @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain)
 
+.token__button
+  @include button-styles(7em, 2em, 1em, 1em, 0em, 2rem, contain, 0.3em, 0.3em, 0.3em, 0.3em)
+  
+  @media (min-width: 380px)
+    font-size: 1.5rem
+    height: 2em
+    width: 7em
+    margin-top: 0.3em
+    
+.error__button
+  @include button-styles(7em, 2em, 1em, 0em, 0em, 2rem, contain)
+
+  @media (max-width: 920px)
+      width: 7em
+      height: 2em
+      font-size: 1.6rem
+      line-height: 1em
+      
+  
+
+  @media (max-width: 768px)
+      font-size: 1.8rem
+
+  @media (max-width: 570px)
+      font-size: 1.8rem
+
+  @media (max-width: 490px)
+    

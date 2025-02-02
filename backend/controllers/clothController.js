@@ -151,7 +151,7 @@ export const getAvailableFilters = async (req, res) => {
 // Controller to filter cloths
 export const filterCloths = async (req, res) => {
   try {
-    const { category, color, style } = req.query;
+    const { category } = req.query;
     const userId = req.user._id;
 
     // Get the user with their cloths
@@ -167,13 +167,7 @@ export const filterCloths = async (req, res) => {
     if (category) {
       filteredCloths = filteredCloths.filter(cloth => cloth.category === category);
     }
-    if (color) {
-      filteredCloths = filteredCloths.filter(cloth => cloth.color === color);
-    }
-    if (style) {
-      filteredCloths = filteredCloths.filter(cloth => cloth.style === style);
-    }
-
+  
     res.status(200).json({ success: true, cloths: filteredCloths });
   } catch (error) {
     console.error('Error filtering cloths:', error.message);

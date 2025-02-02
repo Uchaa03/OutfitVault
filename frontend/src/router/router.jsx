@@ -1,41 +1,44 @@
 import { createBrowserRouter } from 'react-router-dom';
-
 import LayoutPublic from '../layouts/LayoutPublic.jsx';
 import PublicRoute from '../layouts/PublicRoute.jsx';
 import PrivateRoute from '../layouts/PrivateRoute.jsx';
-
 import ArmarioSection from '../pages/HomePage.jsx';
 import ErrorPage from '../pages/ErrorPage.jsx';
 import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
-import UploadPage from '../pages/UploadPage.jsx';
-import ContactPage from "../pages/ContactPage.jsx";
-import PromptPage from '../pages/PromptPage.jsx';
-import ProfilePage from "../pages/ProfilePage.jsx";
-import VaultPage from "../pages/VaultPage.jsx";
 import LoadingPage from '../pages/LoadingPage.jsx';
+import ContactPage from '../pages/ContactPage.jsx';
+import UploadPage from '../pages/UploadPage.jsx';
+import PromptPage from '../pages/PromptPage.jsx';
+import ProfilePage from '../pages/ProfilePage.jsx';
+import VaultPage from '../pages/VaultPage.jsx';
 import OutfitPage from '../pages/OutfitPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LayoutPublic />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />, // Ahora se renderiza en el Outlet de LayoutPublic
     children: [
-      { index: true,
-        element: <ArmarioSection />,
-      },
-      { path: 'login',
-        element: 
-        (
-        <PublicRoute>
-          <LoginPage />
-        </PublicRoute>
+      {
+        index: true,
+        element: (
+          <PublicRoute>
+            <ArmarioSection />
+          </PublicRoute>
         )
       },
-      { path: 'register',
-        element: 
-        (
+      {
+        path: 'login',
+        element: (
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        )
+      },
+      {
+        path: 'register',
+        element: (
           <PublicRoute>
             <RegisterPage />
           </PublicRoute>
@@ -45,13 +48,13 @@ const router = createBrowserRouter([
         path: 'loading',
         element: <LoadingPage />
       },
-      { path: 'contact',
+      {
+        path: 'contact',
         element: <ContactPage />
       },
       {
         path: 'upload',
-        element:
-        (
+        element: (
           <PrivateRoute>
             <UploadPage />
           </PrivateRoute>
@@ -59,8 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'prompt',
-        element:
-        (
+        element: (
           <PrivateRoute>
             <PromptPage />
           </PrivateRoute>
@@ -68,8 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element:
-        (
+        element: (
           <PrivateRoute>
             <ProfilePage />
           </PrivateRoute>
@@ -77,8 +78,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'vault',
-        element:
-        (
+        element: (
           <PrivateRoute>
             <VaultPage />
           </PrivateRoute>
@@ -86,10 +86,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'outfit',
-        element:
-        (
-          <OutfitPage />
-        )
+        element: <OutfitPage />
       }
     ]
   }

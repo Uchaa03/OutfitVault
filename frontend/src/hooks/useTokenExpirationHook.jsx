@@ -20,19 +20,19 @@ const useTokenExpirationHook = () => {
 
         // Wait for 1 minute to set the warning message
         const warningTimeout = setTimeout(() => {
-            setShowWarning(true); // Show expiration warning
+             setShowWarning(true); // Show expiration warning
 
-            // If the user doesn't do anything, close the session after another minute
-            const logoutTimeout = setTimeout(() => {
-                console.log("Tu sesión ha expirado. Cerrando sesión...");
-                setShowWarning(false);
-                logout();
-            }, 60000);
+             // If the user doesn't do anything, close the session after another minute
+             const logoutTimeout = setTimeout(() => {
+                 console.log("Tu sesión ha expirado. Cerrando sesión...");
+                 setShowWarning(false);
+                 logout();
+             }, expirationTime - 60000);
 
-            // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
-            return () => {
-                clearTimeout(logoutTimeout);
-            };
+             // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
+             return () => {
+                 clearTimeout(logoutTimeout);
+             };
         },  60000); // Directly use expirationTime - 60000
 
         // Cleanup function to clear the warning timeout if the component unmounts or the token is renewed

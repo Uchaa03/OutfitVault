@@ -1,26 +1,128 @@
+@keyframes slideInFromRight
+  from
+    transform: translateX(100%)
+  to
+    transform: translateX(0)
+
+.token-wrapper
+  position: relative
+
+  &::before
+    content: ""
+    position: fixed 
+    top: calc(100vh - 190px) // Fixed position from bottom
+    right: 0
+    bottom: 0
+    left: 47.9%
+    margin: 0 -10%
+    clip-path: polygon(0px calc(100% - 30px), 6px calc(100% - 30px), 6px calc(100% - 18px), 12px calc(100% - 18px), 12px calc(100% - 12px), 18px calc(100% - 12px), 18px calc(100% - 6px), 30px calc(100% - 6px), 30px 100%, calc(100% - 30px) 100%, calc(100% - 30px) calc(100% - 6px), calc(100% - 18px) calc(100% - 6px), calc(100% - 18px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 18px), calc(100% - 6px) calc(100% - 18px), calc(100% - 6px) calc(100% - 30px), 100% calc(100% - 30px), 100% 30px, calc(100% - 6px) 30px, calc(100% - 6px) 18px, calc(100% - 12px) 18px, calc(100% - 12px) 12px, calc(100% - 18px) 12px, calc(100% - 18px) 6px, calc(100% - 30px) 6px, calc(100% - 30px) 0px, 30px 0px, 30px 6px, 18px 6px, 18px 12px, 12px 12px, 12px 18px, 6px 18px, 6px 30px)
+    background: #241f31
+    width: 60%
+    height: 160px // Fixed height
+    animation: slideInFromRight 0.5s ease-in-out
+    z-index: 9999
+
+    @media (max-width:700px)
+      width: 98%
+      left: 11%
+      top: calc(100vh - 200px) // Fixed position from bottom
+
 .section__token
-  background-image: url("/assets/img/boxformslight.svg")
-  background-size: contain
-  background-repeat: no-repeat
-  background-position: center
-  filter: drop-shadow(1px 3px 2px #4D4D4D)
-  width: 30rem
-  height: 20rem
+  background-image: none 
+  background-color: #D9D9D9
+  clip-path: polygon(0px calc(100% - 30px), 6px calc(100% - 30px), 6px calc(100% - 18px), 12px calc(100% - 18px), 12px calc(100% - 12px), 18px calc(100% - 12px), 18px calc(100% - 6px), 30px calc(100% - 6px), 30px 100%, calc(100% - 30px) 100%, calc(100% - 30px) calc(100% - 6px), calc(100% - 18px) calc(100% - 6px), calc(100% - 18px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 18px), calc(100% - 6px) calc(100% - 18px), calc(100% - 6px) calc(100% - 30px), 100% calc(100% - 30px), 100% 30px, calc(100% - 6px) 30px, calc(100% - 6px) 18px, calc(100% - 12px) 18px, calc(100% - 12px) 12px, calc(100% - 18px) 12px, calc(100% - 18px) 6px, calc(100% - 30px) 6px, calc(100% - 30px) 0px, 30px 0px, 30px 6px, 18px 6px, 18px 12px, 12px 12px, 12px 18px, 6px 18px, 6px 30px)
   position: fixed
-  top: 7rem
+  bottom: 50px
   right: 0
-  z-index: 9999
-  padding: 1rem
+  left: 36%
+  margin: 0 auto
+  width: 58%
+  height: 120px // Fixed height
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+  border: 18px solid transparent
+  animation: slideInFromRight 0.5s ease-in-out
+  z-index: 10000
 
+  @media (max-width:700px)
+    width: 94%
+    height: 140px // Slightly taller for mobile
+    left: 0
+    right: 0
 
+// Token Title
 .token__title
-  font-size: 2.5rem
-  font-family: "Jersey 15",sans-serif
-  margin-top: 4rem
-  margin-bottom: 0.5rem
+  font-size: 3rem
+  font-family: "Jersey 15", sans-serif
+  width: 30%
+  @media (max-width: 1536px)
+    font-size: 2.5rem
+    width: 28%
+    margin-top: 0rem
+  @media (max-width: 1378px)
+    font-size: 2.3rem
+    width: 30%
+    margin-top: 1rem
 
+  @media (min-width:850px) and (max-width:1193px)
+    // Ajuste intermedio para resoluciones entre 701px y 1150px
+    font-size: 2.2rem
+    width: 40%
+    margin-top: 0.5rem
+
+  @media (max-width: 849px)
+    font-size: 1.6rem
+    width: 22%
+    margin-top: -1  rem
+  
+  @media (max-width: 794px)
+    font-size: 1.5rem
+    width: 25%
+    margin-top: 0.8rem
+
+  @media (max-width:700px)
+    font-size: 2rem
+    order: 1
+    margin-top: 0
+  @media (max-width: 490px)
+    font-size: 1.8rem
+    margin-bottom: 0
+    margin-left: -3rem
+  @media (max-width: 461px)
+    font-size: 1.4rem
+
+// Token Subtitle
 .token__subtitle
   font-size: 1.8rem
-  font-family: "Handjet",sans-serif
-  margin-bottom: 2rem
+  font-family: "Handjet", sans-serif
+  margin-top: 1rem
+  width: 20%
+  text-align: center
+  @media (min-width:701px) and (max-width:1150px)
+    // Ajuste intermedio para resoluciones entre 701px y 1150px
+    font-size: 1.7rem
+    width: 25%
+    margin-top: 1rem
+  @media (max-width:700px)
+    order: 2
+    margin-bottom: 0rem
+  @media (max-width: 590px)
+    font-size: 1.6rem
+    margin-bottom: 1rem
+  @media (max-width: 500px)
+    font-size: 1.3rem
 
+// Token Buttons
+.token__buttons
+  width: 40%
+  @media (max-width: 1536px)
+    width: 30%
+  @media (max-width: 1150px)
+    width: 30%
+  @media (min-width:701px) and (max-width:1150px)
+    // Ajuste intermedio para resoluciones entre 701px y 1150px
+    width: 35%
+  @media (max-width:700px)
+    order: 3

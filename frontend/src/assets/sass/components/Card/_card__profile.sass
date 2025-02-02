@@ -9,7 +9,6 @@
   width: 55em
   height: 35em
   background-image: url("/assets/img/boxprofile.svg")
-  filter: drop-shadow(9px 9px 0px #4D4D4D)
   background-position: center
   background-repeat: no-repeat
   background-size: contain
@@ -17,15 +16,33 @@
   display: flex
   flex-direction: column
 
+  @media (max-width: 900px)
+    width: 25em
+    height: 40em
+    background-image: url("/assets/img/boxprofile_mobile.svg")
+
+
 .section__data
   display: flex
   flex-direction: row
+
+  @media (max-width: 900px)
+    flex-direction: column
+
+.header__title
+  
+  @media (max-width:900px)
+    font-size: 3rem
 
 .data__article
   width: 70%
   text-align: left
   font-size: 2.5rem
   margin-top: 4rem
+
+  @media (max-width: 900px)
+    margin-top: 2rem
+
   .article__title
     font-family: "Handjet", serif
     font-weight: bold
@@ -39,10 +56,16 @@
   width: 30%
   padding: 0 1rem
 
+  @media (max-width: 900px)
+    transform: translateX(280%)
+
 .article__buttons
   margin-bottom: 2rem
   display: flex
-  justify-content: space-between
   margin-right: 2rem
+  width: 100%
+
+  @media (max-width: 900px)
+    flex-direction: column
 
 

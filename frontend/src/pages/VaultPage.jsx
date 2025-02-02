@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ItemCardMini from '../components/Card/ItemCardMini.jsx';
 import ItemCard from '../components/Card/ItemCard.jsx';
 import { useToken } from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
 import LoadingPage from './LoadingPage.jsx';
+import { Cap } from '../components/icons/Cap.jsx';
+import { Superior } from '../components/icons/Superior.jsx';
+import { Shirt } from '../components/icons/Shirt.jsx';
+import { Pants } from '../components/icons/Pants.jsx';
+import { Shoes } from '../components/icons/Shoes.jsx';
 
 const VaultPage = () => {
   const token = useToken();
@@ -15,6 +20,33 @@ const VaultPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Refs for focus management on filter panel
+  const filterPanelRef = useRef(null);
+  const previousFocusRef = useRef(null);
+
+  const handleCategorySelect = async (category) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.VITE_API_BASE_URL}api/cloths/filter`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          params: { category },
+        }
+      );
+      setCloths(response.data.cloths);
+      setIsFilterOpen(false);
+      // Return focus when closing filter
+      previousFocusRef.current?.focus();
+    } catch (error) {
+      console.error("Error filtering cloths:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
   useEffect(() => {
     const fetchCloths = async () => {
       try {
@@ -52,7 +84,7 @@ const VaultPage = () => {
       setSelectedCloth(response.data.cloth);
       setAnimationClass('slide-in');
       setTimeout(() => {
-        // Is called when the animation ends
+        // Animation end callback if needed
       }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);
@@ -87,6 +119,7 @@ const VaultPage = () => {
   };
 
   const handleFilterClick = () => {
+    previousFocusRef.current = document.activeElement;
     setIsFilterOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -94,12 +127,29 @@ const VaultPage = () => {
   const handleFilterClose = () => {
     setIsFilterOpen(false);
     document.body.style.overflow = 'auto';
+    previousFocusRef.current?.focus();
   };
 
   const handleLoadingFinish = () => {
-    // This function is called when the loading animation finishes
     setIsLoading(false);
   };
+
+  // Focus and close handling for filter panel when open
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && isFilterOpen) {
+        handleFilterClose();
+      }
+    };
+
+    if (isFilterOpen) {
+      filterPanelRef.current?.focus();
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isFilterOpen]);
 
   if (isLoading) {
     return (
@@ -113,14 +163,20 @@ const VaultPage = () => {
         <h1>Selecciona la prenda para ver más</h1>
         <Button 
           className="vault-page__button" 
-          aria-label="Filtrar"
+          aria-label="Abrir filtros"
           onClick={handleFilterClick}
+          aria-expanded={isFilterOpen}
         >
           Filtrar
         </Button>
       </header>
       <main className="vault-page__content">
-        {cloths.map(cloth => (
+      {cloths.length === 0 ? (
+        <p className="vault-page__no-cloths">
+          No hay ropa que mostrar actualmente.
+        </p>
+      ) : (
+        cloths.map(cloth => (
           <section 
             key={cloth._id} 
             className="vault-page__item" 
@@ -131,7 +187,8 @@ const VaultPage = () => {
               itemImage={cloth.imageUrl} 
             />
           </section>
-        ))}
+        ))
+      )}
       </main>
       {selectedCloth && (
         <div className={`vault-page__overlay ${isTransitioning ? 'transitioning' : ''}`}>
@@ -150,16 +207,59 @@ const VaultPage = () => {
       )}
       {isFilterOpen && (
         <>
-          <div className="vault-page__filter-backdrop" onClick={handleFilterClose}></div>
-          <div className="vault-page__filter-panel">
+          <div 
+            className="vault-page__filter-backdrop" 
+            onClick={handleFilterClose}
+            role="presentation"
+          ></div>
+          <div 
+            className="vault-page__filter-panel"
+            ref={filterPanelRef}
+            role="dialog"
+            aria-labelledby="filter-title"
+            aria-modal="true"
+            tabIndex="-1"
+          >
+            <h2 id="filter-title" className='vault-page__filter-title'>Seleccione que parte quiere ver</h2>
+            <figure className='vault-page__character' role="group" aria-label="Categorías de ropa">
+              <Cap 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por gorras" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('cap')}
+              />
+              <Superior 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por ropa superior" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('superior')}
+              />
+              <Shirt 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por camisetas" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('shirt')}
+              />
+              <Pants 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por pantalones" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('pants')}
+              />
+              <Shoes 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por zapatos" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('shoes')}
+              />
+            </figure>
             <button 
               className="vault-page__filter-close"
               onClick={handleFilterClose}
               aria-label="Cerrar filtros"
             >
-              ×
+              X
             </button>
-            {/* Filters content here */}
           </div>
         </>
       )}
