@@ -334,6 +334,9 @@ footer {
   margin: 3rem 12rem 6rem;
   gap: 6rem;
 }
+.vault-page__header--dark {
+  color: var(--color-contrast);
+}
 @media (max-width: 1190px) {
   .vault-page__header {
     margin: 2.5rem 8rem 5rem;
@@ -376,6 +379,9 @@ footer {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+}
+.vault-page__button--dark {
+  color: var(--color-contrast);
 }
 @media (max-width: 380px) {
   .vault-page__button {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ItemCardMini from '../components/Card/ItemCardMini.jsx';
 import ItemCard from '../components/Card/ItemCard.jsx';
-import { useToken } from '../store/authStore.jsx';
+import {useDarkMode, useToken} from '../store/authStore.jsx';
 import Button from '../components/button/button.jsx';
 import LoadingPage from './LoadingPage.jsx';
 import { Cap } from '../components/icons/Cap.jsx';
@@ -19,6 +19,7 @@ const VaultPage = () => {
   const [animationClass, setAnimationClass] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const darkMode = useDarkMode();
 
   // Refs for focus management on filter panel
   const filterPanelRef = useRef(null);
@@ -180,10 +181,10 @@ const VaultPage = () => {
 
   return (
     <section className="vault-page">
-      <header className="vault-page__header">
+      <header className={darkMode ? "vault-page__header vault-page__header--dark" : "vault-page__header"}>
         <h1>Selecciona la prenda para ver más</h1>
         <Button 
-          className="vault-page__button" 
+          className={darkMode ? "vault-page__button vault-page__button--dark" : "vault-page__button"}
           aria-label="Abrir filtros"
           onClick={handleFilterClick}
           aria-expanded={isFilterOpen}
