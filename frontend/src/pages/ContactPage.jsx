@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { requestValidation, usernameValidation } from "../hooks/validationSchemaHook.jsx";
 import FormLayout from './FormLayout.jsx';
+import Button from '../components/button/button.jsx';
 
 /**
  * ContactPage Component
@@ -73,7 +74,7 @@ const ContactPage = () => {
                                 onChange={handleChange}
                             />
                         </fieldset>
-                        <button type="submit" disabled={isSubmitting} className="form__button">Enviar</button>
+                        <Button type="submit" disabled={isSubmitting} className="form__button">Enviar</Button>
                     </form>
                 )
             }</Formik>

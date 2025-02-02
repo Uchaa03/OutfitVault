@@ -9,6 +9,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
+import Button from "../components/button/button.jsx";
 
 const RegisterPage = () => {
     /**
@@ -117,7 +118,7 @@ const RegisterPage = () => {
                             />
                             {errors.passwordVerification && touched.passwordVerification && (<p>{errors.passwordVerification}</p>)}
                         </fieldset>
-                        <button type="submit" disabled={isSubmitting} className="form__button">Registrate</button>
+                        <Button type="submit" disabled={isSubmitting} className="form__button">Registrate</Button>
                     </form>
                 )
             }</Formik>

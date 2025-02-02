@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { loginUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
 import FormLayout from './FormLayout.jsx';
+import Button from "../components/button/button.jsx";
 
 /**
  * LoginPage Component
@@ -100,7 +101,7 @@ const LoginPage = () => {
                             />
                             {error && <span className="form__error">{error}</span>}
                         </fieldset>
-                        <button type="submit" disabled={isSubmitting} className="form__button">Iniciar Sesión</button>
+                        <Button type="submit" disabled={isSubmitting} className="form__button">Iniciar Sesión</Button>
                     </form>
                 )
             }</Formik>
