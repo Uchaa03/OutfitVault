@@ -1,10 +1,19 @@
 import React from "react";
 import WhyUseDropdown from './WhyUseDropdown.jsx';
-import {useDarkMode} from "../../../store/authStore.jsx";
+import { useDarkMode } from "../../../store/authStore.jsx";
 
+/**
+ * WhyUseSection component renders a section that explains the benefits of using the app.
+ * It displays a title and a list of reasons with descriptions, each in a collapsible dropdown.
+ * The section's appearance changes based on the dark mode theme.
+ *
+ * @returns {JSX.Element} A section element containing the reasons to use the app.
+ */
 const WhyUseSection = () => {
+  // Get the current dark mode state from the store
   const darkMode = useDarkMode();
 
+  // List of reasons with titles and descriptions for using the app
   const reasons = [
     {
       title: "Organización total",
@@ -25,7 +34,12 @@ const WhyUseSection = () => {
 
   return (
     <section className="whyuse">
-      <h2 className={darkMode ? "whyuse__title whyuse__title--dark" : "whyuse__title"}>¿POR QUÉ USAR OUTFITVAULT?</h2>
+      {/* Title for the section, dynamically applying dark mode styles */}
+      <h2 className={darkMode ? "whyuse__title whyuse__title--dark" : "whyuse__title"}>
+        ¿POR QUÉ USAR OUTFITVAULT?
+      </h2>
+      
+      {/* Container for the dropdowns */}
       <div className="whyuse__dropdown">
         {reasons.map((reason, index) => (
           <WhyUseDropdown

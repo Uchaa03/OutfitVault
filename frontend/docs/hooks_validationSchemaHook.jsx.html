@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: hooks/validationSchemaHook.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: hooks/validationSchemaHook.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import * as Yup from "yup";
+
+//Email Regex
+const regexMail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/
+
+/**
+ * Validation schema for email input.
+ * Ensures the email is a valid format and is required.
+ *
+ * @type {Yup.StringSchema}
+ */
+export const emailValidation = Yup.string()
+.trim()
+.matches(regexMail, "El correo no es válido")
+.required("El correo es necesario");
+
+/**
+ * Validation schema for password input.
+ * Ensures the password meets complexity requirements:
+ * - Minimum 8 characters
+ * - Maximum 20 characters
+ * - At least one uppercase letter
+ * - At least one lowercase letter
+ * - At least one number
+ * - At least one special character (!@#$%^&amp;*)
+ * - No spaces
+ *
+ * @type {Yup.StringSchema}
+ */
+export const passwordValidation = Yup.string()
+.trim()
+.min(8, "La contraseña debe tener al menos 8 caracteres")
+.max(20, "La contraseña no debe exceder los 20 caracteres")
+.matches(/[A-Z]/, "La contraseña debe incluir al menos una letra mayúscula")
+.matches(/[a-z]/, "La contraseña debe incluir al menos una letra minúscula")
+.matches(/[0-9]/, "La contraseña debe incluir al menos un número")
+.matches(/[!@#$%^&amp;*]/, "La contraseña debe incluir al menos un carácter especial (!@#$%^&amp;*)")
+.matches(/^\S*$/, "La contraseña no debe contener espacios")
+.required("La contraseña es necesaria");
+
+/**
+ * Validation schema for username input.
+ * Ensures the username is between 5 and 9 characters long and is required.
+ *
+ * @type {Yup.StringSchema}
+ */
+export const usernameValidation = Yup.string()
+.trim()
+.min(5, "El usuario debe tener mínimo 5 caracteres")
+.max(9, "El usuario debe tener máximo 9 caracteres")
+.required("El Nombre de Usuario es obligatorio");
+
+/**
+ * Validation schema for confirming password input.
+ * Ensures the confirmed password matches the original password.
+ *
+ * @type {Yup.StringSchema}
+ */
+export const passwordVerificationValidation = Yup.string()
+.trim()
+.oneOf([Yup.ref("password"), null], "Las contraseñas deben coincidir")
+.required("Confirmar la contraseña es necesario");
+
+/**
+ * Validation schema for request input.
+ * Ensures the request is a valid string with at least 10 characters and is required.
+ *
+ * @type {Yup.StringSchema}
+ */
+export const requestValidation = Yup.string()
+.trim()
+.min(10, "Introduce una frase real")
+.required("La petición es obligatoria");
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

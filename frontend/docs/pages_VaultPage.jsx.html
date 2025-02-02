@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/VaultPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/VaultPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import ItemCardMini from '../components/Card/ItemCardMini.jsx';
+import ItemCard from '../components/Card/ItemCard.jsx';
+import {useDarkMode, useToken} from '../store/authStore.jsx';
+import Button from '../components/button/button.jsx';
+import LoadingPage from './LoadingPage.jsx';
+import { Cap } from '../components/icons/Cap.jsx';
+import { Superior } from '../components/icons/Superior.jsx';
+import { Shirt } from '../components/icons/Shirt.jsx';
+import { Pants } from '../components/icons/Pants.jsx';
+import { Shoes } from '../components/icons/Shoes.jsx';
+
+/**
+ * VaultPage Component - Displays a collection of clothing items and allows filtering and selection.
+ *
+ * @component
+ * @returns {JSX.Element} The VaultPage component.
+ */
+const VaultPage = () => {
+  const token = useToken();
+  const [cloths, setCloths] = useState([]);
+  const [selectedCloth, setSelectedCloth] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const darkMode = useDarkMode();
+
+  // Refs for focus management on filter panel
+  const filterPanelRef = useRef(null);
+  const previousFocusRef = useRef(null);
+
+  /**
+   * Fetches and filters clothing items by category.
+   *
+   * @param {string} category - The category to filter items by.
+   */
+  const handleCategorySelect = async (category) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(
+        `${process.env.VITE_API_BASE_URL}api/cloths/filter`,
+        {
+          headers: { 'Authorization': `Bearer ${token}` },
+          params: { category },
+        }
+      );
+      setCloths(response.data.cloths);
+      setIsFilterOpen(false);
+      previousFocusRef.current?.focus(); // Restore focus after closing filter panel
+    } catch (error) {
+      console.error("Error filtering cloths:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    /**
+     * Fetches all clothing items from the API.
+     */
+    const fetchCloths = async () => {
+      try {
+        const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        setCloths(response.data.cloths);
+      } catch (error) {
+        console.error('Error fetching cloths:', error);
+      } finally {
+        setTimeout(() => setIsLoading(false), 1000);
+      }
+    };
+    fetchCloths();
+  }, [token]);
+
+  /**
+   * Truncates the cloth name to a maximum length of 12 characters, adding an ellipsis if necessary.
+   *
+   * @param {string} name - The name of the cloth to be truncated.
+   * @returns {string} The truncated cloth name.
+   */
+  const truncateName = (name) => name.length > 12 ? name.substring(0, 14) + '...' : name;
+
+  /**
+   * Handles the click on a clothing item to fetch and display its details.
+   *
+   * @param {string} id - The ID of the selected clothing item.
+   */
+  const handleCardClick = async (id) => {
+    setIsTransitioning(true);
+    document.body.style.overflow = 'hidden';
+    try {
+      const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      setSelectedCloth(response.data.cloth);
+      setAnimationClass('slide-in');
+    } catch (error) {
+      console.error('Error fetching cloth details:', error);
+      setIsTransitioning(false);
+    }
+  };
+
+  /**
+   * Closes the cloth details panel.
+   */
+  const handleCloseClick = () => {
+    setAnimationClass('slide-out');
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setSelectedCloth(null);
+      setAnimationClass('');
+      setIsTransitioning(false);
+      document.body.style.overflow = 'auto';
+    }, 1000);
+  };
+
+  /**
+   * Deletes a clothing item from the API and updates the UI.
+   *
+   * @param {string} id - The ID of the clothing item to be deleted.
+   */
+  const handleDeleteCloth = async (id) => {
+    try {
+      await axios.delete(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      setSelectedCloth(null);
+      setCloths(cloths.filter(cloth => cloth._id !== id));
+      document.body.style.overflow = 'auto';
+    } catch (error) {
+      console.error('Error deleting cloth:', error);
+    }
+  };
+
+  /**
+   * Opens the filter panel.
+   */
+  const handleFilterClick = () => {
+    previousFocusRef.current = document.activeElement;
+    setIsFilterOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  /**
+   * Closes the filter panel and restores focus.
+   */
+  const handleFilterClose = () => {
+    setIsFilterOpen(false);
+    document.body.style.overflow = 'auto';
+    previousFocusRef.current?.focus();
+  };
+
+  // Handles keyboard accessibility for closing filter panel
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' &amp;&amp; isFilterOpen) {
+        handleFilterClose();
+      }
+    };
+    if (isFilterOpen) {
+      filterPanelRef.current?.focus();
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isFilterOpen]);
+
+  if (isLoading) {
+    return &lt;LoadingPage isVisible={isLoading} />;
+  }
+
+  return (
+    &lt;section className="vault-page">
+      &lt;header className={darkMode ? "vault-page__header vault-page__header--dark" : "vault-page__header"}>
+        &lt;h1>Selecciona la prenda para ver más&lt;/h1>
+        &lt;Button 
+          className={darkMode ? "vault-page__button vault-page__button--dark" : "vault-page__button"}
+          aria-label="Abrir filtros"
+          onClick={handleFilterClick}
+          aria-expanded={isFilterOpen}
+        >
+          Filtrar
+        &lt;/Button>
+      &lt;/header>
+      &lt;main className="vault-page__content">
+        {cloths.length === 0 ? (
+          &lt;p className="vault-page__no-cloths">
+            No hay ropa que mostrar actualmente.
+          &lt;/p>
+        ) : (
+          cloths.map(cloth => (
+            &lt;section 
+              key={cloth._id} 
+              className="vault-page__item" 
+              onClick={() => handleCardClick(cloth._id)}
+            >
+              &lt;ItemCardMini 
+                name={truncateName(cloth.name)} 
+                itemImage={cloth.imageUrl} 
+              />
+            &lt;/section>
+          ))
+        )}
+      &lt;/main>
+      {selectedCloth &amp;&amp; (
+        &lt;div className={`vault-page__overlay ${isTransitioning ? 'transitioning' : ''}`}>
+          &lt;ItemCard
+            className={animationClass === 'float' ? 'float' : ''}
+            name={selectedCloth.name}
+            color={selectedCloth.color}
+            category={selectedCloth.category}
+            style={selectedCloth.style}
+            itemImage={selectedCloth.imageUrl}
+            buttonActionName="Borrar"
+            onClickButton={() => handleDeleteCloth(selectedCloth._id)}
+            onCloseClick={handleCloseClick}
+          />
+        &lt;/div>
+      )}
+      {isFilterOpen &amp;&amp; (
+        &lt;>
+          &lt;div 
+            className="vault-page__filter-backdrop" 
+            onClick={handleFilterClose}
+            role="presentation"
+          >&lt;/div>
+          &lt;div 
+            className="vault-page__filter-panel"
+            ref={filterPanelRef}
+            role="dialog"
+            aria-labelledby="filter-title"
+            aria-modal="true"
+            tabIndex="-1"
+          >
+            &lt;h2 id="filter-title" className="vault-page__filter-title">
+              Seleccione que parte quiere ver
+            &lt;/h2>
+            &lt;figure className="vault-page__character" role="group" aria-label="Categorías de ropa">
+              &lt;Cap 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por gorras" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' &amp;&amp; handleCategorySelect('cap')}
+              />
+              &lt;Superior 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por ropa superior" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' &amp;&amp; handleCategorySelect('superior')}
+              />
+              &lt;Shirt 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por camisetas" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' &amp;&amp; handleCategorySelect('shirt')}
+              />
+              &lt;Pants 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por pantalones" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' &amp;&amp; handleCategorySelect('pants')}
+              />
+              &lt;Shoes 
+                onSelect={handleCategorySelect} 
+                aria-label="Filtrar por zapatos" 
+                tabIndex="0" 
+                onKeyPress={(e) => e.key === 'Enter' &amp;&amp; handleCategorySelect('shoes')}
+              />
+            &lt;/figure>
+            &lt;button 
+              className="vault-page__filter-close"
+              onClick={handleFilterClose}
+              aria-label="Cerrar filtros"
+            >
+              X
+            &lt;/button>
+          &lt;/div>
+        &lt;/>
+      )}
+    &lt;/section>
+  );
+};
+
+export default VaultPage;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

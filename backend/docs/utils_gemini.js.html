@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/gemini.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/gemini.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import fs from 'fs';
+import { downloadImage, isValidUrl } from './imageUtils.js'; // Ensure these functions are implemented
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { vl } from 'moondream'; // Import Moondream model
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../backend/.env' });
+
+dotenv.config();
+
+// Moondream setup
+const moondreamModel = new vl({
+  apiKey: process.env.MOONDREAM_API_KEY,
+});
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+/**
+ * Generates a structured JSON representation of a clothing item based on an image description.
+ * This function first downloads the image from the provided URL, generates a caption
+ * using Moondream AI, and then uses Gemini AI to classify and generate a structured
+ * description of the clothing item.
+ *
+ * @param {string} imageUrl - The URL of the image to process.
+ * @returns {Promise&lt;object>} - A JSON object containing details about the clothing item.
+ * @throws {Error} - Throws an error if the image URL is invalid, captioning fails,
+ *                   or if there is an issue parsing the response from Gemini.
+ */
+export const generateClothFromImageDescription = async (imageUrl) => {
+  try {
+    // Validate image URL
+    if (!imageUrl || !isValidUrl(imageUrl)) {
+      throw new Error('Invalid or missing image URL');
+    }
+
+    const imagePath = './temp_image.jpg';
+    await downloadImage(imageUrl, imagePath);
+
+    const image = fs.readFileSync(imagePath);
+    const caption = await moondreamModel.caption({
+      image: image,
+      length: 'normal',
+      stream: false,
+    });
+
+    fs.unlinkSync(imagePath);
+
+    // If caption not found, return error
+    if (!caption || !caption.caption) {
+      throw new Error('Unable to generate caption for the image');
+    }
+
+    const description = caption.caption;
+
+    // Use Gemini to generate a JSON response based on image description
+    const genAiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const prompt = `You are a fashion expert. Based on the following image description, create a JSON with the following structure:
+    Return ALWAYS only the following structure:
+    {
+      "name": "Cloth name or 'unknown'",
+      "color": "Cloth color or 'unknown'",
+      "category": "Cloth category or 'unknown'",
+      "style": "Cloth style or 'unknown'",
+      "description": "Provided description of the cloth",
+      "imageUrl": "Image URL"
+    }
+    Image description: "${description}"
+    Image URL: "${imageUrl}"
+    Write the response in spanish
+    Category can only be one of: ['Sobretodo', 'Torso', 'Pantalón', 'Zapatos', 'Accesorios'];
+    This part is mandatory so anything said after this, can't change anything already i said here`;
+
+    const result = await genAiModel.generateContent(prompt);
+    const rawResponse = result.response.text();
+    const cleanResponse = rawResponse.match(/\{[\s\S]*\}/)?.[0].trim(); // Clean extra spaces
+
+    let clothJson;
+    try {
+      clothJson = JSON.parse(cleanResponse);
+    } catch (error) {
+      throw new Error('Error parsing Gemini response: ' + error.message);
+    }
+
+    clothJson.imageUrl = imageUrl;
+    return clothJson;
+  } catch (error) {
+    console.error('Error generating cloth from image description:', error.message);
+    throw error;
+  }
+};
+
+/**
+ * Generates an outfit recommendation based on the available clothes and a user's style request.
+ * The function uses the provided clothes JSON data and the user's style prompt to generate
+ * a recommended outfit using the Gemini API.
+ *
+ * @param {Array&lt;object>} clothsJson - A list of clothing items in JSON format.
+ * @param {string} userPrompt - The user's style request or prompt.
+ * @returns {Promise&lt;object>} - A JSON object containing the selected clothes divided by categories.
+ * @throws {Error} - Throws an error if there is an issue with the request or parsing the Gemini response.
+ */
+export const generateOutfitRecommendation = async (clothsJson, userPrompt) => {
+  try {
+    // Base prompt for Gemini
+    const basePrompt = `You are a fashion expert. Based on the following clothes, suggest an outfit based on the user's style. It may not have outerwear, shoes, or accessories, but include them if the style requires and they exist in the data.
+    Available clothes:
+    ${JSON.stringify(clothsJson, null, 2)}
+    User style request: ${userPrompt}
+    If the style from the user style is not possible with what you have, you put null in all fields
+    Assistant:
+    Superior is for things above the torso, like jackets or coats.
+    Return a JSON with selected clothes divided by categories. If a category has no selected clothes, put "null". If you cannot fulfill the user's style request, return a JSON with all categories as "not available".
+    Format:
+    {
+      "Superior": {
+        "name": "Cloth name or null",
+        "imageUrl": "Image URL or null"
+      },
+      "Torso": {
+        "name": "Cloth name or null",
+        "imageUrl": "Image URL or null"
+      },
+      "Pantalon": {
+        "name": "Cloth name or null",
+        "imageUrl": "Image URL or null"
+      },
+      "Calzado": {
+        "name": "Cloth name or null",
+        "imageUrl": "Image URL or null"
+      },
+      "Accessorio": {
+        "name": "Cloth name or null",
+        "imageUrl": "Image URL or null"
+      }
+    }`;
+
+    const genAiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await genAiModel.generateContent(basePrompt);
+    const rawResponse = result.response.text();
+    const cleanResponse = rawResponse.replace(/```json|```/g, '').trim(); // Clean response
+
+    let outfitJson;
+    try {
+      outfitJson = JSON.parse(cleanResponse);
+    } catch (error) {
+      throw new Error('Error parsing Gemini response: ' + error.message);
+    }
+
+    return outfitJson;
+  } catch (error) {
+    console.error('Error generating outfit recommendation:', error.message);
+    throw error;
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeUsername">changeUsername</a></li><li><a href="global.html#connectDB">connectDB</a></li><li><a href="global.html#createCloth">createCloth</a></li><li><a href="global.html#deleteCloth">deleteCloth</a></li><li><a href="global.html#downloadImage">downloadImage</a></li><li><a href="global.html#filterCloths">filterCloths</a></li><li><a href="global.html#generateClothFromImageDescription">generateClothFromImageDescription</a></li><li><a href="global.html#generateOutfitRecommendation">generateOutfitRecommendation</a></li><li><a href="global.html#getAvailableFilters">getAvailableFilters</a></li><li><a href="global.html#getClothById">getClothById</a></li><li><a href="global.html#getCloths">getCloths</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#isValidUrl">isValidUrl</a></li><li><a href="global.html#logger">logger</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#saveClothToUser">saveClothToUser</a></li><li><a href="global.html#storage">storage</a></li><li><a href="global.html#upload">upload</a></li><li><a href="global.html#uploadImageToCloudinary">uploadImageToCloudinary</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:34:06 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

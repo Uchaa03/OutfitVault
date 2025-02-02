@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: router/router.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: router/router.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createBrowserRouter } from 'react-router-dom';
+import LayoutPublic from '../layouts/LayoutPublic.jsx';
+import PublicRoute from '../layouts/PublicRoute.jsx';
+import PrivateRoute from '../layouts/PrivateRoute.jsx';
+import ArmarioSection from '../pages/HomePage.jsx';
+import ErrorPage from '../pages/ErrorPage.jsx';
+import LoginPage from '../pages/LoginPage.jsx';
+import RegisterPage from '../pages/RegisterPage.jsx';
+import LoadingPage from '../pages/LoadingPage.jsx';
+import ContactPage from '../pages/ContactPage.jsx';
+import UploadPage from '../pages/UploadPage.jsx';
+import PromptPage from '../pages/PromptPage.jsx';
+import ProfilePage from '../pages/ProfilePage.jsx';
+import VaultPage from '../pages/VaultPage.jsx';
+import OutfitPage from '../pages/OutfitPage.jsx';
+import { useUserContext } from '../context/userContext.jsx';
+
+/**
+ * Component that determines whether to render the VaultPage (authenticated users)
+ * or the ArmarioSection (public users) based on authentication status.
+ * 
+ * @returns {JSX.Element} The appropriate route based on user authentication.
+ */
+const HomeRoute = () => {
+  const { user } = useUserContext();
+  return user ? (
+    &lt;PrivateRoute>
+      &lt;VaultPage />
+    &lt;/PrivateRoute>
+  ) : (
+    &lt;PublicRoute>
+      &lt;ArmarioSection />
+    &lt;/PublicRoute>
+  );
+};
+
+/**
+ * Application router configuration using React Router.
+ * Defines public and private routes, handling authentication and layout.
+ */
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: &lt;LayoutPublic />, // Public layout wrapping all child routes
+    errorElement: &lt;ErrorPage />, // Error page displayed in case of invalid routes
+    children: [
+      {
+        index: true,
+        element: &lt;HomeRoute /> // Home route with conditional rendering
+      },
+      {
+        path: 'login',
+        element: (
+          &lt;PublicRoute>
+            &lt;LoginPage />
+          &lt;/PublicRoute>
+        )
+      },
+      {
+        path: 'register',
+        element: (
+          &lt;PublicRoute>
+            &lt;RegisterPage />
+          &lt;/PublicRoute>
+        )
+      },
+      {
+        path: 'loading',
+        element: &lt;LoadingPage />
+      },
+      {
+        path: 'contact',
+        element: &lt;ContactPage />
+      },
+      {
+        path: 'upload',
+        element: (
+          &lt;PrivateRoute>
+            &lt;UploadPage />
+          &lt;/PrivateRoute>
+        )
+      },
+      {
+        path: 'prompt',
+        element: (
+          &lt;PrivateRoute>
+            &lt;PromptPage />
+          &lt;/PrivateRoute>
+        )
+      },
+      {
+        path: 'profile',
+        element: (
+          &lt;PrivateRoute>
+            &lt;ProfilePage />
+          &lt;/PrivateRoute>
+        )
+      },
+      {
+        path: 'vault',
+        element: (
+          &lt;PrivateRoute>
+            &lt;VaultPage />
+          &lt;/PrivateRoute>
+        )
+      },
+      {
+        path: 'outfit',
+        element: &lt;OutfitPage />
+      }
+    ]
+  }
+]);
+
+export default router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

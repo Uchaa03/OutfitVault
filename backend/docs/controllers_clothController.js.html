@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/clothController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/clothController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import multer from 'multer';
+import mongoose from 'mongoose';
+import { generateClothFromImageDescription, generateOutfitRecommendation } from '../utils/gemini.js';
+import User from '../models/user.model.js';
+import { uploadImageToCloudinary } from '../utils/imageUtils.js';
+
+// Multer configuration for temporary image storage
+/**
+ * Multer storage configuration for handling image uploads in memory.
+ *
+ * @constant
+ * @type {multer.StorageEngine}
+ */
+const storage = multer.memoryStorage();
+
+/**
+ * Middleware to handle image uploads using multer.
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
+export const upload = multer({ storage: storage }).single('image');
+
+/**
+ * Controller to create a cloth using Gemini and Cloudinary.
+ * This endpoint processes the uploaded image, generates a cloth description using Gemini,
+ * and associates the cloth with the logged-in user.
+ *
+ * @function
+ * @param {Object} req - The request object containing the uploaded file.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with status and cloth details.
+ */
+export const createCloth = async (req, res) => {
+  try {
+    const { file } = req;  // 'file' is the name assigned by multer to the uploaded file
+
+    // Check if the image was provided
+    if (!file) {
+      return res.status(400).json({ success: false, message: 'Image is required' });
+    }
+
+    // Upload the image to Cloudinary
+    const cloudinaryResponse = await uploadImageToCloudinary(file.buffer);
+    const imageUrl = cloudinaryResponse.secure_url;
+
+    // Use Gemini to get description and other data
+    const description = await generateClothFromImageDescription(imageUrl);
+
+    // Create the cloth object using the obtained data
+    const newCloth = {
+      _id: new mongoose.Types.ObjectId(), // Ensure a unique identifier
+      name: description.name,
+      color: description.color,
+      category: description.category,
+      style: description.style,
+      description: description.description,
+      imageUrl: imageUrl,
+    };
+
+    // Associate the cloth with the logged-in user
+    const user = await User.findById(req.user._id);
+
+    res.status(200).json({ success: true, cloth: newCloth });
+  } catch (error) {
+    console.error('Error creating cloth:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to get all cloths associated with the logged-in user.
+ * This endpoint fetches all cloths from the user's collection.
+ *
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the list of user's cloths.
+ */
+export const getCloths = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate('cloths');
+    res.status(200).json({ success: true, cloths: user.cloths });
+  } catch (error) {
+    console.error('Error getting cloths:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to get a specific cloth by ID from the user's collection.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth ID.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the cloth details.
+ */
+export const getClothById = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const cloth = user.cloths.id(req.params.id);
+    if (!cloth) {
+      return res.status(404).json({ success: false, message: 'Cloth not found' });
+    }
+
+    res.status(200).json({ success: true, cloth });
+  } catch (error) {
+    console.error('Error getting cloth by ID:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to delete a cloth from the user's collection.
+ * This endpoint removes the specified cloth from the user's cloths array.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth ID.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response indicating the result of the deletion.
+ */
+export const deleteCloth = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const cloth = user.cloths.id(req.params.id);
+    if (!cloth) {
+      return res.status(404).json({ success: false, message: 'Cloth not found' });
+    }
+
+    // Remove the cloth from the user's cloths array
+    user.cloths.pull(cloth._id);
+    await user.save(); // Save the user after removing the cloth
+    res.status(200).json({ success: true, message: 'Cloth deleted' });
+  } catch (error) {
+    console.error('Error deleting cloth:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to associate a new cloth with the logged-in user.
+ * This endpoint allows users to add a cloth to their collection.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth data.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response indicating the result of the association.
+ */
+export const saveClothToUser = async (req, res) => {
+  try {
+    const clothData = req.body.cloth;
+
+    // Ensure the cloth has a unique identifier
+    if (!clothData._id) {
+      clothData._id = new mongoose.Types.ObjectId();
+    }
+
+    // Associate the cloth with the logged-in user
+    const user = await User.findById(req.user._id);
+    user.cloths.push(clothData);
+    await user.save();
+
+    res.status(200).json({ success: true, message: 'Cloth associated with user successfully', cloth: clothData });
+  } catch (error) {
+    console.error('Error saving cloth to user:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to get available filters for the user's cloth collection.
+ * This endpoint retrieves unique color and style filters based on the user's cloths.
+ *
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with available filters for the user.
+ */
+export const getAvailableFilters = async (req, res) => {
+  try {
+    const userId = req.user._id; // Ensure userId is correctly obtained from the authenticated user
+
+    // Get the user with their cloths
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Get unique colors and styles from the user's cloths
+    const colors = [...new Set(user.cloths.map(cloth => cloth.color))];
+    const styles = [...new Set(user.cloths.map(cloth => cloth.style))];
+
+    res.status(200).json({ success: true, filters: { colors, styles } });
+  } catch (error) {
+    console.error('Error getting available filters:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to filter the user's cloth collection based on category
+ * This endpoint applies filters to the user's cloths based on the query parameters.
+ *
+ * @function
+ * @param {Object} req - The request object containing filter query parameters.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the filtered cloths.
+ */
+export const filterCloths = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const userId = req.user._id;
+
+    // Get the user with their cloths
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Filter the user's cloths
+    let filteredCloths = user.cloths;
+
+    if (category) {
+      filteredCloths = filteredCloths.filter(cloth => cloth.category === category);
+    }
+  
+    res.status(200).json({ success: true, cloths: filteredCloths });
+  } catch (error) {
+    console.error('Error filtering cloths:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+
+/**
+ * Controller to recommend an outfit based on user prompt.
+ * This endpoint takes a user prompt and provides an outfit recommendation
+ * by leveraging the user's collection of clothes and Gemini's recommendation system.
+ *
+ * @function
+ * @param {Object} req - The request object containing the user prompt.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the recommended outfit.
+ */
+export const recommendOutfit = async (req, res) => {
+  try {
+    const { userPrompt } = req.body;
+
+    if (!userPrompt) {
+      return res.status(400).json({ success: false, message: 'User prompt not provided' });
+    }
+
+    // Retrieve the authenticated user and their clothes
+    const user = await User.findById(req.user._id).populate('cloths');
+    if (!user || user.cloths.length === 0) {
+      return res.status(404).json({ success: false, message: 'No clothes found for the user' });
+    }
+
+    // Build JSON of clothes available
+    const clothsJson = user.cloths.map((cloth) => ({
+      id: cloth._id,
+      name: cloth.name,
+      color: cloth.color,
+      category: cloth.category,
+      style: cloth.style,
+      description: cloth.description,
+      imageUrl: cloth.imageUrl,
+    }));
+
+    // Use Gemini to get outfit recommendation
+    const outfitJson = await generateOutfitRecommendation(clothsJson, userPrompt);
+
+    res.status(200).json({ success: true, outfit: outfitJson });
+  } catch (error) {
+    console.error('Error generating outfit recommendations:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeUsername">changeUsername</a></li><li><a href="global.html#connectDB">connectDB</a></li><li><a href="global.html#createCloth">createCloth</a></li><li><a href="global.html#deleteCloth">deleteCloth</a></li><li><a href="global.html#downloadImage">downloadImage</a></li><li><a href="global.html#filterCloths">filterCloths</a></li><li><a href="global.html#generateClothFromImageDescription">generateClothFromImageDescription</a></li><li><a href="global.html#generateOutfitRecommendation">generateOutfitRecommendation</a></li><li><a href="global.html#getAvailableFilters">getAvailableFilters</a></li><li><a href="global.html#getClothById">getClothById</a></li><li><a href="global.html#getCloths">getCloths</a></li><li><a href="global.html#getUserDetails">getUserDetails</a></li><li><a href="global.html#isValidUrl">isValidUrl</a></li><li><a href="global.html#logger">logger</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#protect">protect</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#saveClothToUser">saveClothToUser</a></li><li><a href="global.html#storage">storage</a></li><li><a href="global.html#upload">upload</a></li><li><a href="global.html#uploadImageToCloudinary">uploadImageToCloudinary</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:34:06 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -15,7 +15,12 @@ import VaultPage from '../pages/VaultPage.jsx';
 import OutfitPage from '../pages/OutfitPage.jsx';
 import { useUserContext } from '../context/userContext.jsx';
 
-// Component to conditionally render the home element based on authentication
+/**
+ * Component that determines whether to render the VaultPage (authenticated users)
+ * or the ArmarioSection (public users) based on authentication status.
+ * 
+ * @returns {JSX.Element} The appropriate route based on user authentication.
+ */
 const HomeRoute = () => {
   const { user } = useUserContext();
   return user ? (
@@ -29,15 +34,19 @@ const HomeRoute = () => {
   );
 };
 
+/**
+ * Application router configuration using React Router.
+ * Defines public and private routes, handling authentication and layout.
+ */
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutPublic />,
-    errorElement: <ErrorPage />, // Ahora se renderiza en el Outlet de LayoutPublic
+    element: <LayoutPublic />, // Public layout wrapping all child routes
+    errorElement: <ErrorPage />, // Error page displayed in case of invalid routes
     children: [
       {
         index: true,
-        element: <HomeRoute />
+        element: <HomeRoute /> // Home route with conditional rendering
       },
       {
         path: 'login',

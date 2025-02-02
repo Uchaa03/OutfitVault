@@ -207,7 +207,7 @@ export const getAvailableFilters = async (req, res) => {
 };
 
 /**
- * Controller to filter the user's cloth collection based on category, color, and style.
+ * Controller to filter the user's cloth collection based on category
  * This endpoint applies filters to the user's cloths based on the query parameters.
  *
  * @function

@@ -1,8 +1,19 @@
 import React from "react";
-import {useSetUser} from "../../store/authStore.jsx";
+import { useSetUser } from "../../store/authStore.jsx";
 import Button from "../button/button.jsx";
 
+/**
+ * ProfileDisplayCard component displays user information such as username and email.
+ * It also provides buttons to edit the username or log out.
+ *
+ * @param {Object} userData - The user data, including username and email.
+ * @param {Function} setEdit - Function to toggle edit mode for the username.
+ * @param {Function} logout - Function to handle logging out the user.
+ * 
+ * @returns {JSX.Element} The profile display card with user details and buttons.
+ */
 const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
+    // Set the user's username in the global state using useSetUser hook
     const setUser = useSetUser();
     setUser(userData.user.username);
 
@@ -17,11 +28,13 @@ const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
                 {userData.user.email}
             </p>
             <section className="article__buttons">
+                {/* Button to trigger the edit functionality */}
                 <Button className="buttons__button" onClick={setEdit}>Editar Usuario</Button>
+                {/* Button to trigger the logout functionality */}
                 <Button className="buttons__button" onClick={() => logout()}>Cerrar Sesión</Button>
             </section>
         </article>
     );
 };
 
-export default ProfileDisplayCard
+export default ProfileDisplayCard;

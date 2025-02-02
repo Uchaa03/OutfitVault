@@ -30,7 +30,7 @@ const useTokenExpirationHook = () => {
                  console.log("Tu sesión ha expirado. Cerrando sesión...");
                  setShowWarning(false);
                  logout();
-             },  60000);
+             },  expirationTime - 60000);
 
              // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
              return () => {

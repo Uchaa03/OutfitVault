@@ -1,0 +1,16 @@
+{
+    "source": {
+        "include": ["config", "controllers", "models", "routes", "middleware", "routes", "utils"], 
+        "exclude": ["node_modules"] 
+    },
+    "opts": {
+        "destination": "docs", 
+        "recurse": true, 
+        "template": "templates/default"
+    },
+    "templates": {
+        "default": {
+            "useLongnameInNav": false
+        }
+    }
+}

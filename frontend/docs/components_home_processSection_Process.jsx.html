@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/home/processSection/Process.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/home/processSection/Process.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useEffect } from "react";
+import Button from '../../button/button';
+import { useDarkMode } from "../../../store/authStore.jsx";
+
+/**
+ * Process component displays a process section with an optional reversed layout.
+ * It shows a title, description, an image with an overlay, and a button. The section also has an animation effect when it comes into view.
+ *
+ * @param {Object} props - The props passed to the component.
+ * @param {string} props.title - The title of the process.
+ * @param {string} props.description - The description of the process.
+ * @param {string} props.image - The source URL of the main image.
+ * @param {string} props.alt - The alt text for the main image.
+ * @param {string} props.overlayImage - The source URL of the overlay image.
+ * @param {string} props.overlayAlt - The alt text for the overlay image.
+ * @param {boolean} [props.reverse=false] - A flag that determines if the layout is reversed.
+ * @param {string} props.buttonText - The text to display on the button.
+ * @returns {JSX.Element} A section element with the process content, images, and button.
+ */
+const Process = ({ title, description, image, alt, overlayImage, overlayAlt, reverse, buttonText }) => {
+  // Get the current dark mode state from the store
+  const darkMode = useDarkMode();
+
+  useEffect(() => {
+    // Create an intersection observer to trigger animation when the element enters the viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!entry.target.classList.contains("animated")) {
+            entry.target.classList.add("show", "animated");
+          }
+        }
+      });
+    });
+
+    // Observe all elements with the "hidden" class
+    const hiddenElements = document.querySelectorAll(".hidden");
+    hiddenElements.forEach((element) => { observer.observe(element) });
+
+    // Cleanup function to unobserve elements when the component unmounts
+    return () => {
+      hiddenElements.forEach((element) => { observer.unobserve(element) });
+    };
+  }, []); // Empty dependency array ensures this runs only once after the initial render
+
+  return (
+    &lt;>
+      &lt;section className={`hidden process ${reverse ? "process--reverse" : ""}`}>
+        &lt;article className={`${darkMode ? "process__text process__text--dark" : "process__text"} ${reverse ? "process__text--reverse" : ""}`}>
+          {/* Title and description */}
+          &lt;h2>{title}&lt;/h2>
+          &lt;p>{description}&lt;/p>
+
+          {/* Button with dark mode styling */}
+          &lt;Button className={darkMode ? "process__button process__button--dark" : "process__button"}>
+            {buttonText}
+          &lt;/Button>
+
+          {/* Image and overlay image */}
+          &lt;figure className="process__photo-container">
+            &lt;img src={image} alt={alt} className="process__photo"/>
+            &lt;img src={overlayImage} alt={overlayAlt} className="process__overlay-photo"/>
+          &lt;/figure>
+        &lt;/article>
+      &lt;/section>
+    &lt;/>
+  );
+};
+
+export default Process;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

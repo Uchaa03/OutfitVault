@@ -2,12 +2,7 @@ import { create } from "zustand";
 
 /**
  * @module authStore
- *
- * Zustand store for managing authentication-related state, including the user's
- * authentication token, expiration time, and user data.
- *
- * This store provides functions to set, clear, and retrieve the `token`, `user`, and
- * `timeExpiration` states within the app.
+ * Manages authentication state (token, user, expiration).
  */
 
 /**

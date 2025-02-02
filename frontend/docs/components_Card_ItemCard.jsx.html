@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Card/ItemCard.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Card/ItemCard.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import PropTypes from 'prop-types';
+import Button from '../button/button.jsx';
+
+/**
+ * A reusable ItemCard component that displays item details, including an image, name, color, category, style, and action buttons.
+
+ *
+ * @param {Object} props - The props for the ItemCard component.
+ * @param {string} props.name - The name of the item.
+ * @param {string} props.color - The color of the item.
+ * @param {string} props.category - The category of the item.
+ * @param {string} props.style - The style of the item.
+ * @param {string} props.itemImage - The image URL for the item.
+ * @param {string} [props.className=''] - Additional custom class names for styling (optional).
+ * @param {function} props.onClickButton - The callback function for the action button.
+ * @param {function} props.onCloseClick - The callback function for the close button.
+ *
+ * @returns {JSX.Element} The rendered ItemCard component.
+ */
+const ItemCard = ({ className, name, color, category, style, itemImage, buttonActionName, onClickButton, onCloseClick, error }) => {
+  if (error) {
+    return (
+      &lt;article className={`item-card item-card--error ${className}`}>
+        &lt;section className="item-card__details item-card__details--error">
+          &lt;h2>La prenda subida no es válida&lt;/h2>
+          &lt;footer className="item-card__buttons">
+            &lt;Button className="item-card__button-error" onClick={onCloseClick}>X&lt;/Button>
+          &lt;/footer>
+        &lt;/section>
+      &lt;/article>
+    );
+  }
+
+    return (
+        &lt;article className={`item-card ${className}`}>
+          &lt;svg
+              width="485"
+              height="409"
+              className='item-card__image'
+              viewBox="0 0 485 409"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+          >
+            &lt;path
+                d="M14.0455 34.6512H8.04545V40.6512V54.3707V54.3798L7.00003 393.997L6.98165 399.968L12.9529 400.015L393.498 403L393.522 403H393.545H425.955H431.955V397V394.016V389.868H450H456V383.868V380.318H473H479V374.318V356.411V12V6H473H134.273H67.3636H55.8636H49.8636V12V14.3876V16.7752V22.7132H27.6364H21.6364V28.7132V34.6512H14.0455Z"
+                fill="url(#pattern0_406_648)"
+                stroke="#141414"
+                strokeWidth="12"
+            />
+            &lt;defs>
+              &lt;pattern id="pattern0_406_648"
+                       patternContentUnits="objectBoundingBox" width="1"
+                       height="1">
+                &lt;use xlinkHref="#image0_406_648"
+                     transform="matrix(0.00166667 0 0 0.00245098 0 -0.412341)"/>
+              &lt;/pattern>
+              &lt;image id="image0_406_648" width="600" height="800"
+                     xlinkHref={itemImage}/>
+            &lt;/defs>
+          &lt;/svg>
+          &lt;section className="item-card__details">
+            &lt;h2 className="item-card__name">{name}&lt;/h2>
+            &lt;p className="item-card__color"> Color: &lt;span> {color} &lt;/span>&lt;/p>
+            &lt;p className="item-card__category">Categoría: &lt;span>{category} &lt;/span>
+            &lt;/p>
+            &lt;p className="item-card__style">Estilo: &lt;span> {style} &lt;/span>&lt;/p>
+            &lt;footer className="item-card__buttons">
+              &lt;Button className="item-card__button"
+                      onClick={onClickButton}>{buttonActionName}&lt;/Button>
+              &lt;Button className="item-card__button-error"
+                      onClick={onCloseClick}>X&lt;/Button>
+            &lt;/footer>
+          &lt;/section>
+        &lt;/article>
+    );
+  };
+
+  ItemCard.propTypes = {
+    name: PropTypes.string,
+    color: PropTypes.string,
+    category: PropTypes.string,
+    style: PropTypes.string,
+    itemImage: PropTypes.string,
+    className: PropTypes.string,
+    buttonActionName: PropTypes.string,
+    onClickButton: PropTypes.func,
+    onCloseClick: PropTypes.func.isRequired,
+    error: PropTypes.bool
+  };
+
+
+export default ItemCard;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

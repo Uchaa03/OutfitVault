@@ -11,6 +11,12 @@ import { Shirt } from '../components/icons/Shirt.jsx';
 import { Pants } from '../components/icons/Pants.jsx';
 import { Shoes } from '../components/icons/Shoes.jsx';
 
+/**
+ * VaultPage Component - Displays a collection of clothing items and allows filtering and selection.
+ *
+ * @component
+ * @returns {JSX.Element} The VaultPage component.
+ */
 const VaultPage = () => {
   const token = useToken();
   const [cloths, setCloths] = useState([]);
@@ -25,47 +31,47 @@ const VaultPage = () => {
   const filterPanelRef = useRef(null);
   const previousFocusRef = useRef(null);
 
+  /**
+   * Fetches and filters clothing items by category.
+   *
+   * @param {string} category - The category to filter items by.
+   */
   const handleCategorySelect = async (category) => {
     try {
       setIsLoading(true);
       const response = await axios.get(
         `${process.env.VITE_API_BASE_URL}api/cloths/filter`,
         {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          headers: { 'Authorization': `Bearer ${token}` },
           params: { category },
         }
       );
       setCloths(response.data.cloths);
       setIsFilterOpen(false);
-      // Return focus when closing filter
-      previousFocusRef.current?.focus();
+      previousFocusRef.current?.focus(); // Restore focus after closing filter panel
     } catch (error) {
       console.error("Error filtering cloths:", error);
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
+    /**
+     * Fetches all clothing items from the API.
+     */
     const fetchCloths = async () => {
       try {
         const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          headers: { 'Authorization': `Bearer ${token}` },
         });
         setCloths(response.data.cloths);
       } catch (error) {
         console.error('Error fetching cloths:', error);
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setTimeout(() => setIsLoading(false), 1000);
       }
     };
-
     fetchCloths();
   }, [token]);
 
@@ -75,27 +81,22 @@ const VaultPage = () => {
    * @param {string} name - The name of the cloth to be truncated.
    * @returns {string} The truncated cloth name.
    */
-  const truncateName = (name) => {
-    return name.length > 12 ? name.substring(0, 14) + '...' : name;
-  };
+  const truncateName = (name) => name.length > 12 ? name.substring(0, 14) + '...' : name;
 
   /**
-   * Handles the click on a cloth item to fetch and display its details.
+   * Handles the click on a clothing item to fetch and display its details.
+   *
+   * @param {string} id - The ID of the selected clothing item.
    */
   const handleCardClick = async (id) => {
     setIsTransitioning(true);
     document.body.style.overflow = 'hidden';
     try {
       const response = await axios.get(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
       });
       setSelectedCloth(response.data.cloth);
       setAnimationClass('slide-in');
-      setTimeout(() => {
-        // Is called when the animation ends
-      }, 1000);
     } catch (error) {
       console.error('Error fetching cloth details:', error);
       setIsTransitioning(false);
@@ -103,7 +104,7 @@ const VaultPage = () => {
   };
 
   /**
-   * Handles closing the cloth details panel.
+   * Closes the cloth details panel.
    */
   const handleCloseClick = () => {
     setAnimationClass('slide-out');
@@ -117,14 +118,14 @@ const VaultPage = () => {
   };
 
   /**
-   * Handles deletion of a cloth item.
+   * Deletes a clothing item from the API and updates the UI.
+   *
+   * @param {string} id - The ID of the clothing item to be deleted.
    */
   const handleDeleteCloth = async (id) => {
     try {
       await axios.delete(`${process.env.VITE_API_BASE_URL}api/cloths/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { 'Authorization': `Bearer ${token}` },
       });
       setSelectedCloth(null);
       setCloths(cloths.filter(cloth => cloth._id !== id));
@@ -144,7 +145,7 @@ const VaultPage = () => {
   };
 
   /**
-   * Closes the filter panel.
+   * Closes the filter panel and restores focus.
    */
   const handleFilterClose = () => {
     setIsFilterOpen(false);
@@ -152,18 +153,13 @@ const VaultPage = () => {
     previousFocusRef.current?.focus();
   };
 
-  const handleLoadingFinish = () => {
-    setIsLoading(false);
-  };
-
-  // Accessibility: focus handling and ESC key to close filter panel
+  // Handles keyboard accessibility for closing filter panel
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape' && isFilterOpen) {
         handleFilterClose();
       }
     };
-
     if (isFilterOpen) {
       filterPanelRef.current?.focus();
       document.addEventListener('keydown', handleKeyDown);
@@ -174,9 +170,7 @@ const VaultPage = () => {
   }, [isFilterOpen]);
 
   if (isLoading) {
-    return (
-      <LoadingPage isVisible={isLoading} onFinish={handleLoadingFinish} />
-    );
+    return <LoadingPage isVisible={isLoading} />;
   }
 
   return (

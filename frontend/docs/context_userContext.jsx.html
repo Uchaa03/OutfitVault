@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: context/userContext.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: context/userContext.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createContext, useContext, useEffect } from "react";
+import {
+    useToken,
+    useSetToken,
+    useClearToken,
+    useUser,
+    useSetUser,
+    useClearUser,
+    useTimeExpiration, useSetTimeExpiration, useClearTimeExpiration
+} from "../store/authStore.jsx";
+
+/**
+ * UserContext is used to manage the user session, including authentication token, user data,
+ * and session expiration. It provides login and logout functionality, as well as restoring
+ * session data from localStorage.
+ */
+const UserContext = createContext();
+
+/**
+ * The UserProvider component provides the user context to its children.
+ * It tracks the authentication token, user data, and session expiration, storing them in
+ * localStorage and restoring them upon component mount.
+ *
+ * @param {React.ReactNode} children - The children components to be wrapped by the context provider.
+ * @returns {JSX.Element} The context provider wrapping the children components.
+ */
+export const UserProvider = ({ children }) => {
+    const token = useToken();
+    const setToken = useSetToken();
+    const clearToken = useClearToken();
+    const user = useUser();
+    const setUser = useSetUser();
+    const clearUser = useClearUser();
+    const timeExpiration = useTimeExpiration();
+    const setTimeExpiration = useSetTimeExpiration();
+    const clearTimeExpiration = useClearTimeExpiration();
+
+    /**
+     * useEffect hook to store the token, user data, and expiration time in localStorage
+     * whenever the token or expiration time changes.
+     */
+    useEffect(() => {
+        if (token &amp;&amp; timeExpiration) { //Save data in local storage
+            localStorage.setItem("authToken", token)
+            localStorage.setItem("timeExpiration", timeExpiration.toISOString())
+            localStorage.setItem("username", user)
+
+        }
+    }, [token, timeExpiration]);
+
+    /**
+     * useEffect hook to retrieve and restore session data from localStorage upon component mount.
+     * If session data is present, it sets the token, user, and expiration time.
+     * If session data is missing, it clears any existing session state.
+     */
+    useEffect(() => {
+        const storedToken = localStorage.getItem("authToken");
+        const storedTimeExpiration = localStorage.getItem("timeExpiration");
+        const storedUsername = localStorage.getItem("username");
+
+        if (storedToken &amp;&amp; storedTimeExpiration &amp;&amp; storedUsername) {
+            //Convert data to js
+            const expirationDate = new Date(storedTimeExpiration);
+            // Restore session
+            setToken(storedToken);
+            setTimeExpiration(expirationDate);
+            setUser(storedUsername);
+        } else {
+            // Clean data if empty
+            clearToken();
+            clearUser();
+            clearTimeExpiration();
+        }
+    }, [setToken, setTimeExpiration, setUser, clearToken, clearUser, clearTimeExpiration]);
+
+    /**
+     * Logs the user in by setting the authentication token, user data, and expiration time.
+     * It also updates the session state and localStorage.
+     *
+     * @param {string} newToken - The new authentication token.
+     * @param {string} userData - The username of the authenticated user.
+     */
+    const login = (newToken, userData) => {
+        const dateExpiration = new Date();
+        dateExpiration.setHours(dateExpiration.getHours() + 1);
+        setToken(newToken);
+        setUser(userData);
+        setTimeExpiration(dateExpiration);
+
+    };
+
+    /**
+     * Logs the user out by clearing the authentication token, user data, and expiration time.
+     * It also removes session data from localStorage.
+     */
+    const logout = () => {
+        clearToken();
+        clearUser();
+        clearTimeExpiration();
+        // Delete from localStorage
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("timeExpiration");
+        localStorage.removeItem("username");
+    };
+
+    return (
+      &lt;UserContext.Provider value={{ user, login, logout }}>
+          {children}
+      &lt;/UserContext.Provider>
+    );
+};
+
+/**
+ * Custom hook to use the UserContext.
+ *
+ * @returns {Object} The user context value containing the user data, login, and logout methods.
+ */
+export const useUserContext = () => useContext(UserContext);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="authStore%250AManages%2520authentication%2520state%2520(token,%2520user,%2520expiration).module_.html">authStore
+Manages authentication state (token, user, expiration).</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AddOutfitButton">AddOutfitButton</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppContent">AppContent</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#ButtonDarkMode">ButtonDarkMode</a></li><li><a href="global.html#Cap">Cap</a></li><li><a href="global.html#CardExpirationToken">CardExpirationToken</a></li><li><a href="global.html#ContactPage">ContactPage</a></li><li><a href="global.html#ErrorPage">ErrorPage</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormLayout">FormLayout</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#HeroSection">HeroSection</a></li><li><a href="global.html#HomeButton">HomeButton</a></li><li><a href="global.html#HomePage">HomePage</a></li><li><a href="global.html#HomeRoute">HomeRoute</a></li><li><a href="global.html#IconError">IconError</a></li><li><a href="global.html#ItemCard">ItemCard</a></li><li><a href="global.html#ItemCardMini">ItemCardMini</a></li><li><a href="global.html#LoadingPage">LoadingPage</a></li><li><a href="global.html#LoginButton">LoginButton</a></li><li><a href="global.html#LoginPage">LoginPage</a></li><li><a href="global.html#MainPage">MainPage</a></li><li><a href="global.html#OutfitCard">OutfitCard</a></li><li><a href="global.html#OutfitPage">OutfitPage</a></li><li><a href="global.html#OutfitsButton">OutfitsButton</a></li><li><a href="global.html#Pants">Pants</a></li><li><a href="global.html#PrivateRoute">PrivateRoute</a></li><li><a href="global.html#Process">Process</a></li><li><a href="global.html#ProcessSection">ProcessSection</a></li><li><a href="global.html#ProfileButton">ProfileButton</a></li><li><a href="global.html#ProfileDisplayCard">ProfileDisplayCard</a></li><li><a href="global.html#ProfileEditCard">ProfileEditCard</a></li><li><a href="global.html#ProfilePage">ProfilePage</a></li><li><a href="global.html#PromptPage">PromptPage</a></li><li><a href="global.html#PublicRoute">PublicRoute</a></li><li><a href="global.html#RegisterPage">RegisterPage</a></li><li><a href="global.html#Shirt">Shirt</a></li><li><a href="global.html#Superior">Superior</a></li><li><a href="global.html#UploadPage">UploadPage</a></li><li><a href="global.html#UserContext">UserContext</a></li><li><a href="global.html#UserProvider">UserProvider</a></li><li><a href="global.html#VaultButton">VaultButton</a></li><li><a href="global.html#VaultPage">VaultPage</a></li><li><a href="global.html#WhyUseCard">WhyUseCard</a></li><li><a href="global.html#WhyUseDropdown">WhyUseDropdown</a></li><li><a href="global.html#WhyUseSection">WhyUseSection</a></li><li><a href="global.html#emailValidation">emailValidation</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#passwordValidation">passwordValidation</a></li><li><a href="global.html#passwordVerificationValidation">passwordVerificationValidation</a></li><li><a href="global.html#recommendOutfit">recommendOutfit</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#renewToken">renewToken</a></li><li><a href="global.html#requestValidation">requestValidation</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#updateUsername">updateUsername</a></li><li><a href="global.html#useUserContext">useUserContext</a></li><li><a href="global.html#usernameValidation">usernameValidation</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 20:30:59 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
