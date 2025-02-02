@@ -5,7 +5,6 @@ import AppContent from "./components/AppContent.jsx";
 function App() {
     return (
         <UserProvider>
-
             <AppContent />
         </UserProvider>
     );

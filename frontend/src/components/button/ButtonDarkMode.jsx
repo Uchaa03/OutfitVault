@@ -12,10 +12,12 @@ const ButtonDarkMode = () => {
     }
 
     return (
-        darkMode?
-            <button className="button_darkmode" onClick={handleClick}>ModoClaro</button>:
-            <button className="button_lightmode" onClick={handleClick}>ModoOscuro</button>
-
+        <img
+            alt={"Boton de Cambio de tema oscuro/claro"}
+            src={darkMode?"/assets/img/CloudySun.png":"/assets/img/CloudyNight.png"}
+            className={darkMode? "darkmode__button darkmode__button--dark":"darkmode__button"}
+            onClick={handleClick}
+        />
     )
 }
 export default ButtonDarkMode

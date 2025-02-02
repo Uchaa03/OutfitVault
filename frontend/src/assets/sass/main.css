@@ -71,10 +71,10 @@ footer {
   text-align: center;
 }
 
-body {
+.body {
   font-family: "Roboto", sans-serif;
-  background-color: #f5f5f5;
-  background-image: url("/assets/img/background_texture.svg");
+  background-color: var(--color-contrast);
+  background-image: var(--background-light);
   background-size: cover;
   background-repeat: repeat;
   background-position: center;
@@ -83,6 +83,10 @@ body {
   padding: 0;
   align-items: center;
   justify-content: center;
+}
+.body--dark {
+  background-color: var(--color-dark);
+  background-image: var(--background-dark);
 }
 
 :root {
@@ -98,6 +102,8 @@ body {
   --button-dark-hover: url("/assets/img/Button_Dark_Hovered.svg");
   --mobile--button-light: url("/assets/img/Button_Mobile_Light.svg");
   --mobile--button-dark: url("frontend/public/assets/img/Button_Mobile_Dark.png");
+  --background-light: url("/assets/img/Background_Texture_Light.svg");
+  --background-dark: url("/assets/img/Background_Texture_Dark.svg");
 }
 
 @keyframes slideInFromLeft {
@@ -2060,6 +2066,20 @@ body {
   box-shadow: none;
 }
 
+.darkmode__button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 8%;
+  right: 1rem;
+  width: 10%;
+}
+@media (min-width: 980px) {
+  .darkmode__button {
+    top: 10%;
+  }
+}
+
 .item-card {
   display: flex;
   align-items: center;
@@ -2322,8 +2342,11 @@ body {
   animation: fadeInUp 0.8s ease forwards;
   width: 100%;
 }
+.hero--dark {
+  color: var(--color-contrast);
+}
 .hero h2 {
-  font-family: "Jersey 25";
+  font-family: "Jersey 25", sans-serif;
   width: 90%;
   padding-top: 4rem;
   font-size: 2.5rem;
@@ -2331,11 +2354,15 @@ body {
   line-height: 1.2;
 }
 .hero p {
-  font-family: "Handjet";
+  font-family: "Handjet", sans-serif;
   width: 90%;
   font-size: 1.5rem;
+  font-weight: bold;
   padding-top: 1.5rem;
   text-align: center;
+}
+.hero .hero__button--dark {
+  color: var(--color-contrast);
 }
 @media (min-width: 768px) {
   .hero {
@@ -2398,9 +2425,12 @@ body {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--color-dark);
   font-family: "Jersey 25", sans-serif;
   font-weight: 600;
+}
+.whyuse__title--dark {
+  color: var(--color-contrast);
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .whyuse__title {
@@ -2445,6 +2475,9 @@ body {
   width: 100%;
   padding: 0.5rem;
 }
+.whyuse__dropdown-header--dark {
+  color: var(--color-contrast);
+}
 @media (min-width: 769px) {
   .whyuse__dropdown-header {
     padding: 0;
@@ -2456,6 +2489,9 @@ body {
   color: #333;
   font-family: "Handjet", sans-serif;
   font-weight: 500;
+}
+.whyuse__dropdown-title--dark {
+  color: var(--color-contrast);
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .whyuse__dropdown-title {
@@ -2488,6 +2524,9 @@ body {
   border-top: 3px solid #333;
   width: 100%;
   margin: 0.25rem 0;
+}
+.whyuse__dropdown-divider--dark {
+  border-top: 3px solid var(--color-contrast);
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .whyuse__dropdown-divider {
@@ -2527,6 +2566,9 @@ body {
   color: #666;
   line-height: 1.4;
   font-family: "Handjet", sans-serif;
+}
+.whyuse__dropdown-description--dark {
+  color: var(--color-neutral);
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .whyuse__dropdown-description {
@@ -2629,6 +2671,12 @@ body {
     padding-left: 1.2rem;
     padding-right: 1.2rem;
   }
+}
+.processes .process .process__text--dark {
+  color: var(--color-contrast);
+}
+.processes .process .process__text .process__button--dark {
+  color: var(--color-contrast);
 }
 .processes .process .process__text--reverse {
   grid-template-areas: "figure title" "figure content" "figure button";
