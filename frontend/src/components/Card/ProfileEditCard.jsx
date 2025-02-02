@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { usernameValidation } from "../../hooks/validationSchemaHook.jsx";
 import { Formik } from "formik";
@@ -19,41 +19,38 @@ import Button from "../button/button.jsx";
  * @returns {JSX.Element} The form for editing the username.
  */
 const ProfileEditCard = ({ userData, setEdit }) => {
-    const token = localStorage.getItem("authToken"); // Get the authentication token from localStorage
-    const navigate = useNavigate(); // Hook to navigate to a different route
+    const token = localStorage.getItem("authToken");
+    const navigate = useNavigate();
+    const [serverError, setServerError] = useState("");
 
-    // Validation schema for the form
     const validationSchema = Yup.object({
-        username: usernameValidation, // Use a custom validation from the validationSchemaHook
+        username: usernameValidation,
     });
 
-    /**
-     * Handles form submission to update the username.
-     * Calls the API and navigates to the profile page if successful.
-     *
-     * @param {Object} values - The form values.
-     * @param {Object} actions - Formik actions (e.g., setSubmitting).
-     */
     const onSubmit = async (values, { setSubmitting }) => {
         try {
             const data = await updateUsername(values.username, token);
             if (data.success) {
-                setEdit(); // Toggle edit mode off
-                navigate("/profile"); // Navigate to the profile page
+                setEdit();
+                navigate("/vault");
+            } else {
+                // Set server error message
+                setServerError(data.message || "Error al actualizar el nombre de usuario");
             }
         } catch (error) {
+            setServerError("El nombre de usuario ya está en uso");
             console.error('Error during username update:', error);
         } finally {
-            setSubmitting(false); // Set submitting state to false when the process is complete
+            setSubmitting(false);
         }
     };
 
     return (
         <article>
             <Formik
-                initialValues={{ username: userData.user.username }} // Set initial value for username
-                onSubmit={onSubmit} // Submit handler
-                validationSchema={validationSchema} // Apply validation schema
+                initialValues={{ username: userData.user.username }}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
             >
                 {({
                     values,
@@ -66,9 +63,15 @@ const ProfileEditCard = ({ userData, setEdit }) => {
                 }) => (
                     <form className="form__edit" onSubmit={handleSubmit}>
                         <fieldset className="edit__fieldset">
-                            <label className="fieldset__label" htmlFor="username">Nombre de Usuario</label>
+                            <label className="fieldset__label" htmlFor="username">
+                                Nombre de Usuario
+                            </label>
                             <input
-                                className="fieldset__input"
+                                className={`fieldset__input ${
+                                    ((errors.username && touched.username) || serverError) 
+                                    ? 'fieldset__input--error' 
+                                    : ''
+                                }`}
                                 type="text"
                                 name="username"
                                 placeholder="Crea tu nombre de Usuario"
@@ -76,9 +79,25 @@ const ProfileEditCard = ({ userData, setEdit }) => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                             />
-                            {errors.username && touched.username && (<p>{errors.username}</p>)}
-                            <Button type="submit" disabled={isSubmitting} className="buttons__button">Guardar</Button>
-                            <Button className="buttons__button" onClick={setEdit}>Cancelar</Button>
+                            {errors.username && touched.username && (
+                                <p className="fieldset__error">{errors.username}</p>
+                            )}
+                            {serverError && (
+                                <p className="fieldset__error">{serverError}</p>
+                            )}
+                            <Button 
+                                type="submit" 
+                                disabled={isSubmitting} 
+                                className="buttons__button"
+                            >
+                                Guardar
+                            </Button>
+                            <Button 
+                                className="buttons__button" 
+                                onClick={setEdit}
+                            >
+                                Cancelar
+                            </Button>
                         </fieldset>
                     </form>
                 )}

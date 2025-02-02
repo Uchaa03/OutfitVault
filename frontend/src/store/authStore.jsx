@@ -110,7 +110,6 @@ export const useClearTimeExpiration = () => authStore((state) => state.clearTime
  * @note This function should not be executed directly. Instead, use it to
  * clear the expiration time for the authentication token.
  */
-// Is necesary doc this functions
 export const useSetRenewToken = () => authStore((state) => state.setRenewToken); // Change the boolean
 export const useEditUser = () => authStore((state) => state.editUser); // Access to boolean
 export const useSetEditUser = () => authStore((state) => state.setEditUser); // Change the boolean

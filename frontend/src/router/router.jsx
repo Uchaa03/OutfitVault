@@ -1,58 +1,61 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import LayoutPublic from '../layouts/LayoutPublic.jsx';
 import PublicRoute from '../layouts/PublicRoute.jsx';
 import PrivateRoute from '../layouts/PrivateRoute.jsx';
-import ArmarioSection from '../pages/HomePage.jsx';
-import ErrorPage from '../pages/ErrorPage.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import RegisterPage from '../pages/RegisterPage.jsx';
 import LoadingPage from '../pages/LoadingPage.jsx';
-import ContactPage from '../pages/ContactPage.jsx';
-import UploadPage from '../pages/UploadPage.jsx';
-import PromptPage from '../pages/PromptPage.jsx';
-import ProfilePage from '../pages/ProfilePage.jsx';
-import VaultPage from '../pages/VaultPage.jsx';
-import OutfitPage from '../pages/OutfitPage.jsx';
 import { useUserContext } from '../context/userContext.jsx';
 
-/**
- * Component that determines whether to render the VaultPage (authenticated users)
- * or the ArmarioSection (public users) based on authentication status.
- * 
- * @returns {JSX.Element} The appropriate route based on user authentication.
- */
+// Lazy load page components
+const ArmarioSection = lazy(() => import('../pages/HomePage.jsx'));
+const ErrorPage = lazy(() => import('../pages/ErrorPage.jsx'));
+const LoginPage = lazy(() => import('../pages/LoginPage.jsx'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage.jsx'));
+const ContactPage = lazy(() => import('../pages/ContactPage.jsx'));
+const UploadPage = lazy(() => import('../pages/UploadPage.jsx'));
+const PromptPage = lazy(() => import('../pages/PromptPage.jsx'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage.jsx'));
+const VaultPage = lazy(() => import('../pages/VaultPage.jsx'));
+const OutfitPage = lazy(() => import('../pages/OutfitPage.jsx'));
+
 const HomeRoute = () => {
   const { user } = useUserContext();
   return user ? (
     <PrivateRoute>
-      <VaultPage />
+      <Suspense fallback={<LoadingPage />}>
+        <VaultPage />
+      </Suspense>
     </PrivateRoute>
   ) : (
     <PublicRoute>
-      <ArmarioSection />
+      <Suspense fallback={<LoadingPage />}>
+        <ArmarioSection />
+      </Suspense>
     </PublicRoute>
   );
 };
 
-/**
- * Application router configuration using React Router.
- * Defines public and private routes, handling authentication and layout.
- */
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LayoutPublic />, // Public layout wrapping all child routes
-    errorElement: <ErrorPage />, // Error page displayed in case of invalid routes
+    element: <LayoutPublic />,
+    errorElement: (
+      <Suspense fallback={<LoadingPage />}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: <HomeRoute /> // Home route with conditional rendering
+        element: <HomeRoute />
       },
       {
         path: 'login',
         element: (
           <PublicRoute>
-            <LoginPage />
+            <Suspense fallback={<LoadingPage />}>
+              <LoginPage />
+            </Suspense>
           </PublicRoute>
         )
       },
@@ -60,7 +63,9 @@ const router = createBrowserRouter([
         path: 'register',
         element: (
           <PublicRoute>
-            <RegisterPage />
+            <Suspense fallback={<LoadingPage />}>
+              <RegisterPage />
+            </Suspense>
           </PublicRoute>
         )
       },
@@ -70,13 +75,19 @@ const router = createBrowserRouter([
       },
       {
         path: 'contact',
-        element: <ContactPage />
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <ContactPage />
+          </Suspense>
+        )
       },
       {
         path: 'upload',
         element: (
           <PrivateRoute>
-            <UploadPage />
+            <Suspense fallback={<LoadingPage />}>
+              <UploadPage />
+            </Suspense>
           </PrivateRoute>
         )
       },
@@ -84,7 +95,9 @@ const router = createBrowserRouter([
         path: 'prompt',
         element: (
           <PrivateRoute>
-            <PromptPage />
+            <Suspense fallback={<LoadingPage />}>
+              <PromptPage />
+            </Suspense>
           </PrivateRoute>
         )
       },
@@ -92,7 +105,9 @@ const router = createBrowserRouter([
         path: 'profile',
         element: (
           <PrivateRoute>
-            <ProfilePage />
+            <Suspense fallback={<LoadingPage />}>
+              <ProfilePage />
+            </Suspense>
           </PrivateRoute>
         )
       },
@@ -100,13 +115,19 @@ const router = createBrowserRouter([
         path: 'vault',
         element: (
           <PrivateRoute>
-            <VaultPage />
+            <Suspense fallback={<LoadingPage />}>
+              <VaultPage />
+            </Suspense>
           </PrivateRoute>
         )
       },
       {
         path: 'outfit',
-        element: <OutfitPage />
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <OutfitPage />
+          </Suspense>
+        )
       }
     ]
   }

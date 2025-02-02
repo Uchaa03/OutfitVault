@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSetUser } from "../../store/authStore.jsx";
 import Button from "../button/button.jsx";
 
@@ -13,9 +13,12 @@ import Button from "../button/button.jsx";
  * @returns {JSX.Element} The profile display card with user details and buttons.
  */
 const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
-    // Set the user's username in the global state using useSetUser hook
     const setUser = useSetUser();
-    setUser(userData.user.username);
+    
+    // Move setUser to useEffect
+    useEffect(() => {
+        setUser(userData.user.username);
+    }, [userData.user.username, setUser]);
 
     return (
         <article className="data__article">
@@ -28,10 +31,12 @@ const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
                 {userData.user.email}
             </p>
             <section className="article__buttons">
-                {/* Button to trigger the edit functionality */}
-                <Button className="buttons__button" onClick={setEdit}>Editar Usuario</Button>
-                {/* Button to trigger the logout functionality */}
-                <Button className="buttons__button" onClick={() => logout()}>Cerrar Sesión</Button>
+                <Button className="buttons__button" onClick={setEdit}>
+                    Editar Usuario
+                </Button>
+                <Button className="buttons__button" onClick={() => logout()}>
+                    Cerrar Sesión
+                </Button>
             </section>
         </article>
     );
