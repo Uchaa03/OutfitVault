@@ -1,5 +1,5 @@
 // Variables
-@use 'src/assets/sass/utilities/variables.sass' as *
+
 @use '../buttons/button' as * // Importar mixins de _button.sass
 
 $card-border: "/public/assets/img/card-border.svg"
@@ -20,9 +20,12 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
   position: sticky
   top: 0
   @include flex-center(row)
-  background-color: $secondary-color
-  border-bottom: 5px solid $primary-color
+  background-color: var(--color-neutral)
+  border-bottom: 5px solid var(--color-dark)
   z-index: 1000
+  &--dark
+    background-color: var(--color-dark)
+    border-bottom: 5px solid var(--color-contrast)
 
   &__container
     display: flex
@@ -38,8 +41,11 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     background: none
     border: none
     font-size: 2rem
-    color: $primary-color
+    color: var(--color-primary)
     cursor: pointer
+    &--dark
+      color: var(--color-neutral)
+
 
   &__list
     display: flex
@@ -57,7 +63,7 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     display: none
     flex-direction: column
     width: 100%
-    background-color: #f9f9f9
+    background-color: var(--color-contrast)
     position: absolute
     top: 80px // Alinear justo debajo del header
     left: 0
@@ -66,29 +72,24 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     .list__item
       margin: 0 // Eliminado el margen para que los items estén pegados
       text-align: center
-      border: 1px solid #000 // Borde negro
+      border: 3px solid #000 // Borde negro
       padding: 0.5rem 1rem // Padding interno
       display: flex
       justify-content: center
       align-items: center
       cursor: pointer
-      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
-
-      &:hover,
-      &:focus
-        background-color: #e0e0e0 // Fondo gris al hacer hover
-        color: #363636 // Cambio de color al hacer hover
 
       .button__icon
         margin-right: 0.5rem
 
-      span
+      .span
         font-family: 'Jersey 15', serif
         font-weight: bold
         font-size: 3rem
-        color: $primary-color
+        color: var(--color-dark)
         position: relative
         z-index: 1
+
 
   &__button
     display: flex
@@ -99,7 +100,7 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     align-items: center
     cursor: pointer
     text-decoration: none
-    color: $primary-color
+    color: var(--color-dark)
     padding: 0.5rem 1rem
     position: relative
     transition: color 0.2s ease-in
@@ -112,11 +113,16 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
       left: 0
       width: 100%
       height: 100%
-      background-color: white
+      background-color: var(--color-contrast)
       clip-path: polygon(0px calc(100% - 12px), 3px calc(100% - 12px), 3px calc(100% - 6px), 6px calc(100% - 6px), 6px calc(100% - 3px), 12px calc(100% - 3px), 12px 100%, calc(100% - 12px) 100%, calc(100% - 12px) calc(100% - 3px), calc(100% - 6px) calc(100% - 3px), calc(100% - 6px) calc(100% - 6px), calc(100% - 3px) calc(100% - 6px), calc(100% - 3px) calc(100% - 12px), 100% calc(100% - 12px), 100% 12px, calc(100% - 3px) 12px, calc(100% - 3px) 6px, calc(100% - 6px) 6px, calc(100% - 6px) 3px, calc(100% - 12px) 3px, calc(100% - 12px) 0px, 12px 0px, 12px 3px, 6px 3px, 6px 6px, 3px 6px, 3px 12px, 0px 12px)
       transform: scale(0)
       transition: transform 0.3s ease-in-out
       z-index: -1
+
+    &--dar::before,
+    &--dark::after
+      background-color: var(--color-primary)
+
 
     &:hover::before,
     &:hover::after,
@@ -132,9 +138,15 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
     &:hover .button__icon,
     &:focus .button__icon,
     &:active .button__icon
-      color: #363636
+      color: var(--color-dark)
       transform: scale(1.1)
       transition: color 0.3s ease-in-out, transform 0.3s ease-in-out
+
+    &--dark:hover span,
+    &--dark:focus span,
+    &--dark:active span
+      color: var(--color-contrast)
+
 
     .button__icon
       margin-right: 0.5rem
@@ -143,9 +155,14 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
       font-family: 'Jersey 15', serif
       font-weight: bold
       font-size: 3rem
-      color: $primary-color
+      color: var(--color-dark)
       position: relative
       z-index: 1
+
+    &--dark span
+      color: var(--color-contrast)
+
+
 
   &__logo
     width: 150px // Reducir ancho del logo en escritorio
@@ -173,27 +190,25 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
       display: flex
       flex-direction: column
       width: 100%
-      background-color: #f9f9f9
+      background-color: var(--color-neutral)
       position: absolute
       top: 80px // Alinear justo debajo del header
       left: 0
       padding: 0 // Eliminado el padding vertical
 
+
       .list__item
         margin: 0 // Eliminado el margen para que los items estén pegados
         text-align: center
-        border: 1px solid #000 // Añadir borde negro
+        border: 2px solid var(--color-dark) // Añadir borde negro
         padding: 0.5rem 1rem // Añadir padding interno
         display: flex
         justify-content: center
         align-items: center
         cursor: pointer
-        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out
-
-        &:hover,
-        &:focus
-          background-color: #e0e0e0 // Fondo gris al hacer hover
-          color: #363636 // Cambio de color al hacer hover
+        &--dark
+          border: 2px solid var(--color-contrast) // Añadir borde negro
+          background-color: var(--color-dark)
 
         .button__icon
           margin-right: 0.5rem
@@ -202,12 +217,15 @@ $why-use-card: "/public/assets/img/why_use-card.svg"
           font-family: 'Jersey 15', serif
           font-weight: bold
           font-size: 3rem
-          color: $primary-color
+          color: var(--color-dark)
           position: relative
           z-index: 1
+        &--dark span
+          color: var(--color-contrast)
+
+
 
     &__logo
-      margin-right: 0
       width: 120px // Tamaño ajustado para dispositivos móviles
 
     &__list--mobile

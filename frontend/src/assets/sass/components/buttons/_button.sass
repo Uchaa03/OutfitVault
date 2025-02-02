@@ -5,9 +5,7 @@ $desktop: 1024px
 $large-desktop: 1200px
 
 // Variables
-$bg-image: "/assets/img/ButtonBG.svg"
-$bg-image-mobile: "/assets/img/Button_mobile.svg"
-$hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
+
 
 // Responsive Mixin
 @mixin responsive-button($width, $height, $line-height, $margin-top, $font-size)
@@ -38,7 +36,7 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
   display: inline-block
   font-family: "Jersey 25", sans-serif
   background-color: transparent
-  background-image: url($bg-image-mobile)
+  background-image: var(--mobile--button-light)
   background-position: center
   background-repeat: no-repeat
   background-size: $background-size
@@ -49,17 +47,24 @@ $hover-bg-image: "/assets/img/ButtonBG-hovered.svg"
   margin-bottom: $margin-bottom
   padding-bottom: $padding-bottom
   padding-right: $padding-right
+  &--dark
+    background-image: var(--mobile--button-dark)
+
 
   @include responsive-button($width, $height, $line-height, $margin-top, $font-size)
 
-  @media (min-width: $tablet)
-    background-image: url($bg-image)
+  @media (max-width: $mobile),(min-width: $mobile)
+    background-image: var(--button-light)
+    &--dark
+      background-image: var(--button-dark)
 
   &:hover
-    background-image: url($hover-bg-image)
+    background-image: var(--button-light-hover)
     padding-bottom: $padding-bottom-hover
     padding-right: $padding-right-hover
     box-shadow: none
+  &--dark:hover
+    background-image: var(--button-dark-hover)
 
 // Button Classes
 .hero__button

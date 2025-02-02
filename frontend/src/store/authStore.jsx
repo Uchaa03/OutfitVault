@@ -6,6 +6,7 @@ export const authStore = create((set) => ({
     user: null, // Initial State
     renewToken: false, // Initial State
     editUser: false,
+    darkMode: false,
     setToken: (newToken) => set({ token: newToken }),
     clearToken: () => set({ token: null }),
     setTimeExpiration: (newTimeExpiration) => set({ timeExpiration: newTimeExpiration }),
@@ -14,6 +15,9 @@ export const authStore = create((set) => ({
     clearUser: () => set({ user: null }),
     setRenewToken: (renewToken) => set({ renewToken: renewToken }),
     setEditUser: (newUser) => set({ editUser: newUser }),
+    setDarkMode: (darkMode) => set({ darkMode: darkMode }),
+
+
 
 }));
 
@@ -31,3 +35,5 @@ export const useRenewToken = () => authStore((state) => state.renewToken); // Ac
 export const useSetRenewToken = () => authStore((state) => state.setRenewToken); // Change the boolean
 export const useEditUser = () => authStore((state) => state.editUser); // Access to boolean
 export const useSetEditUser = () => authStore((state) => state.setEditUser); // Change the boolean
+export const useDarkMode = () => authStore((state) => state.darkMode); // Access to boolean
+export const setUseDarkMode = () => authStore((state) => state.setDarkMode); // Change the boolean

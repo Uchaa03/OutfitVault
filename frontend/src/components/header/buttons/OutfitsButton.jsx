@@ -1,11 +1,16 @@
 import { NavLink } from "react-router-dom"
+import {useDarkMode} from "../../../store/authStore.jsx";
 
 
 
 const OutfitsButton = () => {
-  return (
-      <NavLink to="/prompt" className="header__button">
-        <img src='/assets/img/outfit_icon.svg'  alt='Outfit Icon' className='button__icon'/>
+    const darkMode = useDarkMode();
+
+    return (
+      <NavLink to="/prompt" className={darkMode ? "header__button header__button--dark" : "header__button"}>
+        <img src={darkMode?
+            "/assets/img/Outfit_Icon_Dark.svg":
+            "/assets/img/Outfit_Icon_Light.svg"}  alt='Outfit Icon' className='button__icon'/>
         <span>Outfit</span>
       </NavLink>
   )
