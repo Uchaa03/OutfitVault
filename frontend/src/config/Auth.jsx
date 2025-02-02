@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {useToken} from "../store/authStore.jsx";
 
 // Change to the URL of your API backend
 const apiBackend = process.env.VITE_API_BASE_URL;
@@ -17,7 +16,7 @@ export async function registerUser(username, email, password) {
                 'Content-Type': 'application/json',
             },
         });
-        return response.data
+        return response.data;
     } catch (error) {
         if (error.response) {
             console.error('Error al registrar usuario:', error.response.data.message);
@@ -27,6 +26,13 @@ export async function registerUser(username, email, password) {
     }
 }
 
+/**
+ * Logs in an existing user by sending a POST request to the backend API with the user's credentials.
+ *
+ * @param {string} username - The username of the user trying to log in.
+ * @param {string} password - The password of the user trying to log in.
+ * @returns {Object} The response data from the backend, typically containing the login result or error message.
+ */
 export async function loginUser(username, password) {
     const userData = {
         username: username,
@@ -39,7 +45,7 @@ export async function loginUser(username, password) {
                 'Content-Type': 'application/json',
             },
         });
-        return response.data
+        return response.data;
     } catch (error) {
         if (error.response) {
             console.error('Error al registrar usuario:', error.response.data.message);
@@ -49,15 +55,21 @@ export async function loginUser(username, password) {
     }
 }
 
+/**
+ * Retrieves the details of the currently authenticated user using a GET request to the backend API.
+ *
+ * @param {string} token - The authentication token (Bearer token) for the user.
+ * @returns {Object} The response data from the backend, typically containing the user details or error message.
+ */
 export async function getUser(token) {
     try {
-        const response = await axios.get(`${apiBackend}api/auth/user-details`,{
+        const response = await axios.get(`${apiBackend}api/auth/user-details`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
         });
-        return response.data
+        return response.data;
     } catch (error) {
         if (error.response) {
             console.error('Error al obtener detalles del usaurio:', error.response.data.message);

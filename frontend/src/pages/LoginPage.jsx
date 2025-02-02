@@ -1,4 +1,3 @@
-import FormLayout from "../layouts/FormLayout.jsx";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -9,7 +8,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import React from "react";
 import { loginUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
+import FormLayout from './FormLayout.jsx';
 
+/**
+ * LoginPage Component
+ *
+ * This component provides a user login form using Formik for form handling
+ * and validation with Yup. It includes username and password fields, along
+ * with validation and form submission handling.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered LoginPage component.
+ */
 const LoginPage = () => {
   const validationSchema = Yup.object({
     username: usernameValidation,

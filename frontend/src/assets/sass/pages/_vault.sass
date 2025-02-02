@@ -107,9 +107,10 @@ $mobile: 380px
       z-index: 3001   
 
   &__filter-close
-    position: absolute
-    top: 2rem
-    right: 2rem
+    display: flex
+    top: .5rem
+    right: .5rem
+    justify-content: flex-end
     background: none
     border: none
     font-size: 2rem
@@ -222,6 +223,12 @@ $mobile: 380px
     transform: translateX(100%)
   100%
     transform: translateX(0)
+
+@keyframes slideOutToRight
+    0%
+        transform: translateX(0)
+    100%
+        transform: translateX(100%)
 
 @keyframes float
   0%, 100%

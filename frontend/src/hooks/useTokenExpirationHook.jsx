@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useUserContext } from "../context/userContext.jsx";
-import {useSetTimeExpiration, useTimeExpiration} from "../store/authStore.jsx";
+import {
+    authStore,
+    useSetRenewToken,
+    useTimeExpiration,
+} from "../store/authStore.jsx";
 
 const useTokenExpirationHook = () => {
     const { logout } = useUserContext();
     const [showWarning, setShowWarning] = useState(false); // For showing the renew token or close session box
     const expirationDate = useTimeExpiration();
+    const setRenewToken = useSetRenewToken()
 
     useEffect(() => {
         if (!expirationDate) return;
-        console.log(expirationDate)
         const expirationTime = expirationDate.getTime() - Date.now(); // Get actual time for expiration
-        console.log(expirationTime);
 
         if (expirationTime <= 0) {
             logout(); // If token has expired, logout directly

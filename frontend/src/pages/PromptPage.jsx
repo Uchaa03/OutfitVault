@@ -5,16 +5,34 @@ import { recommendOutfit } from '../config/Recommend-outfit.jsx';
 import { useToken } from '../store/authStore.jsx';
 import LoadingPage from './LoadingPage.jsx';
 
+/**
+ * PromptPage Component
+ *
+ * This component allows the user to input a prompt (an idea for an outfit) and
+ * generates a recommended outfit based on that input. The user can submit the form
+ * to navigate to the outfit recommendation page.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered prompt page with the input form.
+ */
 const PromptPage = () => {
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const token = useToken();
   const navigate = useNavigate();
 
+  /**
+   * Handles the input change and updates the prompt state.
+   * @param {Object} event - The event triggered by the input change.
+   */
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
   };
 
+  /**
+   * Handles outfit recommendation by calling the `recommendOutfit` function.
+   * Upon successful recommendation, the user is navigated to the outfit page.
+   */
   const handleRecommendOutfit = async () => {
     setIsLoading(true);
     try {

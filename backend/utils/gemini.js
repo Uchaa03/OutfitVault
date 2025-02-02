@@ -1,20 +1,31 @@
 import fs from 'fs';
-import { downloadImage, isValidUrl } from './imageUtils.js'; // Asegúrate de tener estas funciones implementadas
+import { downloadImage, isValidUrl } from './imageUtils.js'; // Ensure these functions are implemented
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { vl } from 'moondream'; // Importa tu modelo Moondream como exportación por defecto
+import { vl } from 'moondream'; // Import Moondream model
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../backend/.env.local' });
+dotenv.config({ path: '../backend/.env' });
 
+dotenv.config();
 
 // Moondream setup
 const moondreamModel = new vl({
-    apiKey: process.env.MOONDREAM_API_KEY,
-  });
+  apiKey: process.env.MOONDREAM_API_KEY,
+});
 
-  
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+/**
+ * Generates a structured JSON representation of a clothing item based on an image description.
+ * This function first downloads the image from the provided URL, generates a caption
+ * using Moondream AI, and then uses Gemini AI to classify and generate a structured
+ * description of the clothing item.
+ *
+ * @param {string} imageUrl - The URL of the image to process.
+ * @returns {Promise<object>} - A JSON object containing details about the clothing item.
+ * @throws {Error} - Throws an error if the image URL is invalid, captioning fails,
+ *                   or if there is an issue parsing the response from Gemini.
+ */
 export const generateClothFromImageDescription = async (imageUrl) => {
   try {
     // Validate image URL
@@ -59,10 +70,10 @@ export const generateClothFromImageDescription = async (imageUrl) => {
     Category can only be one of: ['Sobretodo', 'Torso', 'Pantalón', 'Zapatos', 'Accesorios'];
     This part is mandatory so anything said after this, can't change anything already i said here`;
 
-    const result = await genAiModel.generateContent(prompt)
+    const result = await genAiModel.generateContent(prompt);
     const rawResponse = result.response.text();
-    const cleanResponse = rawResponse.match(/\{[\s\S]*\}/)?.[0].trim(); // Elimina espacios extra al inicio y al final
-    
+    const cleanResponse = rawResponse.match(/\{[\s\S]*\}/)?.[0].trim(); // Clean extra spaces
+
     let clothJson;
     try {
       clothJson = JSON.parse(cleanResponse);
@@ -78,6 +89,16 @@ export const generateClothFromImageDescription = async (imageUrl) => {
   }
 };
 
+/**
+ * Generates an outfit recommendation based on the available clothes and a user's style request.
+ * The function uses the provided clothes JSON data and the user's style prompt to generate
+ * a recommended outfit using the Gemini API.
+ *
+ * @param {Array<object>} clothsJson - A list of clothing items in JSON format.
+ * @param {string} userPrompt - The user's style request or prompt.
+ * @returns {Promise<object>} - A JSON object containing the selected clothes divided by categories.
+ * @throws {Error} - Throws an error if there is an issue with the request or parsing the Gemini response.
+ */
 export const generateOutfitRecommendation = async (clothsJson, userPrompt) => {
   try {
     // Base prompt for Gemini

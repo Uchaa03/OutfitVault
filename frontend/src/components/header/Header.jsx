@@ -8,6 +8,17 @@ import LoginButton from '../header/buttons/LoginButton.jsx';
 import ProfileButton from '../header/buttons/ProfileButton.jsx';
 import VaultButton from '../header/buttons/VaultButton.jsx';
 
+/**
+ * Header component that renders the navigation bar with buttons and logo.
+ * It displays different buttons depending on whether the user is logged in.
+ *
+ * @component
+ * @example
+ * // Usage example:
+ * <Header />
+ *
+ * @returns {JSX.Element} The rendered header with navigation buttons and logo.
+ */
 const Header = () => {
     const { user } = useUserContext();
     const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -5,10 +5,32 @@ import User from '../models/user.model.js';
 import { uploadImageToCloudinary } from '../utils/imageUtils.js';
 
 // Multer configuration for temporary image storage
+/**
+ * Multer storage configuration for handling image uploads in memory.
+ *
+ * @constant
+ * @type {multer.StorageEngine}
+ */
 const storage = multer.memoryStorage();
+
+/**
+ * Middleware to handle image uploads using multer.
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 export const upload = multer({ storage: storage }).single('image');
 
-// Controller to create a cloth using Gemini and Cloudinary
+/**
+ * Controller to create a cloth using Gemini and Cloudinary.
+ * This endpoint processes the uploaded image, generates a cloth description using Gemini,
+ * and associates the cloth with the logged-in user.
+ *
+ * @function
+ * @param {Object} req - The request object containing the uploaded file.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with status and cloth details.
+ */
 export const createCloth = async (req, res) => {
   try {
     const { file } = req;  // 'file' is the name assigned by multer to the uploaded file
@@ -24,7 +46,7 @@ export const createCloth = async (req, res) => {
 
     // Use Gemini to get description and other data
     const description = await generateClothFromImageDescription(imageUrl);
-    
+
     // Create the cloth object using the obtained data
     const newCloth = {
       _id: new mongoose.Types.ObjectId(), // Ensure a unique identifier
@@ -39,7 +61,6 @@ export const createCloth = async (req, res) => {
     // Associate the cloth with the logged-in user
     const user = await User.findById(req.user._id);
 
-
     res.status(200).json({ success: true, cloth: newCloth });
   } catch (error) {
     console.error('Error creating cloth:', error.message);
@@ -47,8 +68,15 @@ export const createCloth = async (req, res) => {
   }
 };
 
-
-// Controller to get all cloths of a user
+/**
+ * Controller to get all cloths associated with the logged-in user.
+ * This endpoint fetches all cloths from the user's collection.
+ *
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the list of user's cloths.
+ */
 export const getCloths = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('cloths');
@@ -57,9 +85,16 @@ export const getCloths = async (req, res) => {
     console.error('Error getting cloths:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
-}
+};
 
-// Controller to get a cloth by ID
+/**
+ * Controller to get a specific cloth by ID from the user's collection.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth ID.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the cloth details.
+ */
 export const getClothById = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('cloths');
@@ -77,9 +112,17 @@ export const getClothById = async (req, res) => {
     console.error('Error getting cloth by ID:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
-}
+};
 
-// Controller to delete a cloth
+/**
+ * Controller to delete a cloth from the user's collection.
+ * This endpoint removes the specified cloth from the user's cloths array.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth ID.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response indicating the result of the deletion.
+ */
 export const deleteCloth = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('cloths');
@@ -100,10 +143,17 @@ export const deleteCloth = async (req, res) => {
     console.error('Error deleting cloth:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
-}
+};
 
-
-// Controller to associate a cloth with the logged-in user
+/**
+ * Controller to associate a new cloth with the logged-in user.
+ * This endpoint allows users to add a cloth to their collection.
+ *
+ * @function
+ * @param {Object} req - The request object containing the cloth data.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response indicating the result of the association.
+ */
 export const saveClothToUser = async (req, res) => {
   try {
     const clothData = req.body.cloth;
@@ -125,7 +175,15 @@ export const saveClothToUser = async (req, res) => {
   }
 };
 
-// Controller to get available filters
+/**
+ * Controller to get available filters for the user's cloth collection.
+ * This endpoint retrieves unique color and style filters based on the user's cloths.
+ *
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with available filters for the user.
+ */
 export const getAvailableFilters = async (req, res) => {
   try {
     const userId = req.user._id; // Ensure userId is correctly obtained from the authenticated user
@@ -146,9 +204,17 @@ export const getAvailableFilters = async (req, res) => {
     console.error('Error getting available filters:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
-}
+};
 
-// Controller to filter cloths
+/**
+ * Controller to filter the user's cloth collection based on category, color, and style.
+ * This endpoint applies filters to the user's cloths based on the query parameters.
+ *
+ * @function
+ * @param {Object} req - The request object containing filter query parameters.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the filtered cloths.
+ */
 export const filterCloths = async (req, res) => {
   try {
     const { category } = req.query;
@@ -173,10 +239,18 @@ export const filterCloths = async (req, res) => {
     console.error('Error filtering cloths:', error.message);
     res.status(500).json({ success: false, message: 'Internal server error', error: error.message });
   }
-}
+};
 
-
-// Controller to recommend an outfit based on user prompt
+/**
+ * Controller to recommend an outfit based on user prompt.
+ * This endpoint takes a user prompt and provides an outfit recommendation
+ * by leveraging the user's collection of clothes and Gemini's recommendation system.
+ *
+ * @function
+ * @param {Object} req - The request object containing the user prompt.
+ * @param {Object} res - The response object.
+ * @returns {Object} JSON response with the recommended outfit.
+ */
 export const recommendOutfit = async (req, res) => {
   try {
     const { userPrompt } = req.body;

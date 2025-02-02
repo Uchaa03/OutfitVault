@@ -3,6 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import OutfitCard from '../components/Card/OutfitCard.jsx';
 import Button from '../components/button/button.jsx';
 
+/**
+ * OutfitPage Component
+ *
+ * This component renders the OutfitPage,
+ * but restricts access to authenticated users.
+ * If the user is not logged in, they are redirected to the login page.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered OutfitPage component or a redirect to login.
+ */
 const OutfitPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
