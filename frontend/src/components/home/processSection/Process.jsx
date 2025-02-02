@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Button from '../../button/button';
 import { useDarkMode } from "../../../store/authStore.jsx";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Process component displays a process section with an optional reversed layout.
@@ -20,6 +21,7 @@ import { useDarkMode } from "../../../store/authStore.jsx";
 const Process = ({ title, description, image, alt, overlayImage, overlayAlt, reverse, buttonText }) => {
   // Get the current dark mode state from the store
   const darkMode = useDarkMode();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Create an intersection observer to trigger animation when the element enters the viewport
@@ -52,7 +54,7 @@ const Process = ({ title, description, image, alt, overlayImage, overlayAlt, rev
           <p>{description}</p>
 
           {/* Button with dark mode styling */}
-          <Button className={darkMode ? "process__button process__button--dark" : "process__button"}>
+          <Button className={darkMode ? "process__button process__button--dark" : "process__button"} onClick={() => navigate('/login')}>
             {buttonText}
           </Button>
 
