@@ -23,22 +23,26 @@ const useTokenExpirationHook = () => {
 
         // Wait for 1 minute to set the warning message
         const warningTimeout = setTimeout(() => {
-             setShowWarning(true); // Show expiration warning
+            setShowWarning(true); // Show expiration warning
 
-             // If the user doesn't do anything, close the session after another minute
-             const logoutTimeout = setTimeout(() => {
-                 console.log("Tu sesión ha expirado. Cerrando sesión...");
-                 setShowWarning(false);
-                 logout();
-             },  expirationTime - 60000);
+            // If the user doesn't do anything, close the session after another minute
+            const logoutTimeout = setTimeout(() => {
+                const renewToken = authStore.getState().renewToken //Direct call
+                if (renewToken){
+                    console.log("El token se modifico, no hay que cerrar sesión")
+                    setRenewToken(false)
+                }else{
+                    console.log("Tu sesión ha expirado. Cerrando sesión...");
+                    setShowWarning(false);
+                    logout();
+                }
+            }, 60000);
 
-             // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
-             return () => {
-                 clearTimeout(logoutTimeout);
-             };
-        },  expirationTime - 60000); // Directly use expirationTime - 60000
-
-        // Cleanup function to clear the warning timeout if the component unmounts or the token is renewed
+            // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
+            return () => {
+                clearTimeout(logoutTimeout);
+            };
+        },    expirationTime - 60000); // Directly use expirationTime - 60000
         return () => {
             clearTimeout(warningTimeout);
         };
