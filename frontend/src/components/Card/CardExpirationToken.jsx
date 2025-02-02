@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useUserContext } from "../../context/userContext.jsx";
 import { renewToken } from "../../config/Auth.jsx";
-import { useSetTimeExpiration, useSetToken } from "../../store/authStore.jsx";
+import {useDarkMode, useSetTimeExpiration, useSetToken} from "../../store/authStore.jsx";
 import Button from '../button/button.jsx';
 
 const CardExpirationToken = ({ setShowWarning }) => {
@@ -10,6 +10,7 @@ const CardExpirationToken = ({ setShowWarning }) => {
   const setToken = useSetToken();
   const setTimeExpiration = useSetTimeExpiration();
   const dialogRef = useRef(null);
+  const darkMode = useDarkMode();
 
   useEffect(() => {
     // Focus management when component mounts
@@ -51,23 +52,23 @@ const CardExpirationToken = ({ setShowWarning }) => {
       ref={dialogRef}
       tabIndex="-1"
     >
-      <main className="section__token">
-        <h1 id="session-title" className="token__title">
+      <main className={darkMode ? "section__token section__token--dark" : "section__token"}>
+        <h1 id="session-title" className={darkMode ? "token__title token__title--dark" : "token__title"}>
           Tu sesión expira pronto
         </h1>
-        <p id="session-description" className="token__subtitle">
+        <p id="session-description" className={darkMode ? "token__subtitle token__subtitle--dark" : "token__title"}>
           ¿Quieres renovar la sesión?
         </p>
         <div className='token__buttons' role="group" aria-label="Opciones de sesión">
           <Button 
-            className="token__button" 
+            className={darkMode ? "token__button token__button--dark" : "token__button"}
             onClick={handleRenewToken}
             aria-label="Renovar sesión actual"
           >
             Renovar Sesión
           </Button>
           <Button 
-            className="token__button" 
+            className={darkMode ? "token__button token__button--dark" : "token__button"}
             onClick={handleLogout}
             aria-label="Cerrar sesión y salir"
           >
