@@ -60,7 +60,7 @@ const RegisterPage = () => {
     <FormLayout>
       <header className="section__header">
         <h1 className="header__title">Registrate</h1>
-        <NavLink className="header__button" to="/login">
+        <NavLink className="header__buttonForm" to="/login">
           Accede
         </NavLink>
       </header>

@@ -9,9 +9,9 @@ import { useUserContext } from "../context/userContext";
  * @returns {JSX.Element} The PublicRoute component.
  */
 const PublicRoute = ({ children }) => {
-    const { user } = useUserContext(); // Get the user state from the global context
+    const storedUsername = localStorage.getItem('username');
 
-    if (user) {
+    if (storedUsername) {
         return <Navigate to="/" />; // Redirect to the home page if the user is authenticated
     }
     return children; // Render the children components if the user is not authenticated

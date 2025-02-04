@@ -54,7 +54,7 @@ const LoginPage = () => {
     <FormLayout>
       <header className="section__header">
         <h1 className="header__title">Inicia Sesión</h1>
-        <NavLink className="header__button" to="/register">Regístrate</NavLink>
+        <NavLink className="header__buttonForm" to="/register">Regístrate</NavLink>
       </header>
       <Formik
         initialValues={{ username: "", password: "" }}

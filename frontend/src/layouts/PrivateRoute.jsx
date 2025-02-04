@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useUserContext } from "../context/userContext";
 
 /**
  * PrivateRoute component that restricts access to authenticated users.
@@ -9,12 +8,13 @@ import { useUserContext } from "../context/userContext";
  * @returns {JSX.Element} The PrivateRoute component.
  */
 const PrivateRoute = ({ children }) => {
-    const { user } = useUserContext(); // Get the user state from the global context
-
-    if (!user) {
-        return <Navigate to="/login" />; // Redirect to the login page if the user is not authenticated
+    // Access the username stored in localStorage
+    const storedUsername = localStorage.getItem('username');
+    
+    if (!storedUsername) {
+        return <Navigate to="/login" />; // Redirect to login if no username is found
     }
-    return children; // Render the children components if the user is authenticated
+    return children;
 };
 
 export default PrivateRoute;
