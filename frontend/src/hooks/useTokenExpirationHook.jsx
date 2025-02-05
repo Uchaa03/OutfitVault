@@ -14,6 +14,19 @@ const useTokenExpirationHook = () => {
     const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
+        const storedToken = localStorage.getItem("authToken");
+        const storedExpiration = localStorage.getItem("timeExpiration");
+
+        if (storedToken && storedExpiration) {
+            const expirationTime = new Date(storedExpiration).getTime() - Date.now();
+            if (expirationTime <= 0) {
+                localStorage.clear();
+                logout();
+            }
+        }
+    }, [logout]);
+    
+    useEffect(() => {
         const handleVisibilityChange = () => {
             setIsActive(!document.hidden);
         };
