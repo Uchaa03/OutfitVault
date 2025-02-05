@@ -236,7 +236,7 @@ const VaultPage = () => {
             aria-modal="true"
             tabIndex="-1"
           >
-            <h2 id="filter-title" className="vault-page__filter-title">
+            <h2 className="vault-page__filter-title">
               Seleccione que parte quiere ver
             </h2>
             <figure className="vault-page__character" role="group" aria-label="Categorías de ropa">
