@@ -62,14 +62,20 @@ export const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
+        try {
+
+        
         clearToken();
         clearUser();
         clearTimeExpiration();
         localStorage.removeItem("authToken");
         localStorage.removeItem("timeExpiration");
         localStorage.removeItem("username");
-        // Redirigir a la raíz utilizando window.location.href para evitar el error de useNavigate
+        
         window.location.href = "/";
+        } catch (error) {
+            console.error("Error logging out:", error);
+        }
     };
 
     return (

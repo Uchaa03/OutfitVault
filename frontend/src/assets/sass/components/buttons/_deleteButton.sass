@@ -25,11 +25,18 @@ $hover-bg-image: "/assets/img/Delete_button-hovered.svg"
     padding-bottom: $padding-bottom
     padding-right: $padding-right
 
+    &--dark 
+        background-image: var(--delete-button-dark)
+        color: white
+    
     &:hover
         background-image: var(--delete-button-hover-light)
         padding-bottom: $padding-bottom-hover
         padding-right: $padding-right-hover
         box-shadow: none
+    
+    &--dark:hover
+        background-image: var(--delete-button-hover-dark)
 
 .item-card__button-error
     @include button-styles(2em, 2em, 1em, 0em, 0em, 2rem, contain, 0, 0.1em, )

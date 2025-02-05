@@ -8,46 +8,51 @@ import {
 
 const useTokenExpirationHook = () => {
     const { logout } = useUserContext();
-    const [showWarning, setShowWarning] = useState(false); // For showing the renew token or close session box
+    const [showWarning, setShowWarning] = useState(false);
     const expirationDate = useTimeExpiration();
-    const setRenewToken = useSetRenewToken()
+    const setRenewToken = useSetRenewToken();
+    const [isActive, setIsActive] = useState(true);
 
     useEffect(() => {
-        if (!expirationDate) return;
-        const expirationTime = expirationDate.getTime() - Date.now(); // Get actual time for expiration
+        const handleVisibilityChange = () => {
+            setIsActive(!document.hidden);
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    }, []);
+
+    useEffect(() => {
+        if (!expirationDate || !isActive) return;
+
+        const expirationTime = expirationDate.getTime() - Date.now();
 
         if (expirationTime <= 0) {
-            logout(); // If token has expired, logout directly
+            setShowWarning(false);
+            localStorage.removeItem("authToken");
+            logout();
             return;
         }
 
-        // Wait for 1 minute to set the warning message
         const warningTimeout = setTimeout(() => {
-            setShowWarning(true); // Show expiration warning
+            setShowWarning(true);
 
-            // If the user doesn't do anything, close the session after another minute
             const logoutTimeout = setTimeout(() => {
-                const renewToken = authStore.getState().renewToken //Direct call
-                if (renewToken){
-                    console.log("El token se modifico, no hay que cerrar sesión")
-                    setRenewToken(false)
-                }else{
-                    console.log("Tu sesión ha expirado. Cerrando sesión...");
+                const renewToken = authStore.getState().renewToken;
+                if (renewToken) {
+                    setRenewToken(false);
+                    setShowWarning(false);
+                } else {
                     setShowWarning(false);
                     logout();
                 }
             }, 60000);
 
-            // Cleanup function to clear the logout timeout if the component unmounts or the token is renewed
-            return () => {
-                clearTimeout(logoutTimeout);
-            };
-        },    expirationTime - 60000); // Directly use expirationTime - 60000
-        return () => {
-            clearTimeout(warningTimeout);
-        };
+            return () => clearTimeout(logoutTimeout);
+        }, Math.max(0, expirationTime - 60000));
 
-    }, [expirationDate]); // When expirationDate token change the effect get reset to start
+        return () => clearTimeout(warningTimeout);
+    }, [expirationDate, logout, setRenewToken, isActive]);
 
     return { showWarning, setShowWarning };
 };

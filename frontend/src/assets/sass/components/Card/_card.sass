@@ -24,8 +24,7 @@ $color-text-secondary: #4D4D4D
     height: 80%
     width: 85%
     background-image: var(--card-item-mobile-light)
-    &--dark
-      background-image: var(--card-item-mobile-dark)
+    
 
   @media (max-width: 768px)
     width: 90%
@@ -39,6 +38,14 @@ $color-text-secondary: #4D4D4D
 
   &--dark
     background-image: var(--card-item-dark)
+
+    @media (max-width: 1250px)
+      flex-direction: column
+      padding: 2rem
+      height: 80%
+      width: 85%
+      background-image: var(--card-item-mobile-dark)
+
 
   &__image
     width: 50%
@@ -109,6 +116,9 @@ $color-text-secondary: #4D4D4D
       @media (max-width: 480px)
         font-size: 2.5rem
 
+    &--dark 
+      color: white
+
     p
       font-family: "Handjet",sans-serif
       font-weight: 700
@@ -127,6 +137,7 @@ $color-text-secondary: #4D4D4D
       @media (max-width: 480px)
         font-size: 1.8rem
         margin: 0.4rem 0
+
 
       span
         font-family: inherit
