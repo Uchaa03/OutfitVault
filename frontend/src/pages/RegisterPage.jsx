@@ -10,7 +10,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
 import Button from "../components/button/button.jsx";
-import FormLayout from "./FormLayout.jsx"; // Ensure FormLayout is correctly imported
 
 /**
  * RegisterPage Component
@@ -57,7 +56,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <FormLayout>
+  <main className="forms" role="main">
+    <section className="forms__section">
       <header className="section__header">
         <h1 className="header__title">Registrate</h1>
         <NavLink className="header__buttonForm" to="/login">
@@ -139,7 +139,8 @@ const RegisterPage = () => {
           </form>
         )}
       </Formik>
-    </FormLayout>
+      </section>
+    </main>
   );
 };
 

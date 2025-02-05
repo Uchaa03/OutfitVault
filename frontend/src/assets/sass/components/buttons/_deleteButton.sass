@@ -1,4 +1,4 @@
-$bg-image: "/assets/img/Delete_button.svg"
+$bg-image: "/assets/img/Delete_button_Light.svg"
 $hover-bg-image: "/assets/img/Delete_button-hovered.svg"
 
 @mixin button-styles($width: 9em, $height: 3em, $line-height: 2em, $margin-top: 2rem, $margin-right: 0em, $font-size: 3rem, $background-size: auto, $padding-bottom: 0.3em, $padding-right: 0.3em, $padding-bottom-hover: 0em, $padding-right-hover: 0em)
@@ -11,7 +11,7 @@ $hover-bg-image: "/assets/img/Delete_button-hovered.svg"
     cursor: pointer
     background-color: transparent
     box-sizing: border-box
-    background-image: url($bg-image)
+    background-image: var(--delete-button-light)
     background-position: center
     background-repeat: no-repeat
     background-size: $background-size
@@ -26,7 +26,7 @@ $hover-bg-image: "/assets/img/Delete_button-hovered.svg"
     padding-right: $padding-right
 
     &:hover
-        background-image: url($hover-bg-image)
+        background-image: var(--delete-button-hover-light)
         padding-bottom: $padding-bottom-hover
         padding-right: $padding-right-hover
         box-shadow: none

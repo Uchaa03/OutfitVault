@@ -109,6 +109,7 @@ footer {
   --card-item-dark: url("/assets/img/Card_Item_Dark.svg");
   --card-item-mobile-light: url("/assets/img/Card_Item_Mobile_Light.svg");
   --card-item-mobile-dark: url("/assets/img/Card_Item_Mobile_Dark.svg");
+
 }
 
 @keyframes slideInFromLeft {
@@ -1320,6 +1321,7 @@ footer {
 .footer__button--dark:hover {
   background-image: var(--button-dark-hover);
 }
+
 
 .section__header .header__button {
   display: inline-block;

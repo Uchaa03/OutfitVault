@@ -51,8 +51,8 @@ $large-desktop: 1200px
   margin-bottom: $margin-bottom
   padding-bottom: $padding-bottom
   padding-right: $padding-right
-  color: inherit
-  
+  text-decoration: none
+    
   &--dark
     background-image: var(--mobile--button-dark)
 
@@ -79,9 +79,13 @@ $large-desktop: 1200px
 .footer__button
   @include button-styles(7em, 2em, 1em, 0em, 2em, 2rem, contain)
 
-.section__header .header__buttonForm
-  @include button-styles(7em, 2em, 1.8em, 0em, 0em, 1.8rem, contain, 2.3em, 0.7em, 2.1em, 0.5em)
-  color: inherit
+.section__header 
+  .header__buttonForm
+    @include button-styles(7em, 2em, 1.8em, 0em, 0em, 1.8rem, contain, 1.3em, 0.7em, 2.1em, 0.5em)
+    color: inherit
+
+    &:hover 
+      padding-bottom: 0
   
 .form__button
   @include button-styles(7em, 2em, 0em, 11em, 0em, 2rem, contain)
@@ -92,6 +96,9 @@ $large-desktop: 1200px
     font-size: 1.8rem
     margin-top: 11em
     line-height: 0em
+
+  @media (max-width: 468px)
+    width: 5.9em
 
 .prompt__button
   @include button-styles(9em, 3em, 1em, 0em, 0em, 2rem, contain)

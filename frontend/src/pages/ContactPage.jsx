@@ -2,7 +2,6 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { requestValidation, usernameValidation } from '../hooks/validationSchemaHook.jsx';
-import FormLayout from './FormLayout.jsx';
 import Button from '../components/button/button.jsx';
 
 /**
@@ -34,7 +33,8 @@ const ContactPage = () => {
   };
 
   return (
-    <FormLayout>
+    <main className="forms" role="main">
+    <section className="forms__section">
       <header className="section__header">
         <h1 className="header__title">Contacta con Nosotros</h1>
       </header>
@@ -99,7 +99,8 @@ const ContactPage = () => {
           </form>
         )}
       </Formik>
-    </FormLayout>
+      </section>
+    </main>
   );
 };
 
