@@ -115,29 +115,7 @@ const LoginPage = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              <label className="fieldset__label" htmlFor="password">
-                Contraseña
-                {errors.password && touched.password && (
-                  <img
-                    alt="Input Erróneo"
-                    className="input__error"
-                    src="/assets/img/wrong.png"
-                  />
-                )}
-              </label>
-              <input
-                className={
-                  errors.password && touched.password
-                    ? "fieldset__input fieldset__input--error"
-                    : "fieldset__input"
-                }
-                type="password"
-                name="password"
-                placeholder="Introduce tu Contraseña"
-                value={values.password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
+              
               {error && <span className="form__error">{error}</span>}
             </fieldset>
             <Button type="submit" disabled={isSubmitting} className="form__button">
