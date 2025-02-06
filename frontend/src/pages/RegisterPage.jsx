@@ -57,7 +57,7 @@ const RegisterPage = () => {
 
   return (
   <main className="forms" role="main">
-    <section className="forms__section">
+    <section className="forms__section forms__section--register">
       <header className="section__header">
         <h1 className="header__title">Registrate</h1>
         <NavLink className="header__buttonForm" to="/login">
@@ -80,9 +80,20 @@ const RegisterPage = () => {
             <fieldset className="form__fieldset">
               <label className="fieldset__label" htmlFor="email">
                 Correo Electrónico
+                {errors.username && touched.username && (
+                  <img
+                    alt="Input Erróneo"
+                    className="input__error"
+                    src="/assets/img/wrong.png"
+                  />
+                )}
               </label>
               <input
-                className="fieldset__input"
+                className={
+                  errors.username && touched.username
+                    ? "fieldset__input fieldset__input--error"
+                    : "fieldset__input"
+                }
                 type="text"
                 name="email"
                 placeholder="Introduce tu Correo"
@@ -93,9 +104,20 @@ const RegisterPage = () => {
               {errors.email && touched.email && <p>{errors.email}</p>}
               <label className="fieldset__label" htmlFor="username">
                 Nombre de Usuario
+                {errors.username && touched.username && (
+                  <img
+                    alt="Input Erróneo"
+                    className="input__error"
+                    src="/assets/img/wrong.png"
+                  />
+                )}
               </label>
               <input
-                className="fieldset__input"
+                className={
+                  errors.username && touched.username
+                    ? "fieldset__input fieldset__input--error"
+                    : "fieldset__input"
+                }
                 type="text"
                 name="username"
                 placeholder="Crea tu nombre de Usuario"
@@ -106,9 +128,20 @@ const RegisterPage = () => {
               {errors.username && touched.username && <p>{errors.username}</p>}
               <label className="fieldset__label" htmlFor="password">
                 Contraseña
+                {errors.username && touched.username && (
+                  <img
+                    alt="Input Erróneo"
+                    className="input__error"
+                    src="/assets/img/wrong.png"
+                  />
+                )}
               </label>
               <input
-                className="fieldset__input"
+                className={
+                  errors.username && touched.username
+                    ? "fieldset__input fieldset__input--error"
+                    : "fieldset__input"
+                }
                 type="password"
                 name="password"
                 placeholder="Introduce tu Contraseña"
@@ -119,9 +152,20 @@ const RegisterPage = () => {
               {errors.password && touched.password && <p>{errors.password}</p>}
               <label className="fieldset__label" htmlFor="passwordVerification">
                 Repite la contraseña
+                {errors.username && touched.username && (
+                  <img
+                    alt="Input Erróneo"
+                    className="input__error"
+                    src="/assets/img/wrong.png"
+                  />
+                )}
               </label>
               <input
-                className="fieldset__input"
+                className={
+                  errors.username && touched.username
+                    ? "fieldset__input fieldset__input--error"
+                    : "fieldset__input"
+                }
                 type="password"
                 name="passwordVerification"
                 placeholder="Verifica la contraseña"

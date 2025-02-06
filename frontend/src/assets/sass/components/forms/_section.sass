@@ -14,45 +14,62 @@
   background-size: contain
   padding: 8em 7em
 
+  p
+    font-size: 1.3rem
+    font-family: "Jersey 15"
+    color: #C24747
+  &--register
+    margin-top: 4rem
+    margin-bottom: 4rem
+    
+    .fieldset__input
+        font-size: 1em
+
   &--login
     width: 55em
     height: 46.6em
-    background-image: url("/assets/img/boxformslight.svg")
     background-position: center
     background-repeat: no-repeat
     background-size: contain
+    margin-top: 4rem
+    margin-bottom: 4rem
     padding: 8em 7em
+    background-image: url("/assets/img/boxformslight.svg")
 
     @media (max-width: 768px)
       background-image: url("/assets/img/boxFormsLightMobile.svg")
       width: 64%
       height: auto
-      padding: 8em 6em
+      padding: 12em 6em
 
     @media (max-width: 680px)
       width: 64%
       height: auto
-      padding: 8em 5em
+      padding: 12em 5em
     @media (max-width: 635px)
       width: 70%
       height: auto
-      padding: 8em 5em
+      padding: 12em 5em
     @media (max-width: 590px)
       width: 75%
       height: auto
-      padding: 8em 4em
+      padding: 12em 4em
     @media (max-width: 520px)
       width: 85%
       height: auto
-      padding: 8em 4em
+      padding: 12em 4em
     @media (max-width: 440px)
       width: 95%
       height: auto
-      padding: 8em 3em
+      padding: 12em 3em
     @media (max-width: 405px)
       width: 100%
       height: auto
       padding: 8em 3em
+
+  @media (max-width: 900px)
+    .header__title
+      margin-top: 0.5rem
 
   @media (max-width: 768px)
     background-image: url("/assets/img/boxFormsLightMobile.svg")
@@ -140,7 +157,7 @@
   height: 2.5em
   font-family: 'Handjet', serif
   font-size: 1.3em
-  font-weight: 800
+  font-weight: 600
   border: 5px solid #1f1f1f
   padding-left: 0.5em
   margin-bottom: 0.5em

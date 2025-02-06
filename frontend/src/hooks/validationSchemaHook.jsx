@@ -29,12 +29,12 @@ export const emailValidation = Yup.string()
  */
 export const passwordValidation = Yup.string()
 .trim()
-.min(8, "La contraseña debe tener al menos 8 caracteres")
-.max(20, "La contraseña no debe exceder los 20 caracteres")
-.matches(/[A-Z]/, "La contraseña debe incluir al menos una letra mayúscula")
-.matches(/[a-z]/, "La contraseña debe incluir al menos una letra minúscula")
-.matches(/[0-9]/, "La contraseña debe incluir al menos un número")
-.matches(/[!@#$%^&*]/, "La contraseña debe incluir al menos un carácter especial (!@#$%^&*)")
+.min(8, "Contraseña mínimo 8 caracteres")
+.max(20, "Contraseña máximo 20 caracteres")
+.matches(/[A-Z]/, "Contraseña falta una mayúscula")
+.matches(/[a-z]/, "Contraseña falta una minúscula")
+.matches(/[0-9]/, "Contraseña falta un número")
+.matches(/[!@#$%^&*]/, "Contraseña falta caracter especial")
 .matches(/^\S*$/, "La contraseña no debe contener espacios")
 .required("La contraseña es necesaria");
 
@@ -46,8 +46,8 @@ export const passwordValidation = Yup.string()
  */
 export const usernameValidation = Yup.string()
 .trim()
-.min(5, "El usuario debe tener mínimo 5 caracteres")
-.max(9, "El usuario debe tener máximo 9 caracteres")
+.min(5, "Usuario mínimo 5 caracteres")
+.max(9, "Usuario máximo 9 caracteres")
 .required("El Nombre de Usuario es obligatorio");
 
 /**
