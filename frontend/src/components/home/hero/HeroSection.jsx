@@ -25,8 +25,8 @@ const HeroSection = () => {
 
     return (
     <section className={darkMode ? "hero hero--dark" : "hero"}>
-      <h2>TODA TU ROPA ORGANIZADA SIN ESFUERZO</h2>
-      <p>Siempre yendo bien vestido a todas partes</p>
+      <h1 className="hero__title">TODA TU ROPA ORGANIZADA SIN ESFUERZO</h1>
+      <h2 className={"hero__subtitle"}>Siempre yendo bien vestido a todas partes</h2>
       <Button  className={darkMode ? "hero__button hero__button--dark" : "hero__button"} onClick={handleClick}>
         Regístrate Ahora
       </Button>

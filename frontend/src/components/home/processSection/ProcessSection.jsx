@@ -27,7 +27,7 @@ const ProcessSection = () => {
     },
     {
       title: "HAZ TU VAULT",
-      description: "Ordena todo virtualmente por categorías.",
+      description: "Ordena todo virtualmente por categorías, en un vault especial y único.",
       image: darkMode ? "/assets/img/Process_Box_Dark.svg" : "/assets/img/Process_Box_Light.svg", 
       overlayImage: darkMode ? "/assets/img/Process_Photo_Organization_Dark.svg" : "/assets/img/Process_Photo_Organization_Light.svg",
       overlayAlt: "Icono de una persona organizando algo",
