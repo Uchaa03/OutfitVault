@@ -183,12 +183,12 @@ footer {
     margin-top: 2rem;
   }
 }
-.upload__section p {
+.upload__section h2 {
   font-family: inherit;
   font-size: 2rem;
 }
 @media (max-width: 800px) {
-  .upload__section p {
+  .upload__section h2 {
     font-size: 1.5rem;
     margin: 1rem;
   }
@@ -1483,7 +1483,7 @@ footer {
 .form__button--dark:hover {
   background-image: var(--button-dark-hover);
 }
-@media (min-width: 768px) {
+@media (min-width: 830px) {
   .form__button {
     width: 7em;
     height: 2em;
@@ -2677,7 +2677,7 @@ footer {
   padding: 8em 7em;
 }
 .forms__section p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-family: "Jersey 15";
   color: #C24747;
 }
@@ -2746,7 +2746,7 @@ footer {
   .forms__section--login {
     width: 100%;
     height: auto;
-    padding: 8em 3em;
+    padding: 12em 3em;
   }
 }
 @media (max-width: 900px) {
@@ -2971,23 +2971,43 @@ footer {
   border: none;
   justify-items: right;
 }
-.edit__fieldset .fieldset__label {
+
+.fieldset__label {
+  position: relative;
   width: 80%;
   font-size: 1.8em;
   font-weight: 700;
   text-align: left;
   font-family: "Handjet", serif;
 }
+@media (max-width: 850px) {
+  .fieldset__label {
+    font-size: 1.6em;
+    top: -2px;
+  }
+}
 @media (max-width: 768px) {
-  .edit__fieldset .fieldset__label {
+  .fieldset__label {
     width: 100%;
   }
 }
 
 .form__error {
-  font-size: 2rem;
-  font-family: "Jersey 15", serif;
-  color: #C24747;
+  font-size: 1.2rem;
+  font-family: "Jersey 15";
+  color: #bc4040;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .item-card__button-error {
@@ -3266,45 +3286,49 @@ footer {
 .item-card__details--dark {
   color: white;
 }
-.item-card__details p {
+.item-card__details h3 {
   font-family: "Handjet", sans-serif;
   font-weight: 700;
   font-size: 2.2rem;
   margin: 0.8rem 0;
 }
 @media (min-width: 1600px) {
-  .item-card__details p {
+  .item-card__details h3 {
     font-size: 2.6rem;
     margin: 1rem 0;
   }
 }
 @media (min-width: 1400px) {
-  .item-card__details p {
+  .item-card__details h3 {
     font-size: 2.4rem;
   }
 }
 @media (max-width: 1250px) {
-  .item-card__details p {
+  .item-card__details h3 {
     font-size: 2rem;
   }
 }
 @media (max-width: 768px) {
-  .item-card__details p {
+  .item-card__details h3 {
     font-size: 1.8rem;
     margin: 0.6rem 0;
   }
 }
 @media (max-width: 480px) {
-  .item-card__details p {
+  .item-card__details h3 {
     font-size: 1.8rem;
     margin: 0.4rem 0;
   }
 }
-.item-card__details p span {
-  font-family: inherit;
+.item-card__span {
+  font-family: "Handjet", sans-serif;
   font-weight: 400;
   font-size: inherit;
   color: var(--color-primary);
+}
+.item-card__span--dark {
+  font-family: inherit;
+  color: var(--color-contrast);
 }
 .item-card__name {
   font-size: 1.8rem;
@@ -3821,7 +3845,7 @@ footer {
   height: 100%;
   object-fit: contain;
 }
-.cap p, .superior p, .shirt p, .pants p, .shoes p {
+.cap h3, .superior h3, .shirt h3, .pants h3, .shoes h3 {
   font-family: "Handjet";
   font-size: 1.8rem;
   position: absolute;
@@ -3835,7 +3859,7 @@ footer {
   left: 11%;
   height: 80px;
 }
-.cap p {
+.cap h3 {
   top: -40px;
   left: -6px;
 }
@@ -3845,7 +3869,7 @@ footer {
   left: -5%;
   height: 160px;
 }
-.superior p {
+.superior h3 {
   top: 60px;
   left: -100px;
 }
@@ -3855,7 +3879,7 @@ footer {
   right: 45%;
   height: 138px;
 }
-.shirt p {
+.shirt h3 {
   top: -30px;
   right: -50px;
   font-size: 1.5rem;
@@ -3866,7 +3890,7 @@ footer {
   left: 2%;
   height: 160px;
 }
-.pants p {
+.pants h3 {
   top: 60px;
   left: -100px;
   font-size: 1.5rem;
@@ -3877,7 +3901,7 @@ footer {
   right: 48%;
   height: 160px;
 }
-.shoes p {
+.shoes h3 {
   top: 60px;
   right: -70px;
   font-size: 1.5rem;

@@ -52,7 +52,7 @@ const ContactPage = () => {
           errors,
           touched,
         }) => (
-          <form className="section__form" onSubmit={handleSubmit}>
+          <form className="section__form" method={"post"} onSubmit={handleSubmit}>
             <img className="form__img" src="/assets/img/IconUser.svg" alt="Imagen de registro" />
             <fieldset className="form__fieldset">
               <label className="fieldset__label" htmlFor="username">
