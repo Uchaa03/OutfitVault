@@ -32,7 +32,7 @@ const AppContent = () => {
     }, [darkMode]); // Dependency on darkMode state
 
     return (
-        <div className="app-container">
+        <>
             {/* Set up routing for the app */}
             <RouterProvider router={router} />
 
@@ -41,7 +41,7 @@ const AppContent = () => {
 
             {/* Dark mode toggle button */}
             <ButtonDarkMode />
-        </div>
+        </>
     );
 };
 

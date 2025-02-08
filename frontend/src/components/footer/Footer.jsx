@@ -39,7 +39,7 @@ const Footer = () => {
     };
 
     return (
-        <section className={darkMode ? "footer footer--dark" : "footer"}>
+        <footer className={darkMode ? "footer footer--dark" : "footer"}>
             <h1 className='footer__terms-and-conditions'>
                 {isMobile ? 'CC BY-NC-ND 4.0' :
                 'Por OutfitVault ©2025 Adrián Ucha, Pablo Barrera, Maurice Darner está autorizado bajo CC BY-NC-ND 4.0 licencia CC BY-NC-ND 4.0'}
@@ -47,7 +47,7 @@ const Footer = () => {
             <Button className={darkMode ? "footer__button footer__button--dark" : "footer__button"} onClick={handleClick}>
                 Contáctanos
             </Button>
-        </section>
+        </footer>
     )
 }
 
