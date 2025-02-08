@@ -41,7 +41,7 @@ const ProcessSection = () => {
       image: darkMode ? "/assets/img/Process_Box_Dark.svg" : "/assets/img/Process_Box_Light.svg",
       overlayImage: darkMode ? "/assets/img/Process_Photo_Create_Dark.svg" : "/assets/img/Process_Photo_Create_Light.svg",
       overlayAlt: "Icono representando la creación de outfits propios con IA",
-      alt: "Caja representativa y animada de la sección de generación de outfits con IA con imagen representativa dentro",
+      alt: "Caja representativa y animada de generación de outfits con IA con imagen representativa dentro",
       reverse: false, // Default layout
       buttonText: "Generar"
     },
