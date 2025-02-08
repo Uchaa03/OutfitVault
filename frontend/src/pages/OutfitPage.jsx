@@ -3,6 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import OutfitCard from '../components/Card/OutfitCard.jsx';
 import Button from '../components/button/button.jsx';
 import { useDarkMode } from '../store/authStore.jsx';
+import UpperIcon from '../../public/assets/img/UpperIcon.svg';
+import ShirtIcon from '../../public/assets/img/ShirtIcon.svg';
+import PantsIcon from '../../public/assets/img/PantsIcon.svg';
+import ShoesIcon from '../../public/assets/img/ShoesIcon.svg';
+import AccesoryIcon from '../../public/assets/img/AccesoryIcon.svg';
 
 /**
  * OutfitPage Component
@@ -39,13 +44,13 @@ const OutfitPage = () => {
     };
   }, []);
 
-  // Map outfit category names to their corresponding icon image paths.
+  // Map outfit category names to their corresponding icon images.
   const categoryIcons = {
-    Superior: "../../assets/img/UpperIcon.svg",
-    Torso: "../../assets/img/ShirtIcon.svg", 
-    Pantalon: "../../assets/img/PantsIcon.svg",
-    Calzado: "../../assets/img/ShoesIcon.svg",
-    Accesorio: "../../assets/img/AccesoryIcon.svg",
+    Superior: UpperIcon,
+    Torso: ShirtIcon,
+    Pantalon: PantsIcon,
+    Calzado: ShoesIcon,
+    Accesorio: AccesoryIcon,
   };
 
   // Construct an array of clothing items from the outfit object.
@@ -86,6 +91,10 @@ const OutfitPage = () => {
     return name.length > 12 ? name.substring(0, 14) + '...' : name;
   };
 
+  const getCategoryIcon = (category) => {
+    return categoryIcons[category] || 'https://via.placeholder.com/50';
+  };
+
   return (
     <div className="outfit-page-container">
       <div className="outfit-cards-container">
@@ -103,7 +112,7 @@ const OutfitPage = () => {
                 name={truncateName(item.name)}
                 imageUrl={item.imageUrl}
                 className={cardClass}
-                icon={categoryIcons[item.category] || 'https://via.placeholder.com/50'}
+                icon={getCategoryIcon(item.category)}
                 altIcon={`${item.category} Icon`}
               />
             </div>
