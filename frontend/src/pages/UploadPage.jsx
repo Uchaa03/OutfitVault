@@ -126,7 +126,7 @@ const UploadPage = () => {
     <section className='upload'>
       <label htmlFor="file-upload" className="upload__section">
         <h1>Sube o arrastra una imagen de tu prenda para agregarla</h1>
-        <p>Selecciona para subir archivo de tu explorador</p>
+        <h2>Selecciona para subir archivo de tu explorador</h2>
         <img src="/assets/img/upload_icon.svg" alt="Icono de subida de imagen" />
         <button type="button" onClick={() => fileInputRef.current.click()}>Browse</button>
         <input
