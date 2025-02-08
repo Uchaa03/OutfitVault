@@ -232,42 +232,47 @@ const VaultPage = () => {
             className="vault-page__filter-panel"
             ref={filterPanelRef}
             role="dialog"
-            aria-labelledby="filter-title"
+            aria-labelledby="filter-panel-title"
             aria-modal="true"
             tabIndex="-1"
           >
-            <h2 className="vault-page__filter-title">
+            <h2 id="filter-panel-title" className="vault-page__filter-title">
               Seleccione que parte quiere ver
             </h2>
-            <figure className="vault-page__character" role="group" aria-label="Categorías de ropa">
+            <figure 
+              className="vault-page__character" 
+              role="group" 
+              aria-labelledby="category-filters-title"
+            >
+              <h2 id="category-filters-title" className="visually-hidden">Categorías de ropa</h2>
               <Cap 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por gorras" 
-                tabIndex="0" 
+                tabIndex={0}
                 onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('cap')}
               />
               <Superior 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por ropa superior" 
-                tabIndex="0" 
+                tabIndex={0}
                 onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('superior')}
               />
               <Shirt 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por camisetas" 
-                tabIndex="0" 
+                tabIndex={0}
                 onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('shirt')}
               />
               <Pants 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por pantalones" 
-                tabIndex="0" 
+                tabIndex={0}
                 onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('pants')}
               />
               <Shoes 
                 onSelect={handleCategorySelect} 
                 aria-label="Filtrar por zapatos" 
-                tabIndex="0" 
+                tabIndex={0}
                 onKeyPress={(e) => e.key === 'Enter' && handleCategorySelect('shoes')}
               />
             </figure>

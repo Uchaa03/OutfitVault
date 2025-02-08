@@ -26,7 +26,7 @@ export const Superior = ({ onSelect }) => {
       role="button" // Identifies the element as a button for accessibility
       aria-label="Seleccionar categoría: Superior"  // Describes the button's action for screen readers
     >
-      <p className='superior__text'>Superior</p>
+      <h3 className='superior__text'>Superior</h3>
       <img className="superior__img" src="../../assets/img/character_superior.svg" alt="Superior" />
     </button>
   );

@@ -26,7 +26,7 @@ export const Pants = ({ onSelect }) => {
       role="button" // Identifies the element as a button for accessibility
       aria-label="Seleccionar categoría: Pantalón"  // Describes the button's action for screen readers
     >
-      <p className='pants__text'>Pantalón</p>
+      <h3 className='pants__text'>Pantalón</h3>
       <img className="pants__img" src="../../assets/img/character_pants.svg" alt="Pantalón" />
     </button>
   );

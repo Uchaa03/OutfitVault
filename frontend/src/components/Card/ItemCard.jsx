@@ -65,10 +65,15 @@ const ItemCard = ({ className, name, color, category, style, itemImage, buttonAc
           </svg>
           <section className={darkMode ? 'item-card__details item-card__details--dark': 'item-card__details'}>
             <h2 className="item-card__name">{name}</h2>
-            <p className="item-card__color"> Color: <span> {color} </span></p>
-            <p className="item-card__category">Categoría: <span>{category} </span>
-            </p>
-            <p className="item-card__style">Estilo: <span> {style} </span></p>
+            <h3 className="item-card__color">
+              Color: <span className={darkMode ? 'item-card__span--dark' : 'item-card__span'}>{color}</span>
+            </h3>
+            <h3 className="item-card__category">
+              Categoría: <span className={darkMode ? 'item-card__span--dark' : 'item-card__span'}>{category}</span>
+            </h3>
+            <h3 className="item-card__style">
+              Estilo: <span className={darkMode ? 'item-card__span--dark' : 'item-card__span'}>{style}</span>
+            </h3>
             <footer className="item-card__buttons">
               <Button className={darkMode ? "item-card__button item-card__button--dark" : "item-card__button"}
                       onClick={onClickButton}>{buttonActionName}</Button>

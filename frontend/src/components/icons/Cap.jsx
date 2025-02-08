@@ -26,7 +26,7 @@ export const Cap = ({ onSelect }) => {
       role="button" // Defines the element as a button for accessibility
       aria-label="Seleccionar categoría: Accesorios"  // Descriptive label for screen readers
     >
-      <p className='cap__text'>Accesorios</p>
+      <h3 className='cap__text'>Accesorios</h3>
       <img className="cap__img" src="../../assets/img/character_cap.svg" alt="Gorra" />
     </button>
   );
