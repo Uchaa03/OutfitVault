@@ -8,6 +8,7 @@ import clothRoutes from './routes/clothRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import { connectDB } from './config/db.js';
 import logger from './middleware/logger.js';
+import compression from 'compression';
 
 // Load environment variables from .env file
 dotenv.config({ path: '../backend/.env' });
@@ -37,6 +38,8 @@ app.use(bodyParser.json());
 
 // Use the logger middleware
 app.use(logger);
+
+app.use(compression());
 
 // Routes
 app.use('/api/auth', authRoutes);  // Authentication routes
