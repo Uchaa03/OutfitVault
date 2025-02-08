@@ -90,3 +90,12 @@ app.get('/sitemap.xml', (req, res) => {
   res.header('Content-Type', 'application/xml');
   res.send(sitemap);
 });
+
+
+// Luego, configura el middleware para servir archivos estáticos del build del frontend
+app.use(express.static('build'));
+
+// Y un catch-all para redirigir otras rutas al index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('build', 'index.html'));
+});
