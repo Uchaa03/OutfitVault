@@ -62,7 +62,7 @@ const LoginPage = () => {
           validationSchema={validationSchema}
         >
           {({ values, handleChange, handleSubmit, isSubmitting, handleBlur, errors, touched }) => (
-            <form className="section__form" method={"post"} onSubmit={handleSubmit}>
+            <form className="section__form" method={"get"} onSubmit={handleSubmit}>
               <img
                 className="form__img"
                 src="/assets/img/IconUser.svg"
