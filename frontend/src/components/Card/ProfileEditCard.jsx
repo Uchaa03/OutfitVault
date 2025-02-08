@@ -61,45 +61,56 @@ const ProfileEditCard = ({ userData, setEdit }) => {
                     errors,
                     touched
                 }) => (
-                    <form className="form__edit" onSubmit={handleSubmit}>
+                    <form className="form__edit" onSubmit={handleSubmit} noValidate>
                         <fieldset className="edit__fieldset">
-                            <label className="fieldset__label" htmlFor="username">
-                                Nombre de Usuario
+                            <legend className="visually-hidden">Editar perfil de usuario</legend>
+                            <label className="fieldset__label" htmlFor="edit-username">
+                            Nombre de Usuario
                             </label>
                             <input
-                                className={`fieldset__input ${
-                                    ((errors.username && touched.username) || serverError) 
-                                    ? 'fieldset__input--error' 
-                                    : ''
-                                }`}
-                                type="text"
-                                name="username"
-                                placeholder="Crea tu nombre de Usuario"
-                                value={values.username}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
+                            id="edit-username"
+                            className={`fieldset__input ${
+                                ((errors.username && touched.username) || serverError) 
+                                ? 'fieldset__input--error' 
+                                : ''
+                            }`}
+                            type="text"
+                            name="username"
+                            aria-required="true"
+                            aria-invalid={errors.username && touched.username ? "true" : "false"}
+                            aria-describedby={errors.username && touched.username ? "username-error" : undefined}
+                            placeholder="Crea tu nombre de Usuario"
+                            value={values.username}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
                             />
                             {errors.username && touched.username && (
-                                <p className="fieldset__error">{errors.username}</p>
+                            <p id="username-error" className="fieldset__error" role="alert">
+                                {errors.username}
+                            </p>
                             )}
                             {serverError && (
-                                <p className="fieldset__error">{serverError}</p>
+                            <p id="server-error" className="fieldset__error" role="alert">
+                                {serverError}
+                            </p>
                             )}
                             <Button 
-                                type="submit" 
-                                disabled={isSubmitting} 
-                                className="buttons__button"
+                            type="submit" 
+                            disabled={isSubmitting} 
+                            className="buttons__button"
+                            aria-disabled={isSubmitting}
                             >
-                                Guardar
+                            Guardar
                             </Button>
                             <Button 
-                                className="buttons__button" 
-                                onClick={setEdit}
+                            type="button"
+                            className="buttons__button" 
+                            onClick={setEdit}
                             >
-                                Cancelar
+                            Cancelar
                             </Button>
                         </fieldset>
-                    </form>
+                        </form>
                 )}
             </Formik>
         </article>

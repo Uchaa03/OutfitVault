@@ -23,6 +23,19 @@
     scroll-snap-align: start
     padding-bottom: 5rem
     width: 100%
+
+    &__title
+        font-family: 'Jersey 15'
+        font-size: 10rem
+        margin-top: 2rem
+
+        &--dark 
+          color: #FFF
+        @media (max-width: 635px)
+          font-size: 5rem
+
+        
+          
     @media (max-width: 1460px)
       gap: 2rem
       padding-bottom: 3rem
@@ -144,7 +157,12 @@
       margin-left: 0
       @media (max-width: 1460px)
         margin: 0rem 4rem
+    .outfit-card__type
+      color: #fff
 
+    .outfit-card__icon
+      filter: brightness(0) invert(1)
+      
     &::before
       content: ''
       position: absolute

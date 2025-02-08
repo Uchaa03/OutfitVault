@@ -22,14 +22,14 @@ const ProfileDisplayCard = ({ userData, setEdit, logout }) => {
 
     return (
         <article className="data__article">
-            <p className="article__text">
+            <h2 className="article__text">
                 <span className="article__title">Usuario: </span>
                 {userData.user.username}
-            </p>
-            <p className="article__text">
+            </h2>
+            <h2 className="article__text">
                 <span className="article__title">Correo: </span>
                 {userData.user.email}
-            </p>
+            </h2>
             <section className="article__buttons">
                 <Button className="buttons__button" onClick={setEdit}>
                     Editar Usuario

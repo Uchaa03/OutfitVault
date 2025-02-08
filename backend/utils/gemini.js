@@ -110,6 +110,7 @@ export const generateOutfitRecommendation = async (clothsJson, userPrompt) => {
     If the style from the user style is not possible with what you have, you put null in all fields
     Assistant:
     Superior is for things above the torso, like jackets or coats.
+    You should include always shoes if the user does not specify otherwise or the style don't use them
     Return a JSON with selected clothes divided by categories. If a category has no selected clothes, put "null". If you cannot fulfill the user's style request, return a JSON with all categories as "not available".
     Format:
     {

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import OutfitCard from '../components/Card/OutfitCard.jsx';
 import Button from '../components/button/button.jsx';
+import { useDarkMode } from '../store/authStore.jsx';
 
 /**
  * OutfitPage Component
@@ -16,6 +17,7 @@ const OutfitPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { outfit } = location.state || {};
+  const darkMode = useDarkMode();
 
   useEffect(() => {
     // Instantiate an IntersectionObserver to animate elements when they enter the viewport.
@@ -87,6 +89,7 @@ const OutfitPage = () => {
   return (
     <div className="outfit-page-container">
       <div className="outfit-cards-container">
+        <h1 className={`outfit-cards-container__title ${darkMode ? 'outfit-cards-container__title--dark' : ''}`}>Outfit generado</h1>
         {clothingItems.map((item, index) => {
           // Alternating layout: even indexes get one style, odd indexes get another.
           const isEven = index % 2 === 0;
@@ -108,7 +111,7 @@ const OutfitPage = () => {
         })}
       </div>
       <Button 
-        className="outfit-page__button"
+        className={`outfit-page__button ${darkMode ? 'outfit-page__button--dark' : ''}`}
         onClick={() => navigate('/prompt')}
       >
         ¿Otro Outfit?
