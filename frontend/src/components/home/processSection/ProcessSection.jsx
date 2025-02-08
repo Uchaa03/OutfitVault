@@ -21,7 +21,7 @@ const ProcessSection = () => {
       image: darkMode ? "/assets/img/Process_Box_Dark.svg" : "/assets/img/Process_Box_Light.svg", // Conditionally load image based on dark mode
       alt: "Caja representativa y animada de la sección de ropa con imagen representativa dentro",
       overlayImage: darkMode ? "/assets/img/Process_photo_Upload_Dark.svg" : "/assets/img/Process_photo_Upload_Light.svg", // Conditionally load overlay image based on dark mode
-      overlayAlt: "Icono que representa la subida de una prenda a la página web, simple imagen representativa",
+      overlayAlt: "Icono que representa la subida de una prenda a la página web",
       reverse: false, // Flag to indicate whether the layout should be reversed
       buttonText: "Agrega"
     },
@@ -30,7 +30,7 @@ const ProcessSection = () => {
       description: "Ordena todo virtualmente por categorías, en un vault especial y único.",
       image: darkMode ? "/assets/img/Process_Box_Dark.svg" : "/assets/img/Process_Box_Light.svg", 
       overlayImage: darkMode ? "/assets/img/Process_Photo_Organization_Dark.svg" : "/assets/img/Process_Photo_Organization_Light.svg",
-      overlayAlt: "Icono de una persona organizando algo, como organizas tu vault subiendo tus prendas, simple imagen representativa",
+      overlayAlt: "Icono de una persona organizando algo, como organizas tu vault subiendo tus prendas",
       alt: "Caja representativa y animada de la sección de vault con imagen representativa dentro",
       reverse: true, // Reverse the layout for this process
       buttonText: "Vault"
@@ -40,7 +40,7 @@ const ProcessSection = () => {
       description: "Combina prendas y encuentra el look perfecto utilizando lo último en inteligencia artificial.",
       image: darkMode ? "/assets/img/Process_Box_Dark.svg" : "/assets/img/Process_Box_Light.svg",
       overlayImage: darkMode ? "/assets/img/Process_Photo_Create_Dark.svg" : "/assets/img/Process_Photo_Create_Light.svg",
-      overlayAlt: "Icono de varios cuadrados con un símbolo de más, representando la creación de outfits propios con IA",
+      overlayAlt: "Icono representando la creación de outfits propios con IA",
       alt: "Caja representativa y animada de la sección de generación de outfits con IA con imagen representativa dentro",
       reverse: false, // Default layout
       buttonText: "Generar"
