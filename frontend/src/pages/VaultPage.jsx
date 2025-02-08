@@ -175,7 +175,7 @@ const VaultPage = () => {
   }
 
   return (
-    <section className="vault-page">
+    <main className="vault-page">
       <header className={darkMode ? "vault-page__header vault-page__header--dark" : "vault-page__header"}>
         <h1>Selecciona la prenda para ver más</h1>
         <Button 
@@ -187,7 +187,7 @@ const VaultPage = () => {
           Filtrar
         </Button>
       </header>
-      <main className="vault-page__content">
+      <section className="vault-page__content">
         {cloths.length === 0 ? (
           <p className="vault-page__no-cloths">
             No hay ropa que mostrar actualmente.
@@ -206,7 +206,7 @@ const VaultPage = () => {
             </section>
           ))
         )}
-      </main>
+      </section>
       {selectedCloth && (
         <div className={`vault-page__overlay ${isTransitioning ? 'transitioning' : ''}`}>
           <ItemCard
@@ -287,7 +287,7 @@ const VaultPage = () => {
           </div>
         </>
       )}
-    </section>
+    </main>
   );
 };
 

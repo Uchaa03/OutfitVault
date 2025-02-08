@@ -50,7 +50,7 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="forms" role="main">
+    <main className="forms">
       <section className="forms__section forms__section--login">
         <header className="section__header">
           <h1 className="header__title">Inicia Sesión</h1>

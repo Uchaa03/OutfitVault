@@ -10,13 +10,11 @@ import Footer from '../components/footer/Footer.jsx';
  */
 const MainPage = () => {
   return (
-    <section className="main-page">
+    <>
       <Header />
-      <section className="content">
         <Outlet />
-      </section>
       <Footer />
-    </section>
+    </>
   );
 };
 

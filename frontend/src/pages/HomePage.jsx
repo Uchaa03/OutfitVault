@@ -15,11 +15,11 @@ import WhyUseSection from '../components/home/whyUseSection/WhyUseSection.jsx';
  */
 export const HomePage = () => {
   return (
-    <section className="home" aria-label="Main content sections">
+    <main className="home" aria-label="Main content sections">
       <HeroSection />
       <ProcessSection />
       <WhyUseSection />
-    </section>
+    </main>
   );
 };
 
