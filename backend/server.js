@@ -55,3 +55,35 @@ connectDB();
  */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.get('/sitemap.xml', (req, res) => {
+  const baseUrl = 'https://outfitvault-1.onrender.com';
+  const today = new Date().toISOString();
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>${baseUrl}/</loc>
+        <lastmod>${today}</lastmod>
+        <priority>1.0</priority>
+      </url>
+      <url>
+        <loc>${baseUrl}/contact</loc>
+        <lastmod>${today}</lastmod>
+        <priority>0.8</priority>
+      </url>
+      <url>
+        <loc>${baseUrl}/prompt</loc>
+        <lastmod>${today}</lastmod>
+        <priority>0.8</priority>
+      </url>
+      <url>
+        <loc>${baseUrl}/about</loc>
+        <lastmod>${today}</lastmod>
+        <priority>0.6</priority>
+      </url>
+    </urlset>`;
+
+  res.header('Content-Type', 'application/xml');
+  res.send(sitemap);
+});

@@ -10,6 +10,7 @@ import { Superior } from '../components/icons/Superior.jsx';
 import { Shirt } from '../components/icons/Shirt.jsx';
 import { Pants } from '../components/icons/Pants.jsx';
 import { Shoes } from '../components/icons/Shoes.jsx';
+import { Helmet } from 'react-helmet';
 
 /**
  * VaultPage Component - Displays a collection of clothing items and allows filtering and selection.
@@ -170,7 +171,7 @@ const VaultPage = () => {
   }, [isFilterOpen]);
 
   if (isLoading) {
-    return <LoadingPage isVisible={isLoading} />;
+    return <LoadingPage isVisible={isLoading} />
   }
 
   return (

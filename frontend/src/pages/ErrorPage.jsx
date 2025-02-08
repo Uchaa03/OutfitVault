@@ -32,7 +32,7 @@ const ErrorPage = () => {
   return (
     <main className="error-page" role="main">
       <section className="error__container" aria-labelledby="error-title">
-        <h1 id="error__title">ERROR</h1>
+        <h1 id="error-title">ERROR</h1>
         <h1>4&nbsp;&nbsp;&nbsp;4</h1>
         <img 
           className="space-invader"

@@ -45,13 +45,14 @@ const OutfitPage = () => {
   }, []);
 
   // Map outfit category names to their corresponding icon images.
-  const categoryIcons = {
-    Superior: UpperIcon,
-    Torso: ShirtIcon,
-    Pantalon: PantsIcon,
-    Calzado: ShoesIcon,
-    Accesorio: AccesoryIcon,
+  const normalizedCategoryIcons = {
+    superior: UpperIcon,
+    torso: ShirtIcon,
+    pantalon: PantsIcon,
+    calzado: ShoesIcon,
+    accesorio: AccesoryIcon,
   };
+  
 
   // Construct an array of clothing items from the outfit object.
   // Only include items where both name and imageUrl are valid (not null, not empty, and not the string "null").
@@ -92,7 +93,8 @@ const OutfitPage = () => {
   };
 
   const getCategoryIcon = (category) => {
-    return categoryIcons[category] || 'https://via.placeholder.com/50';
+    const normalized = category.trim().toLowerCase();
+    return normalizedCategoryIcons[normalized] || 'https://via.placeholder.com/50';
   };
 
   return (

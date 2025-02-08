@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { requestValidation, usernameValidation } from '../hooks/validationSchemaHook.jsx';
 import Button from '../components/button/button.jsx';
+import { Helmet } from 'react-helmet';
 
 /**
  * ContactPage Component
@@ -33,6 +34,14 @@ const ContactPage = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Contacto - OutfitVault | Tu Armario Digital con IA</title>
+        <meta name="description" content="Contacta con el equipo de OutfitVault para resolver tus dudas sobre nuestro armario digital inteligente." />
+        <meta name="keywords" content="contacto outfitvault, armario digital, ayuda outfitvault, soporte outfitvault" />
+        <link rel="canonical" href="https://outfitvault.com/contact" />
+      </Helmet>
+    
     <main className="forms" role="main">
     <section className="forms__section">
       <header className="section__header">
@@ -52,48 +61,81 @@ const ContactPage = () => {
           errors,
           touched,
         }) => (
-          <form className="section__form" method={"post"} onSubmit={handleSubmit}>
+          <form className="section__form" onSubmit={handleSubmit} noValidate>
             <img className="form__img" src="/assets/img/IconUser.svg" alt="Imagen de registro" />
             <fieldset className="form__fieldset">
-              <label className="fieldset__label" htmlFor="username">
+              <legend className="visually-hidden">Formulario de contacto</legend>
+              <label className="fieldset__label" htmlFor="contact-username">
                 Nombre de Usuario
                 {errors.username && touched.username && (
-                  <img alt="Input Erroneo" className="input__error" src="/assets/img/wrong.png" />
+                  <img 
+                    className="input__error" 
+                    src="/assets/img/wrong.png" 
+                    alt="Error en el campo"
+                    role="img"
+                  />
                 )}
               </label>
               <input
-                className={
-                  errors.username && touched.username
-                    ? 'fieldset__input fieldset__input--error'
-                    : 'fieldset__input'
+                id="contact-username"
+                className={errors.username && touched.username 
+                  ? 'fieldset__input fieldset__input--error'
+                  : 'fieldset__input'
                 }
                 type="text"
                 name="username"
+                aria-required="true"
+                aria-invalid={errors.username && touched.username ? "true" : "false"}
+                aria-describedby={errors.username && touched.username ? "username-error" : undefined}
                 placeholder="Crea tu nombre de Usuario"
                 value={values.username}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              <label className="fieldset__label" htmlFor="request">
+              {errors.username && touched.username && (
+                <span id="username-error" className="fieldset__error" role="alert">
+                  {errors.username}
+                </span>
+              )}
+
+              <label className="fieldset__label" htmlFor="contact-request">
                 Mensaje
                 {errors.request && touched.request && (
-                  <img alt="Input Erroneo" className="input__error" src="/assets/img/wrong.png" />
+                  <img 
+                    className="input__error" 
+                    src="/assets/img/wrong.png" 
+                    alt="Error en el campo"
+                    role="img"
+                  />
                 )}
               </label>
               <textarea
-                className={
-                  errors.request && touched.request
-                    ? 'fieldset__textarea fieldset__textarea--error'
-                    : 'fieldset__textarea'
+                id="contact-request"
+                className={errors.request && touched.request
+                  ? 'fieldset__textarea fieldset__textarea--error'
+                  : 'fieldset__textarea'
                 }
                 name="request"
+                aria-required="true"
+                aria-invalid={errors.request && touched.request ? "true" : "false"}
+                aria-describedby={errors.request && touched.request ? "request-error" : undefined}
                 placeholder="Introduce tu Mensaje"
                 value={values.request}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
+              {errors.request && touched.request && (
+                <span id="request-error" className="fieldset__error" role="alert">
+                  {errors.request}
+                </span>
+              )}
             </fieldset>
-            <Button type="submit" disabled={isSubmitting} className="form__button">
+            <Button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="form__button"
+              aria-disabled={isSubmitting}
+            >
               Enviar
             </Button>
           </form>
@@ -101,6 +143,7 @@ const ContactPage = () => {
       </Formik>
       </section>
     </main>
+  </>
   );
 };
 
