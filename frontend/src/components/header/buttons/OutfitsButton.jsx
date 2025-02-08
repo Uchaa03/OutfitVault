@@ -16,7 +16,7 @@ const OutfitsButton = () => {
       {/* Conditionally render the outfit icon based on the dark mode state */}
       <img 
         src={darkMode ? "/assets/img/Outfit_Icon_Dark.svg" : "/assets/img/Outfit_Icon_Light.svg"}  
-        alt='Outfit Icon' 
+        alt='Icono de enlace a botón de acceso a la página de generación de outfits con IA en el nav'
         className='button__icon'
       />
       <span>Outfit</span>

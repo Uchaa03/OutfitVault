@@ -20,7 +20,7 @@ const AddOutfitButton = () => {
       <img src={darkMode?
           "/assets/img/Add_Icon_Dark.svg":
           "/assets/img/Add_Icon_Light.svg"}
-           alt="Add Icon"
+           alt="Icono de enlace a botón de acceso a la paágina de subida de una prenda en el nav"
            className="button__icon"
       />
       <span>Agregar</span>

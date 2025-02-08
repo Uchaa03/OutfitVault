@@ -8,7 +8,7 @@ const HeaderLogo = () => {
       <img className="header__logo" src={darkMode?
           "/assets/img/Logo_Dark.svg":
           "/assets/img/Logo_Light.svg"}
-           alt="HeaderLayout Logo"
+           alt="Logo oficial de la página en el menu de navegación"
       />
   )
 }

@@ -16,7 +16,7 @@ const LoginButton = () => {
       {/* Conditionally render the user icon based on the dark mode state */}
       <img 
         src={darkMode ? "/assets/img/User_Icon_Dark.svg" : "/assets/img/User_Icon_Light.svg"} 
-        alt={'Login Icon'} 
+        alt={'Icono de enlace a botón de acceso al acceso y registro a la aplicación en el nav'}
         className={'button__icon'}
       />
       <span>Accede</span>

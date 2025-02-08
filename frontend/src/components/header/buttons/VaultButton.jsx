@@ -19,7 +19,9 @@ const VaultButton = () => {
         <NavLink to="/vault" className={darkMode ? "header__button header__button--dark" : "header__button"}>
             <img src={darkMode?
                 "/assets/img/Vault_Icon_Dark.svg":
-                "/assets/img/Vault_Icon_Light.svg"}  alt='Outfit Icon' className='button__icon'/>
+                "/assets/img/Vault_Icon_Light.svg"}
+                 alt='Icono de enlace a botón de acceso a la vault en el nav'
+                 className='button__icon'/>
             <span>Vault</span>
         </NavLink>    )
 }
