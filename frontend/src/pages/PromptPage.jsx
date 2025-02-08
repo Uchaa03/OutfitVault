@@ -51,13 +51,6 @@ const PromptPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Genera tu Outfit - OutfitVault | Recomendaciones con IA</title>
-        <meta name="description" content="Genera outfits personalizados con inteligencia artificial. Describe tu idea y obtén recomendaciones de ropa adaptadas a tu estilo." />
-        <meta name="keywords" content="generador outfit, recomendación ropa, IA moda, outfit personalizado" />
-        <link rel="canonical" href="https://outfitvault-1.onrender.com/prompt" />
-      </Helmet>
-
       <section className="section__prompt">
         <section className="prompt">
           <h1>¿Alguna idea para hoy?</h1>

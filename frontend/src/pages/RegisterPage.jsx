@@ -10,6 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { registerUser } from "../config/Auth.jsx";
 import { useUserContext } from "../context/userContext.jsx";
 import Button from "../components/button/button.jsx";
+import { Helmet } from "react-helmet";
 
 /**
  * RegisterPage Component
@@ -57,6 +58,11 @@ const RegisterPage = () => {
 
   return (
     <main className="forms" role="main">
+      <Helmet>
+        <title>Regístrate - OutfitVault</title>
+        <meta name="description" content="Crea tu cuenta en OutfitVault y gestiona tu armario digital de forma inteligente. Regístrate ahora y descubre un nuevo mundo de moda." />
+        <link rel="canonical" href="https://outfitvault-1.onrender.com/register" />
+      </Helmet>
       <section className="forms__section forms__section--register">
         <header className="section__header">
           <h1 className="header__title">Registrate</h1>
@@ -213,7 +219,7 @@ const RegisterPage = () => {
         </Formik>
       </section>
     </main>
-);
+  );
 };
 
 export default RegisterPage;
