@@ -23,7 +23,7 @@ const ProfileButton = () => {
             <img src={darkMode?
                 "/assets/img/User_Icon_Dark.svg":
                 "/assets/img/User_Icon_Light.svg"}
-                 alt='Outfit Icon'
+                 alt='Icono de enlace a botón de acceso al perfil de usuario y cierre de sesión en el nav'
                  className='button__icon'
             />
             <span>{user}</span> {/*Pendiente Mostrar nombre de usuario con un estado de logued*/}

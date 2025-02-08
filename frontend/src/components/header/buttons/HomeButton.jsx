@@ -17,7 +17,7 @@ const HomeButton = () => {
       {/* Conditionally render the home icon based on the dark mode state */}
       <img 
         src={darkMode ? "/assets/img/Home_Icon_Dark.svg" : "/assets/img/Home_Icon_Light.svg"}  
-        alt={'Home Icon'} 
+        alt={'Icono de enlace a botón de acceso al home en el nav'}
         className={'button__icon'}
       />
       <span>Inicio</span>
