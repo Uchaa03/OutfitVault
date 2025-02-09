@@ -5,9 +5,9 @@ Allow: /assets/
 Allow: /sitemap.xml
 Allow: /login
 Allow: /register
+Allow: /contact
 
 Disallow: /profile
-Disallow: /contact
 Disallow: /prompt
 Disallow: /vault
 Disallow: /api/
