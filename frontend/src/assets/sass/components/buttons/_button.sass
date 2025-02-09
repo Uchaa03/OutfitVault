@@ -18,6 +18,7 @@ $large-desktop: 1200px
   background-size: contain
 
   @media (min-width: $tablet)
+    font-family: "Jersey 25", sans-serif
     width: $width * 0.9
     height: $height * 0.9
     font-size: $font-size * 0.9
@@ -25,6 +26,7 @@ $large-desktop: 1200px
     line-height: $line-height * 0.9
 
   @media (min-width: $desktop)
+    font-family: "Jersey 25", sans-serif
     width: $width
     height: $height
     font-size: $font-size
@@ -61,6 +63,7 @@ $large-desktop: 1200px
   @include responsive-button($width, $height, $line-height, $margin-top, $font-size)
 
   @media (max-width: $mobile),(min-width: $mobile)
+    font-family: "Jersey 25", sans-serif
     background-image: var(--button-light)
     &--dark
       background-image: var(--button-dark)
