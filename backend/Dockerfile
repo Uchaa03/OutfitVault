@@ -1,17 +1,17 @@
-FROM node:16-alpine
+FROM node:18
 
-# Establece el directorio de trabajo dentro del contenedor
-WORKDIR /usr/src/app
+# Directorio de trabajo en el contenedor
+WORKDIR /app
 
-# Copia los archivos de dependencias y realiza la instalación (en producción)
+# Copia e instala las dependencias
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 # Copia el resto del código fuente
 COPY . .
 
-# Expone el puerto que usa el backend (asegúrate de que coincida con el puerto que escucha tu servidor)
-EXPOSE 8000
+# Exponemos el puerto (asegúrate que en server.js se escucha en "0.0.0.0" y en el puerto 5000)
+EXPOSE 5000
 
-# Inicia la aplicación
+# Inicia el servidor
 CMD ["npm", "start"]

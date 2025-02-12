@@ -11,7 +11,7 @@ import logger from './middleware/logger.js';
 import compression from 'compression';
 
 // Load environment variables from .env file
-dotenv.config({ path: '../backend/.env' });
+dotenv.config({ path: '../.env.local' });
 
 // Configure Cloudinary
 cloudinary.config({
