@@ -12,7 +12,7 @@ $large-desktop: 1200px
   // Mobile (default)
   width: $width * 0.8
   height: $height * 0.8
-  font-size: $font-size * 0.5
+  font-size: $font-size * 0.7
   margin-top: $margin-top * 0.8
   line-height: $line-height * 0.8
   background-size: contain
@@ -63,6 +63,7 @@ $large-desktop: 1200px
   @include responsive-button($width, $height, $line-height, $margin-top, $font-size)
 
   @media (max-width: $mobile),(min-width: $mobile)
+    font-family: "Jersey 25", sans-serif
     background-image: var(--button-light)
     &--dark
       background-image: var(--button-dark)
